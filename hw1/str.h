@@ -69,7 +69,7 @@ public:
 
 
    /**
-    * istream (<<) operator
+    * istream (>>) operator
     */
    friend std::istream& operator>>(std::istream& istr, Str& s);
    private:
