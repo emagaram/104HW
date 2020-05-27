@@ -8,6 +8,8 @@ Do a git pull in your homework-resources repo, which will download a folder hw1_
 
 Copy the hw1_tests folder from homework-resources to your hw-username/hw1 folder so that hw1_tests sits at the same level as all your source code (.cpp and .h files).
 
+If using Docker, do not use manage start but rather use manage test to start the Docker container with admin privileges
+
 At the terminal (if you aren't already using the VM or Docker terminal), cd to the hw1_tests folder in your hw-username/hw1 folder
 
 Initialize the test suite's CMake build system by running cmake .  <-- That period/dot is intentional and important.  It's not just  cmake, it is cmake .
@@ -16,7 +18,9 @@ note: CMake is a very useful program for compiling C++ code that will generate M
 
 Compile the test suite: make
 
-Run the tests: ctest
+If using Docker (started with manage test), then run the tests: ctest
+
+If using the VM, then run the tests: sudo ctest . It may prompt you for the VM's password. Type it in (and note it will not echo to the screen so you can't see what you are typing, but it is receiving your input).
 
 You should now see a list of tests scrolling by. Hopefully they succeed, but if any fail, read below for how to debug them.
 
