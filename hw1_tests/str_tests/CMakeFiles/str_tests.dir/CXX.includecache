@@ -1,0 +1,40 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/cs104/Desktop/grading_testing/grading-tools/hw1_sol/hw1_tests/str_tests/str_tests.cpp
+str.h
+-
+gtest/gtest.h
+-
+random_generator.h
+-
+iostream
+-
+fstream
+-
+algorithm
+-
+string
+-
+
+/home/cs104/Desktop/grading_testing/grading-tools/hw1_sol/str.h
+iostream
+-
+
+testing_utils/./random_generator.h
+random
+-
+vector
+-
+set
+-
+string
+-
+cstdint
+-
+

@@ -1,0 +1,2 @@
+/usr/bin/ar qc libhw1_str.a  CMakeFiles/hw1_str.dir/home/cs104/Desktop/grading_testing/grading-tools/hw1_sol/str.cpp.o
+/usr/bin/ranlib libhw1_str.a

@@ -1,0 +1,22 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/cs104/Desktop/grading_testing/grading-tools/hw1_sol/str.cpp
+iostream
+-
+stdexcept
+-
+cstring
+-
+str.h
+/home/cs104/Desktop/grading_testing/grading-tools/hw1_sol/str.h
+
+/home/cs104/Desktop/grading_testing/grading-tools/hw1_sol/str.h
+iostream
+-
+

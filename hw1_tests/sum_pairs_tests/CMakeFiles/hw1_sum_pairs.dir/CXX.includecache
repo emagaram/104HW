@@ -1,0 +1,16 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/cs104/Desktop/grading_testing/grading-tools/hw1_sol/sum_pairs.cpp
+iostream
+-
+fstream
+-
+string
+-
+

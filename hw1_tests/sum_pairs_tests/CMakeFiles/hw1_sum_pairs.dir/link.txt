@@ -1,0 +1,1 @@
+/usr/bin/c++    -Wall -g3 -O0   CMakeFiles/hw1_sum_pairs.dir/home/cs104/Desktop/grading_testing/grading-tools/hw1_sol/sum_pairs.cpp.o  -o hw1_sum_pairs 
