@@ -60,7 +60,7 @@ testing::AssertionResult checkSums(std::string const & testName, std::string con
 		}
 		if(!correctlyFormatted){
 		  // check for 0
-		  if(0U == actualSums.size() ){
+		  if(0 == actualSums.size() ){
 		    return testing::AssertionFailure() << "Invalid input format...Expected a 0 to be output but no output was found";
 		  }
 		  else if(0 != actualSums.front()){
@@ -73,6 +73,13 @@ testing::AssertionResult checkSums(std::string const & testName, std::string con
 			std::vector<int> expectedSums;
 		  std::stringstream ss(inputContents);
 		  ss >> val; // get the number of values
+
+		  // Case where the file is properly formatted but there are no sums to compute
+		  if (val == 0) {
+		  	if (actualSums.size() == 1 && actualSums[0] == 0)
+		  		return testing::AssertionSuccess(); 
+		  }
+
 		  while( ss >> val ){
 		    inputVals.push_back(val);
 		  }
@@ -80,8 +87,9 @@ testing::AssertionResult checkSums(std::string const & testName, std::string con
 		  for(unsigned i = 0; i < (origSize+1)/2; i++){
 		    expectedSums.push_back(inputVals[origSize - i - 1] + inputVals[i]);
 		  }
-			if(expectedSums.size() != actualSums.size() ){
-		    return testing::AssertionFailure() << "Incorrect number of sums in output file";
+
+		  if(expectedSums.size() != actualSums.size()){
+	        return testing::AssertionFailure() << "Incorrect number of sums in output file";
 		  }
 		  else {
 		    for(unsigned i = 0; i < expectedSums.size(); i++){
