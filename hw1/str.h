@@ -68,6 +68,8 @@ public:
    Str operator+(const char* rhs  ) const;
 
 
+   friend std::ostream& operator<<(std::ostream& ostr, Str& s);
+
    /**
     * istream (>>) operator
     */
