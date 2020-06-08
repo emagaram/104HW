@@ -1,0 +1,52 @@
+1.
+    Part a) Unmodified
+    Part b) README is modified and fun_problem is untracked
+    Part c) Both are staged
+    Part d) Both are modified
+    Part e) README is staged and fun_problem is unmodified and empty since the
+    "So far, so good" line since was never staged.
+    Part f) README is modified at this point because it had been commited, 
+    which made it unmodified but then the line "fancy git move" edited it and
+    it became modified.
+
+2.
+    Part a) TAB
+    
+    Part b) For clean, rm -f ./*.o *~ shape1 shape2 ./*~ is what the action will 
+    look like with the parameters inputted. This is not a compiler command, but a linux command.
+    The action that will get called is the rm action which will delete all files in the current directory
+    ending with .o, all files in the current directory ending with ~, 
+    the shape1 and shape2 executables, and all files ending with ~ in the IDIR directory, which happens
+    to be the current directory.
+
+    For make shape1, g++ -o shape1.o shape.o -I. -std=c++11 -ggdb -lm is what the action will 
+    look like with the parameters inputted. This is a compiler command. What this does is it creates
+    an executable using shape1.o and shape.o.
+    
+    Part c) The purpose of the .PHONY rule is to make sure that if a file exists that has the name of
+    the dependency after the .PHONY rule, the compiler will still run the rule that the dependency is named
+    regardless of whether or not it exists.
+
+    Part d) 2, 4
+
+3.
+    Part 1) List of strings, specifically a stack. I believe a stack is the best ADT because you never 
+    need to add from the bottom when adding on college basketball teams to the record. The only place you ever add
+    is from the top and stacks are excellent at doing so.
+    Part 2) I would use a set of integers because we want no repetitions and sets can very quickly see if 
+    a duplicate is within the set before inserting in a runtime less than O(n).
+    Part 3) a list of structs consisting of a name (string), a phone number (string), and notes (string)". I believe a list of structs is best because 
+    a map wouldn't be a good idea because if two people had the same name, then you couldn't 
+    input both of them. In addition to many other purposes, the notes string could be used to differentiate two people with 
+    the same name.
+    Part 4) A map with the key being a string and the value being a set of integers. We have a string be the key because if we
+    used a char array, the map might not be able to tell if a repetition in the keys occured. Even if we could code the map to do so,
+    it would be extra work for very little to no performance boost. A set of integers is chosen for the value parameter of the map because
+    we do not need the zip codes ordered and we do not want the zip codes duplicated. Sets can also quickly determine if it contains a value
+    before inserting in a time less than O(n).    
+    Part 5) I would use a map with the key being an int of the person's USC ID and the value being another map. The map that's within the map
+    would have its key be a flavor of donut (i.e. "chocolate") and its value being the number the person wanted (i.e. 5). The reason I chose a map and not
+    an array of donuts to be the value of the map is because it's silly to read an array that says "chocolate, chocolate, chocolate, sprinkles." By having a map,
+    you can instantly determine the exact number of chocolate donuts the person wanted. Even though someone could input more than 12 donuts,
+    I think this would be much easier to read than an integer array.
+    
