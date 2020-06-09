@@ -7,7 +7,6 @@
 #include "setops.h"
 using namespace std;
 
-//Test1
 // Prototype
 std::ostream& operator<<(std::ostream& os, const std::set<std::string>& s);
 

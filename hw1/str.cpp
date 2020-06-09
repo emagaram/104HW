@@ -2,7 +2,7 @@
 #include <stdexcept>
 #include <cstring>
 #include "str.h"
-#include <string.h>
+#include <string>
 #pragma warning(disable : 4996)
 using namespace std;
 
