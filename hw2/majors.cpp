@@ -41,9 +41,6 @@ void setStudent(string line, Student* stu){
 
 void readFile(string fileName, string* wholeFile){
 	ifstream iFile(fileName);
-	if(iFile.fail()){
-		cout << "Error!\n";
-	}    
     *wholeFile = "";
     getline(iFile, *wholeFile, '\0');
     iFile.close();
