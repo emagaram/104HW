@@ -3,7 +3,9 @@
 #include "util.h"
 
 using namespace std;
-
+int main(){
+  cout << 'h';
+}
 void convLower(string& s)
 {
   for(unsigned int i=0; i < s.size(); i++){
@@ -31,3 +33,4 @@ void displayHits(vector<Tweet*>& hits)
     cout << "No matches." << endl;
   }
 }
+

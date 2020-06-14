@@ -4,6 +4,7 @@
 #include <algorithm>
 #include <string>
 #include <vector>
+#include <functional>
 #include "tweet.h"
 
 // Converts a string to all lower case

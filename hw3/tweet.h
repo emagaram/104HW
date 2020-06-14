@@ -51,7 +51,7 @@ class Tweet
    *
    * @return result of less-than comparison of tweet's timestamp
    */
-  bool operator<(const Tweet& other) const; 
+  bool operator<(const Tweet& other) const;
 
   /**
    * Outputs the tweet to the given ostream in format:
@@ -69,9 +69,10 @@ class Tweet
   /* You may add other member functions */
  private:
   /* Add any other data members or helper functions here  */
-
-
-
+  User* _user;
+  DateTime _dateTime;
+  std::string _text;
+  std::set<std::string> _hashTags;
 };
 
 /***********************************/

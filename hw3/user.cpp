@@ -1,76 +1,90 @@
-#ifndef USER_H
-#define USER_H
+#include "user.h"
+#include <iostream>
+using namespace std;
 
-#include <string>
-#include <set>
-#include <list>
-#include <vector>
+void mergeTweets(std::list<Tweet*> result, std::list<Tweet*> add){
+  //Assumes result is already in order
+std::list<Tweet*>::iterator resIt;
+std::list<Tweet*>::iterator addIt = add.begin();
+  for (resIt = result.begin(); resIt != result.end(); ++resIt){
+      if(  (*addIt)->time() << (*resIt)->time() ){
 
-/* Forward Declaration to avoid #include dependencies */
-class Tweet;
-void mergeTweets(std::list<Tweet*> result, std::list<Tweet*> add);
+      }
+  } 
+}
 
-class User {
- public:
-  /**
-   * Constructor 
-   */
-  User(std::string name);
+int main(){
+}
+User::User(std::string name)
+{
+  _name = name;
+}
 
-  /**
-   * Destructor
-   */
-  ~User();
+User::~User(){
 
-  /**
-   * Gets the name of the user 
-   * 
-   * @return name of the user 
-   */
-  std::string name() const; 
+}
 
+string User::name() const{
+    return _name;
+}
+
+set<User*> User::followers() const{
   /**
    * Gets all the followers of this user  
    * 
    * @return Set of Users who follow this user
    */
-  std::set<User*> followers() const;
+  return _followers;
+}
 
-  /**
+
+set<User*> User::following() const{
+      /**
    * Gets all the users whom this user follows  
    * 
    * @return Set of Users whom this user follows
    */
-  std::set<User*> following() const;
+  return _following;
+}
 
+list<Tweet*> User::tweets() const{
   /**
    * Gets all the tweets this user has posted
    * 
    * @return List of tweets this user has posted
-   */
-  std::list<Tweet*> tweets() const; 
+   */    
+  return _tweets;
+}
 
+  void User::addFollower(User* u) {
   /**
    * Adds a follower to this users set of followers
    * 
    * @param u User to add as a follower
    */
-  void addFollower(User* u);
+  _followers.insert(u);
+  }
 
-  /**
+
+void User::addFollowing(User* u){
+ /**
    * Adds another user to the set whom this User follows
    * 
    * @param u User that the user will now follow
    */
-  void addFollowing(User* u);
+  _following.insert(u);
+}
 
+  void User::addTweet(Tweet* t){
   /**
    * Adds the given tweet as a post from this user
    * 
    * @param t new Tweet posted by this user
-   */
-  void addTweet(Tweet* t);
+   */      
+  }
 
+
+vector<Tweet*> User::getFeed(){
   /**
    * Produces the list of Tweets that represent this users feed/timeline
    *  It should contain in timestamp order all the tweets from
@@ -78,18 +92,7 @@ class User {
    *
    * @return vector of pointers to all the tweets from this user
    *         and those they follow in timestamp order
-   */
-  std::vector<Tweet*> getFeed();
-
-  /* You may add other member functions */
- private:
-  /* Add any other data members or helper functions here  */
-  std::string _name;
-  std::set<User*> _followers;
-  std::set<User*> _following;
-  std::list<Tweet*> _tweets;
-
-
-};
-
-#endif
+   */    
+  vector<Tweet*> a;
+  return a;
+}  
