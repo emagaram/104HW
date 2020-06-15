@@ -13,6 +13,31 @@ Tweet t2011(a, y2011, "hi");
 Tweet t2010(a, y2010, "hi");
 
 
+TEST_CASE("User feed both empty lists"){
+    User joe("joe");
+    User bob("bob");
+
+    joe.addFollowing(&bob);
+    vector<Tweet*> vec = joe.getFeed();
+    CHECK_EQ(vec.size(), 0);
+
+}
+
+TEST_CASE("User Feed from empty list in ascending order"){
+    User joe("joe");
+
+    User bob("bob");
+    bob.addTweet(&t2012);
+    bob.addTweet(&t2011);
+
+    bob.addFollowing(&joe);
+    vector<Tweet*> vec = bob.getFeed();
+    vec = bob.getFeed();
+    vec = bob.getFeed(); // twice in case messing with it
+    CHECK_EQ(vec[0],&t2011);
+    CHECK_EQ(vec[1],&t2012);
+}
+
 TEST_CASE("User Feed produces list in ascending order"){
     User joe("joe");
     joe.addTweet(&t2013);
