@@ -1,48 +1,6 @@
 #include "user.h"
 #include "tweet.cpp" //Okay?
 using namespace std;
-void mergeTweets(std::list<Tweet *> &result, std::list<Tweet *> &add)
-{
-  //Assumes result is already in order
-
-  //For increased speed if both lists are ordered,
-  //add in an iterator pointing to where last item was inserted
-
-  std::list<Tweet *>::iterator resIt;
-  std::list<Tweet *>::iterator addIt = add.begin();
-
-  if (result.empty())
-  {
-    result.push_back(*addIt);
-    addIt++;
-  }
-  while (addIt != add.end())
-  {
-    for (resIt = result.begin(); resIt != result.end(); resIt++)
-    {
-      if ( **addIt < **resIt)
-      {
-        //addIt goes on BEFORE resIt
-        result.insert(resIt, *addIt);
-        addIt++;
-        break;
-      }
-      else if (!(**addIt < **resIt) && !(**resIt < **addIt))
-      {
-        //Equal time
-        result.insert(resIt, *addIt);
-        addIt++;
-        break;
-      }
-      else if (resIt == result.end())
-      {
-        int i;
-        result.insert(resIt, *addIt);
-      }
-      addIt++;
-    }
-  }
-}
 
 User::User(std::string name)
 {
@@ -110,6 +68,8 @@ void User::addFollowing(User *u)
 
 void User::addTweet(Tweet *t)
 {
+  _tweets.push_back(t);
+  _tweets.sort(otherLessThan);
   /**
    * Adds the given tweet as a post from this user
    * 
@@ -127,6 +87,15 @@ vector<Tweet *> User::getFeed()
    * @return vector of pointers to all the tweets from this user
    *         and those they follow in timestamp order
    */
-  vector<Tweet *> a;
-  return a;
+  list<Tweet *> resultList (_tweets);
+  for (set<User *>::iterator userIt = _following.begin(); userIt != _following.end(); userIt++)
+  {
+    list<Tweet*> copy ((*userIt)->tweets());
+    resultList.merge(copy,otherLessThan);
+    delete &copy;
+  }
+  vector<Tweet*> vec(resultList.begin(),resultList.end());
+  resultList.erase(resultList.begin(), resultList.end());
+  delete &resultList;
+  return vec;
 }

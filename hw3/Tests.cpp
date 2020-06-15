@@ -3,50 +3,50 @@
 #include "user.cpp"
 
 User *a;
-DateTime youngest(10, 10, 10, 2010, 10, 10);
-DateTime middle(10, 10, 10, 2011, 10, 10);
-DateTime oldest(10, 10, 10, 2012, 10, 10);
-DateTime superOld(10,10,10, 2013, 10,10);
-Tweet t0(a, superOld, "hi");
-Tweet t1(a, oldest, "hi");
-Tweet t2(a, middle, "hi");
-Tweet t3(a, youngest, "hi");
+DateTime y2010(10, 10, 10, 2010, 10, 10);
+DateTime y2011(10, 10, 10, 2011, 10, 10);
+DateTime y2012(10, 10, 10, 2012, 10, 10);
+DateTime y2013(10,10,10, 2013, 10,10);
+Tweet t2013(a, y2013, "hi");
+Tweet t2012(a, y2012, "hi");
+Tweet t2011(a, y2011, "hi");
+Tweet t2010(a, y2010, "hi");
 
 
-TEST_CASE("Merge 1 tweet to empty result returns true")
-{
-    std::list<Tweet *> result;
-    std::list<Tweet*> add;
-    add.push_back(&t3);
-    mergeTweets(result, add);
-    CHECK(*result.begin()==&t3);
-    
+TEST_CASE("User Feed produces list in ascending order"){
+    User joe("joe");
+    joe.addTweet(&t2013);
+    joe.addTweet(&t2010);
+
+    User bob("bob");
+    bob.addTweet(&t2012);
+    bob.addTweet(&t2011);
+
+    bob.addFollowing(&joe);
+    vector<Tweet*> vec = bob.getFeed();
+    vec = bob.getFeed();
+    vec = bob.getFeed(); // twice in case messing with it
+    CHECK_EQ(vec[0],&t2010);
+    CHECK_EQ(vec[1],&t2011);
+    CHECK_EQ(vec[2],&t2012);
+    CHECK_EQ(vec[3],&t2013);
 }
 
-TEST_CASE("Merge tweets in order test returns true")
-{
-    
-    std::list<Tweet*> result;
-    std::list<Tweet*> add;
-    result.push_back(&t1);
-    add.push_back(&t3);
-    add.push_front(&t2);
-    add.push_front(&t0);
-
-    //0, 2, 1, 3 order
-
-    mergeTweets(result, add);
-    std::vector<Tweet*> vec(result.begin(),result.end());
-    CHECK(result.back()==&t0);
-    //CHECK(==&t2);
-    //CHECK(==&t1);
-    //CHECK(*result.begin()==&t3);
-    //CHECK(.size()==4);
-
-    
-
-
+TEST_CASE("Tweet list is sorted in ascending order"){
+    list<Tweet*> tweets;
+    tweets.push_back(&t2012);
+    tweets.push_back(&t2013);
+    tweets.push_back(&t2010);
+    tweets.push_back(&t2011);
+    tweets.sort(otherLessThan);
+    vector<Tweet*> vec(tweets.begin(), tweets.end());
+    CHECK_EQ(vec[0],&t2010);
+    CHECK_EQ(vec[1],&t2011);
+    CHECK_EQ(vec[2],&t2012);
+    CHECK_EQ(vec[3],&t2013);
 }
+
+
 TEST_CASE("DateTime Less-Than Op returns true")
 {
     DateTime a(10, 10, 10, 10, 10, 9);

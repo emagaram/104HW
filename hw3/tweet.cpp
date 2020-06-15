@@ -1,6 +1,7 @@
 #include "tweet.h"
 #include "datetime.cpp"
 
+
   /**
    * Default constructor 
    */
@@ -54,6 +55,12 @@
       return false;
   }
 
+bool otherLessThan(const Tweet* a, const Tweet* other) {
+    if(other<a){
+        return true;
+    }
+    return false;
+}
   /**
    * Outputs the tweet to the given ostream in format:
    *   YYYY-MM-DD HH::MM::SS username tweet_text
