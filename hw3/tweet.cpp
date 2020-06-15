@@ -68,25 +68,37 @@ bool otherLessThan(const Tweet* a, const Tweet* other) {
    * @return the ostream passed in as an argument
    */
   
+std::string convertTwoDigitInt(int i){
+    std::string s="";
+    if(i<=9){
+        s+="0";
+    }
+    s+=std::to_string(i);
+    return s;
+}
 
 std::ostream& operator<<(std::ostream& os, const Tweet& t)
 {
     DateTime dt = t.time();
-    os << dt.year << "-"<< dt.month<<"-"<<dt.day<< " " 
-    << dt.hour<<"::"<<dt.min<<"::"<<dt.sec <<" ";
+    std::string yr = "";
+    if(dt.year<10){
+        yr+="000";
+    }
+    else if(dt.year<100){
+        yr+="00";
+    }
+    else if(dt.year<1000){
+        yr+="0";
+    }
+    yr+=std::to_string(dt.year);
+    
+    os << yr << "-"<< convertTwoDigitInt(dt.month)<<"-"<<convertTwoDigitInt(dt.day)<< " " 
+    << convertTwoDigitInt(dt.hour)<<"::"<<convertTwoDigitInt(dt.min)<<"::"<<convertTwoDigitInt(dt.sec) <<" ";
 
     os << t.user()->name() << " ";
 	
 
     os << t.text();
-	
-    /*
-    int i = 0;
-    while (t.text()[i]!='\0') {
-		os << t.text()[i];
-		i++;
-	}
-	*/    
 	return os;
 }
 

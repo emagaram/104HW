@@ -15,7 +15,32 @@ Tweet t2010(a, y2010, "hi");
 
 
 
+TEST_CASE("convert two digit int function"){
+    int oneDig = 5;
+    int twoDig = 89;
+    int threeDig = 129;
+    std::string a = convertTwoDigitInt(oneDig);
+    std::string b = convertTwoDigitInt(twoDig);
 
+    std::string c = convertTwoDigitInt(threeDig);
+
+    CHECK(a == "05");
+    CHECK(b =="89");
+    CHECK(c == "129");
+}
+
+
+TEST_CASE("output stream with one digit values returns correctly")
+{
+    User ez("ezra");
+    DateTime dt(1, 2, 3, 999, 5, 3);
+    Tweet tweet(&ez, dt, "hi");
+    std::stringstream buffer;
+    buffer << tweet;
+    std::string expectedOutput = "0999-05-03 01::02::03 ezra hi";
+    std::string actualOutput = buffer.str();
+    CHECK_EQ(actualOutput,expectedOutput);
+}
 
 TEST_CASE("output stream returns hi ezra   !")
 {
