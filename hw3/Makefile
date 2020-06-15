@@ -9,6 +9,9 @@ all: user
 
 user: user.cpp
 	g++ -g -Wall user.cpp -o user $(CFLAGS)
+
+tweet.o: tweet.cpp tweet.h
+	g++ -g -Wall tweet.cpp tweet.h -o tweet.o $(CFLAGS)
 	
 util: util.h util.cpp
 	g++ -g -Wall util.cpp util.h -o util $(CFLAGS)

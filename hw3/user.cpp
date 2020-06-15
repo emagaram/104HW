@@ -1,19 +1,38 @@
 #include "user.h"
-#include <iostream>
+#include "tweet.cpp" //Okay?
 using namespace std;
-
-void mergeTweets(std::list<Tweet*> result, std::list<Tweet*> add){
+void mergeTweets(std::list<Tweet*>& result, std::list<Tweet*>& add){
   //Assumes result is already in order
-std::list<Tweet*>::iterator resIt;
-std::list<Tweet*>::iterator addIt = add.begin();
-  for (resIt = result.begin(); resIt != result.end(); ++resIt){
-      if(  (*addIt)->time() << (*resIt)->time() ){
 
+  //For increased speed if both lists are ordered, 
+  //add in an iterator pointing to where last item was inserted
+
+std::list<Tweet*>::iterator resIt;
+std::list<Tweet*>::iterator addIt;
+
+  for (addIt = add.begin(); addIt != add.end(); addIt++){
+    for (resIt = result.begin(); resIt != result.end(); resIt++){
+      if(  (*addIt)->time() < (*resIt)->time() ){
+        //addIt goes on BEFORE resIt
+        //std::list<Tweet*>::iterator prev = std::prev(resIt);
+        result.insert(resIt, *addIt);
+        break;
       }
+      else if  (!((*resIt)->time() < (*addIt)->time()) && !((*addIt)->time() < (*resIt)->time())){
+        //Equal time
+        result.insert(resIt, *addIt); 
+        break;
+      }
+      else if(resIt==result.end()){
+        result.insert(resIt, *addIt);
+      }
+    }
   } 
 }
 
 int main(){
+  
+  cout <<"Hi";
 }
 User::User(std::string name)
 {

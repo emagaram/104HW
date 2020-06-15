@@ -2,7 +2,6 @@
 #define TWEET_H
 #include <iostream>
 #include <string>
-#include <string>
 #include <vector>
 #include <set>
 #include "datetime.h"

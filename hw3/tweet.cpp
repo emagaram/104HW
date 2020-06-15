@@ -1,9 +1,9 @@
 #include "tweet.h"
+
   /**
    * Default constructor 
    */
-  Tweet::Tweet(){
-
+  Tweet::Tweet(){   
   }
 
   /**
