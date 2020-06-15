@@ -8,7 +8,6 @@
 
 /* Forward Declaration to avoid #include dependencies */
 class Tweet;
-void mergeTweets(std::list<Tweet*> result, std::list<Tweet*> add);
 
 class User {
  public:
