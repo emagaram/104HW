@@ -71,6 +71,22 @@ bool otherLessThan(const Tweet* a, const Tweet* other) {
 
 std::ostream& operator<<(std::ostream& os, const Tweet& t)
 {
+    DateTime dt = t.time();
+    os << dt.year << "-"<< dt.month<<"-"<<dt.day<< " " 
+    << dt.hour<<"::"<<dt.min<<"::"<<dt.sec <<" ";
+
+    os << t.user()->name() << " ";
+	
+
+    os << t.text();
+	
+    /*
+    int i = 0;
+    while (t.text()[i]!='\0') {
+		os << t.text()[i];
+		i++;
+	}
+	*/    
 	return os;
 }
 

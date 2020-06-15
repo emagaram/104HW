@@ -1,18 +1,32 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include "doctest.h"
 #include "user.cpp"
+User ez("ezra");
+User *a = &ez;
 
-User *a;
 DateTime y2010(10, 10, 10, 2010, 10, 10);
 DateTime y2011(10, 10, 10, 2011, 10, 10);
 DateTime y2012(10, 10, 10, 2012, 10, 10);
 DateTime y2013(10,10,10, 2013, 10,10);
-Tweet t2013(a, y2013, "hi");
+Tweet t2013(a, y2013, "hi ezra!");
 Tweet t2012(a, y2012, "hi");
 Tweet t2011(a, y2011, "hi");
 Tweet t2010(a, y2010, "hi");
 
 
+
+
+
+TEST_CASE("output stream returns hi ezra   !")
+{
+    //int hh, int mm, int ss, int year, int month, int day
+    //string word;  YYYY-MM-DD HH::MM::SS username tweet_text
+    std::stringstream buffer;
+    buffer << t2013;
+    std::string expectedOutput = "2013-10-10 10::10::10 ezra hi ezra!";
+    std::string actualOutput = buffer.str();
+    CHECK_EQ(actualOutput,expectedOutput);
+}
 TEST_CASE("User feed both empty lists"){
     User joe("joe");
     User bob("bob");
@@ -70,7 +84,6 @@ TEST_CASE("Tweet list is sorted in ascending order"){
     CHECK_EQ(vec[2],&t2012);
     CHECK_EQ(vec[3],&t2013);
 }
-
 
 TEST_CASE("DateTime Less-Than Op returns true")
 {
