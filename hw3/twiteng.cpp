@@ -71,7 +71,7 @@ bool TwitEng::parse(char *filename)
 	}
 	string line;
 	std::getline(iFile, line);
-	while (line != "\0")
+	while (!iFile.eof())
 	{
 		if (line != "")
 		{
