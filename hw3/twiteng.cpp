@@ -13,6 +13,11 @@ TwitEng::~TwitEng()
 
 bool TwitEng::parse(char *filename)
 {
+	/**
+ * Parses the Twitter database and populates internal structures
+ * @param filename of the database file
+ * @return true if there is an error, false if successful
+ */
 	std::ifstream iFile(filename);
 	if (iFile.fail())
 	{
@@ -33,16 +38,17 @@ bool TwitEng::parse(char *filename)
 		std::getline(iFile, line);
 		std::stringstream ss(line);
 		ss >> word;
-		User *centerUser; 
+		User *centerUser;
 
 		//TODO cleanup
 		std::map<std::string, User *>::iterator userIt = _users.find(word);
-		if (userIt== _users.end())
+		if (userIt == _users.end())
 		{
-			centerUser= new User(word);
+			centerUser = new User(word);
 			_users.insert(std::pair<std::string, User *>(word, centerUser));
 		}
-		else{
+		else
+		{
 			centerUser = userIt->second;
 		}
 
@@ -63,13 +69,51 @@ bool TwitEng::parse(char *filename)
 			centerUser->addFollowing(u);
 		}
 	}
-	/**
- * Parses the Twitter database and populates internal structures
- * @param filename of the database file
- * @return true if there is an error, false if successful
- */
+	string line;
+	std::getline(iFile, line);
+	while (line != "\0")
+	{
+		if (line != "")
+		{
+			const DateTime dt = parseDate(line);
+			const std::string txt = parseTweet(line);
+			User *u = _users.find(parseName(line))->second;
+			Tweet *t = new Tweet(u, dt, txt);
+
+			u->addTweet(t);
+		}
+	std:
+		getline(iFile, line);
+	}
+
 	return false;
 }
+
+DateTime TwitEng::parseDate(std::string line)
+{
+	int year = std::stoi(line.substr(0, 4));
+	int month = std::stoi(line.substr(5, 6));
+	int day = std::stoi(line.substr(8, 9));
+	int hour = std::stoi(line.substr(11, 12));
+	int min = std::stoi(line.substr(14, 15));
+	int sec = std::stoi(line.substr(17, 18));
+	DateTime dt(hour, min, sec, year, month, day);
+	return dt;
+}
+std::string TwitEng::parseName(std::string line)
+{
+	line = line.substr(20, line.size() - 1);
+	std::stringstream ss(line);
+	std::string output;
+	ss >> output;
+	return output;
+}
+std::string TwitEng::parseTweet(std::string line)
+{
+	int length = parseName(line).size();
+	return line.substr(20 + (length + 1), line.size() - 1);
+}
+
 std::map<std::string, User *> TwitEng::getUsers()
 {
 	return _users;

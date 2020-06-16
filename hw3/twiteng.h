@@ -45,6 +45,9 @@ public:
 
   /* You may add other member functions */
 private:
+DateTime parseDate(std::string line);
+std::string parseName(std::string line);
+std::string parseTweet(std::string line);
   /* Add any other data members or helper functions here  */
   int _userCount;
   std::map<std::string, User *> _users;

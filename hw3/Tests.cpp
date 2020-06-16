@@ -14,7 +14,45 @@ Tweet t2012(a, y2012, "hi");
 Tweet t2011(a, y2011, "hi");
 Tweet t2010(a, y2010, "hi");
 
-TEST_CASE("add all users to engine"){
+TEST_CASE("parse tweet"){
+    //Make parseTweet and parseName pulic to test!
+    // string line1 = "2019-05-20 12:35:14 Mark #Selma was an excellent movie to remember the struggle for civil rights";
+    // string parsed1 = parseTweet(line1);
+    // string expected1 = "#Selma was an excellent movie to remember the struggle for civil rights";
+    // CHECK(parsed1==expected1);
+
+    // string line = "2019-05-21 10:30:27 Sam @";
+    // string parsed = parseTweet(line);
+    // string expected = "@";
+    // CHECK(parsed==expected);
+
+}
+
+
+TEST_CASE("parse name"){
+    // //Make public to test!
+    // string line = "2019-05-20 12:35:14 Mark #Selma was an excellent movie to remember the struggle for civil rights";
+    // //Second line to test
+    // string line1 = "2019-05-21 10:30:27 Sam @Mark when is the next World Cup? #football";
+    // string name = parseName(line);
+    // string name1 = parseName(line1);
+    // CHECK(name=="Mark");
+    // CHECK(name1=="Sam");
+    }
+
+TEST_CASE("parse date"){
+    // //Make public to test!
+    // string line = "2019-05-20 12:35:14 Mark #Selma was an excellent movie to remember the struggle for civil rights";
+    // DateTime dt = parseDate(line);
+    // CHECK(dt.day==20);
+    // CHECK(dt.year==2019);
+    // CHECK(dt.month==5);
+    // CHECK(dt.min==35);
+    // CHECK(dt.sec==14);
+}
+
+
+TEST_CASE("add all users and tweets to engine"){
     TwitEng te;
     string strfilename = "twitter.dat";
     char* filename = &strfilename[0];
@@ -28,6 +66,12 @@ TEST_CASE("add all users to engine"){
     CHECK(users.find("Steve")==users.end());
     CHECK(users.find("Mark")->second->following().size()==2);
     CHECK(users.find("Jill")->second->following().size()==1);
+
+    User* jill = users.find("Jill")->second;
+    User* tommy = users.find("Tommy")->second;
+    CHECK(jill->tweets().back()->time().sec==15);
+    CHECK(jill->tweets().back()->text()== "Can't wait for USC football to start #pac12 #football");
+    CHECK(tommy->tweets().size()==0);
 
 
 }
