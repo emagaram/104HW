@@ -87,6 +87,7 @@ bool TwitEng::parse(char *filename)
 		getline(iFile, line);
 	}
 
+	iFile.close();
 	return false;
 }
 
@@ -145,19 +146,25 @@ std::vector<Tweet *> TwitEng::search(std::vector<std::string> &terms, int strate
 void TwitEng::dumpFeeds()
 {
 	std::map<std::string, User *>::iterator userIt = _users.begin();
-	while(userIt!=_users.end()){
-		User* u = userIt->second;
-		std::string fname = u->name()+=".feed";
+	while (userIt != _users.end())
+	{
+		User *u = userIt->second;
+		std::string fname = u->name() += ".feed";
 		ofstream ofile(fname);
-		for(int i = 0; i<u->getFeed().size();i++){
-			if(i==0){
-				ofile<<u->name()<<std::endl;
+
+		 	vector<Tweet*> feed = u->getFeed();
+			sort(feed.begin(), feed.end(), TweetComp());
+			int s = feed.size()-1;
+			for(int i = 0; i<feed.size();i++){
+				if(i==0){
+					ofile<<u->name()<<std::endl;
+				}
+				ofile << *(feed[i]);
+				if(i!=feed.size()-1){
+					ofile << std::endl;
+				}
 			}
-			ofile << *(u->getFeed()[i]);
-			if(std::next(userIt)!=_users.end()){
-				ofile << std::endl;
-			}
-		}		
 		userIt++;
+			ofile.close();
 	}
 }

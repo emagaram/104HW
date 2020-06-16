@@ -98,6 +98,6 @@ vector<Tweet *> User::getFeed()
   }
   vector<Tweet*> vec(resultList.begin(),resultList.end());
   resultList.erase(resultList.begin(), resultList.end());
-  delete &resultList;
+  delete &resultList; 
   return vec;
 }
