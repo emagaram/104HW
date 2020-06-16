@@ -14,6 +14,16 @@ Tweet t2012(a, y2012, "hi");
 Tweet t2011(a, y2011, "hi");
 Tweet t2010(a, y2010, "hi");
 
+
+TEST_CASE("Hashtags are in tweets"){ 
+    Tweet tweet (a, y2010, "Can't wait for USC football to start #pac12 #football #pac12");
+    set<string> ht = tweet.hashTags();
+    CHECK(ht.size()==2);
+    CHECK(ht.find("pac12")!=ht.end());
+    CHECK(ht.find("football")!=ht.end());
+    CHECK(ht.find("fakeHashtag")==ht.end());
+}
+
 TEST_CASE("Add tweet")
 {
     User john("John");
@@ -23,16 +33,12 @@ TEST_CASE("Add tweet")
     john.addTweet(&t2011);
     // vector<Tweet*> vec = john.getFeed();
 
-    auto a = john.getFeed();
-    auto b = john.getFeed();
-    CHECK(a == b);
-
     auto feed = john.getFeed();
     vector<Tweet *> vec(feed.begin(), feed.end());
-    // CHECK(vec[0]==&t2010);
-    // CHECK(vec[1]==&t2011);
-    // CHECK(vec[2]==&t2012);
-    // CHECK(vec[3]==&t2013);
+    CHECK(vec[0]==&t2010);
+    CHECK(vec[1]==&t2011);
+    CHECK(vec[2]==&t2012);
+    CHECK(vec[3]==&t2013);
 }
 
 TEST_CASE("parse tweet")
