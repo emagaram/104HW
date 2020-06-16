@@ -153,7 +153,10 @@ void TwitEng::dumpFeeds()
 			if(i==0){
 				ofile<<u->name()<<std::endl;
 			}
-			ofile << *(u->getFeed()[i]) << std::endl;
+			ofile << *(u->getFeed()[i]);
+			if(std::next(userIt)!=_users.end()){
+				ofile << std::endl;
+			}
 		}		
 		userIt++;
 	}
