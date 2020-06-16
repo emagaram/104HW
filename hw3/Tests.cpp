@@ -51,6 +51,13 @@ TEST_CASE("parse date"){
     // CHECK(dt.sec==14);
 }
 
+TEST_CASE("Dump files test"){
+    TwitEng te;
+    string strfilename = "twitter.dat";
+    char* filename = &strfilename[0];
+    CHECK(te.parse(filename)==false);
+    te.dumpFeeds();
+}
 
 TEST_CASE("add all users and tweets to engine"){
     TwitEng te;
@@ -90,7 +97,7 @@ TEST_CASE("convert two digit int function"){
 }
 
 
-TEST_CASE("output stream with one digit values returns correctly")
+TEST_CASE("output stream tweet with one digit values returns correctly")
 {
     User ez("ezra");
     DateTime dt(1, 2, 3, 999, 5, 3);
@@ -102,7 +109,7 @@ TEST_CASE("output stream with one digit values returns correctly")
     CHECK_EQ(actualOutput,expectedOutput);
 }
 
-TEST_CASE("output stream returns hi ezra   !")
+TEST_CASE("output stream tweet returns hi ezra   !")
 {
     //int hh, int mm, int ss, int year, int month, int day
     //string word;  YYYY-MM-DD HH::MM::SS username tweet_text

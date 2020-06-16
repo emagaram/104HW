@@ -1,6 +1,7 @@
 #include "twiteng.h"
 #include <map>
 #include <sstream>
+#include <iostream>
 
 TwitEng::TwitEng()
 {
@@ -143,4 +144,17 @@ std::vector<Tweet *> TwitEng::search(std::vector<std::string> &terms, int strate
 
 void TwitEng::dumpFeeds()
 {
+	std::map<std::string, User *>::iterator userIt = _users.begin();
+	while(userIt!=_users.end()){
+		User* u = userIt->second;
+		std::string fname = u->name()+=".feed";
+		ofstream ofile(fname);
+		for(int i = 0; i<u->getFeed().size();i++){
+			if(i==0){
+				ofile<<u->name()<<std::endl;
+			}
+			ofile << *(u->getFeed()[i]) << std::endl;
+		}		
+		userIt++;
+	}
 }
