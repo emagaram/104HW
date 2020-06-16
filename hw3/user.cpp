@@ -54,6 +54,7 @@ void User::addFollower(User *u)
    * @param u User to add as a follower
    */
   _followers.insert(u);
+  u->_following.insert(this);
 }
 
 void User::addFollowing(User *u)
@@ -64,6 +65,7 @@ void User::addFollowing(User *u)
    * @param u User that the user will now follow
    */
   _following.insert(u);
+  u->_followers.insert(this);
 }
 
 void User::addTweet(Tweet *t)

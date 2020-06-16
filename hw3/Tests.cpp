@@ -1,6 +1,7 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include "doctest.h"
 #include "user.cpp"
+#include "twiteng.cpp"
 User ez("ezra");
 User *a = &ez;
 
@@ -13,7 +14,23 @@ Tweet t2012(a, y2012, "hi");
 Tweet t2011(a, y2011, "hi");
 Tweet t2010(a, y2010, "hi");
 
+TEST_CASE("add all users to engine"){
+    TwitEng te;
+    string strfilename = "twitter.dat";
+    char* filename = &strfilename[0];
+    CHECK(te.parse(filename)==false);
+    map<string, User*> users = te.getUsers();
+    CHECK(users.size()==4);
+    CHECK(users.find("Mark")!=users.end());
+    CHECK(users.find("Tommy")!=users.end());
+    CHECK(users.find("Jill")!=users.end());
+    CHECK(users.find("Sam")!=users.end());
+    CHECK(users.find("Steve")==users.end());
+    CHECK(users.find("Mark")->second->following().size()==2);
+    CHECK(users.find("Jill")->second->following().size()==1);
 
+
+}
 
 TEST_CASE("convert two digit int function"){
     int oneDig = 5;
@@ -21,7 +38,6 @@ TEST_CASE("convert two digit int function"){
     int threeDig = 129;
     std::string a = convertTwoDigitInt(oneDig);
     std::string b = convertTwoDigitInt(twoDig);
-
     std::string c = convertTwoDigitInt(threeDig);
 
     CHECK(a == "05");
@@ -75,6 +91,28 @@ TEST_CASE("User Feed from empty list in ascending order"){
     vec = bob.getFeed(); // twice in case messing with it
     CHECK_EQ(vec[0],&t2011);
     CHECK_EQ(vec[1],&t2012);
+}
+
+
+TEST_CASE("User follow(er)/(ing) correct "){
+    User joe("joe");
+    User steve("steve");
+
+    User bob("bob");
+    //bob follows joe and steve
+    //joe follows bob
+    //steve follows no one
+    joe.addFollowing(&bob);
+    bob.addFollowing(&joe);
+    bob.addFollowing(&steve);
+    CHECK(steve.followers().find(&bob)!=steve.followers().end());
+    CHECK(steve.followers().find(&steve)!=steve.followers().end());
+    CHECK(steve.followers().size()==1);
+    CHECK(joe.followers().size()==1);
+    CHECK(joe.following().size()==1);
+    CHECK(steve.following().size()==0);
+
+
 }
 
 TEST_CASE("User Feed produces list in ascending order"){
