@@ -1,5 +1,5 @@
 #include "user.h"
-#include "tweet.h" //Okay?
+#include "tweet.h"
 using namespace std;
 
 User::User(std::string name)
@@ -102,10 +102,8 @@ vector<Tweet *> User::getFeed()
   {
     list<Tweet*> copy ((*userIt)->tweets());
     resultList.merge(copy,otherLessThan);
-    delete &copy;
   }
   vector<Tweet*> vec(resultList.begin(),resultList.end());
   resultList.erase(resultList.begin(), resultList.end());
-  delete &resultList; 
   return vec;
 }
