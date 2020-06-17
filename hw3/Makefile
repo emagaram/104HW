@@ -5,7 +5,7 @@ CFLAGS=-I$(IDIR) -std=c++11 -ggdb
 BIN_DIR  = bin
 GTEST_LL = -I /usr/include/gtest/ -l gtest -l gtest_main -pthread
 
-all: user
+all: twitter
 
 twitter: twitter.cpp twiteng.o user.o handler.o cmdhandler.o datetime.o tweet.o util.o
 	g++ -g -Wall twitter.cpp twiteng.o user.o handler.o cmdhandler.o datetime.o tweet.o util.o -o twitter
