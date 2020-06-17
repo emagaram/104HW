@@ -6,6 +6,7 @@
 #include <sstream>
 #include <set>
 #include <iostream>
+#include <string>
 #include <algorithm>
 #include <string>
 #include <fstream>

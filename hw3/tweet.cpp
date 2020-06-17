@@ -3,6 +3,7 @@
 #include "util.h"
 #include "user.h"
 #include <sstream>
+#include <string>
 /**
    * Default constructor 
    */
