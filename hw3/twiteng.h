@@ -44,7 +44,7 @@ public:
   std::map<std::string, User *> getUsers();
 
 
-  std::map<std::string, set<Tweet*>> getHashTagIndex();
+  std::map<std::string, std::set<Tweet*>> getHashTagIndex();
   /* You may add other member functions */
 private:
 DateTime parseDate(std::string line);
@@ -54,7 +54,7 @@ User* addOrFindUser(std::string name);
   /* Add any other data members or helper functions here  */
   int _userCount;
   std::map<std::string, User *> _users;
-  std::map<std::string, set<Tweet*>> _hashTagIndex; 
+  std::map<std::string, std::set<Tweet*>> _hashTagIndex; 
 };
 
 #endif

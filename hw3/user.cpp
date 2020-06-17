@@ -1,5 +1,5 @@
 #include "user.h"
-#include "tweet.cpp" //Okay?
+#include "tweet.h" //Okay?
 using namespace std;
 
 User::User(std::string name)
@@ -68,7 +68,14 @@ void User::addFollowing(User *u)
   _following.insert(u);
   u->_followers.insert(this);
 }
-
+bool otherLessThan(const Tweet *a, const Tweet *other)
+{
+    if (other < a)
+    {
+        return true;
+    }
+    return false;
+}
 void User::addTweet(Tweet *t)
 {
   _tweets.push_back(t);

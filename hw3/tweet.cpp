@@ -1,8 +1,8 @@
 #include "tweet.h"
-#include "datetime.cpp"
-#include "util.cpp"
-#include "assert.h"
-
+#include "datetime.h"
+#include "util.h"
+#include "user.h"
+#include <sstream>
 /**
    * Default constructor 
    */
@@ -75,14 +75,6 @@ bool Tweet::operator<(const Tweet &other) const
     return false;
 }
 
-bool otherLessThan(const Tweet *a, const Tweet *other)
-{
-    if (other < a)
-    {
-        return true;
-    }
-    return false;
-}
 /**
    * Outputs the tweet to the given ostream in format:
    *   YYYY-MM-DD HH::MM::SS username tweet_text
@@ -122,7 +114,6 @@ std::ostream &operator<<(std::ostream &os, const Tweet &t)
     os << yr << "-" << convertTwoDigitInt(dt.month) << "-" << convertTwoDigitInt(dt.day) << " "
        << convertTwoDigitInt(dt.hour) << "::" << convertTwoDigitInt(dt.min) << "::" << convertTwoDigitInt(dt.sec) << " ";
     
-    assert(t.user()->name()!="");
     os << t.user()->name() << " ";
 
     os << t.text();

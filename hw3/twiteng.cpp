@@ -1,7 +1,14 @@
 #include "twiteng.h"
+#include "tweet.h"
+#include "user.h"
+#include "datetime.h"
 #include <map>
 #include <sstream>
+#include <set>
 #include <iostream>
+#include <algorithm>
+#include <string>
+#include <fstream>
 
 TwitEng::TwitEng()
 {
@@ -12,7 +19,7 @@ TwitEng::~TwitEng()
 {
 }
 
-std::map<std::string, set<Tweet *>> TwitEng::getHashTagIndex()
+std::map<std::string, std::set<Tweet *>> TwitEng::getHashTagIndex()
 {
 	return _hashTagIndex;
 }
@@ -52,7 +59,7 @@ bool TwitEng::parse(char *filename)
 			centerUser->addFollowing(u);
 		}
 	}
-	string line;
+	std::string line;
 	std::getline(iFile, line);
 	while (!iFile.eof())
 	{
@@ -66,8 +73,7 @@ bool TwitEng::parse(char *filename)
 			//u->addTweet(t);
 			addTweet(u->name(), dt, t->text());
 		}
-	std:
-		getline(iFile, line);
+	std::getline(iFile, line);
 	}
 
 	iFile.close();
@@ -117,9 +123,8 @@ void TwitEng::addTweet(const std::string &username, const DateTime &time, const 
 	Tweet *newTweet = new Tweet(user, time, text);
 	user->addTweet(newTweet);
 
-std:
-	set<string> ht = newTweet->hashTags();
-	std::set<string>::iterator htIt = ht.begin();
+	std::set<std::string> ht = newTweet->hashTags();
+	std::set<std::string>::iterator htIt = ht.begin();
 	while (htIt != ht.end())
 	{
 		if (_hashTagIndex.find(*htIt) == _hashTagIndex.end())
@@ -139,7 +144,7 @@ std:
 std::set<Tweet *> operator|(const std::set<Tweet *> &s1,
 							const std::set<Tweet *> &s2)
 {
-	set<Tweet *> answer;
+	std::set<Tweet *> answer;
 	for (auto s1Value = s1.cbegin(); s1Value != s1.cend(); ++s1Value)
 	{
 		answer.insert(*s1Value);
@@ -155,9 +160,9 @@ std::set<Tweet *> operator|(const std::set<Tweet *> &s1,
 std::set<Tweet *> operator&(const std::set<Tweet *> &t1,
 							const std::set<Tweet *> &t2)
 {
-	set<Tweet *> answer;
-	set<Tweet *> larger;
-	set<Tweet *> smaller;
+	std::set<Tweet *> answer;
+	std::set<Tweet *> larger;
+	std::set<Tweet *> smaller;
 	if (t1.size() > t2.size())
 	{
 		larger = t1;
@@ -201,7 +206,7 @@ std::vector<Tweet *> TwitEng::search(std::vector<std::string> &terms, int strate
 			}
 		}
 	}
-	return vector<Tweet *>(result.begin(), result.end());
+	return std::vector<Tweet *>(result.begin(), result.end());
 }
 
 void TwitEng::dumpFeeds()
@@ -211,11 +216,10 @@ void TwitEng::dumpFeeds()
 	{
 		User *u = userIt->second;
 		std::string fname = u->name() += ".feed";
-		ofstream ofile(fname);
+		std::ofstream ofile(fname);
 
-		vector<Tweet *> feed = u->getFeed();
-		sort(feed.begin(), feed.end(), TweetComp());
-		int s = feed.size() - 1;
+		std::vector<Tweet *> feed = u->getFeed();
+		std::sort(feed.begin(), feed.end(), TweetComp());
 		for (int i = 0; i < feed.size(); i++)
 		{
 			if (i == 0)
@@ -235,7 +239,6 @@ void TwitEng::dumpFeeds()
 
 User *TwitEng::addOrFindUser(std::string word)
 {
-	assert(word != "");
 	User *user;
 	std::map<std::string, User *>::iterator userIt = _users.find(word);
 	if (userIt == _users.end())
