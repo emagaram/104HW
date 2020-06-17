@@ -1,5 +1,7 @@
 #include "tweet.h"
 #include "datetime.cpp"
+#include "util.cpp"
+#include "assert.h"
 
 /**
    * Default constructor 
@@ -24,6 +26,7 @@ Tweet::Tweet(User *user, const DateTime &time, const std::string &text)
         if (word.substr(0, 1) == "#")
         {
             word = word.substr(1, word.length());
+            convLower(word);
             _hashTags.insert(word);
         }
     }
@@ -118,7 +121,8 @@ std::ostream &operator<<(std::ostream &os, const Tweet &t)
 
     os << yr << "-" << convertTwoDigitInt(dt.month) << "-" << convertTwoDigitInt(dt.day) << " "
        << convertTwoDigitInt(dt.hour) << "::" << convertTwoDigitInt(dt.min) << "::" << convertTwoDigitInt(dt.sec) << " ";
-
+    
+    assert(t.user()->name()!="");
     os << t.user()->name() << " ";
 
     os << t.text();

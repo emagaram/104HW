@@ -4,6 +4,7 @@
 #include "twiteng.cpp"
 User ez("ezra");
 User *a = &ez;
+User james("james");
 
 DateTime y2010(10, 10, 10, 2010, 10, 10);
 DateTime y2011(10, 10, 10, 2011, 10, 10);
@@ -14,6 +15,62 @@ Tweet t2012(a, y2012, "hi");
 Tweet t2011(a, y2011, "hi");
 Tweet t2010(a, y2010, "hi");
 
+
+TEST_CASE("Search AND"){
+
+}
+
+TEST_CASE("Search OR"){
+    TwitEng te;
+    te.addTweet(ez.name(), y2013, "start #pac12 #football #FOOTbALL");
+    te.addTweet(james.name(), y2010, "Skydiving! #fun #YOLO");
+    std::vector<std::string> searchTerms={"pac12"};
+    std::vector<Tweet*> expectedAns;
+
+    auto result = te.search(searchTerms, 1); 
+    CHECK(result[0]->text()=="start #pac12 #football #FOOTbALL");
+    CHECK(result.size()==1);
+    auto resultsHashtags = result[0]->hashTags();
+    CHECK(resultsHashtags.find("pac12")!=resultsHashtags.end());
+    CHECK(resultsHashtags.find("fakeHashtag")==resultsHashtags.end());
+}
+
+TEST_CASE("Hashtags in index map correctly"){
+    TwitEng te;
+    te.addTweet(ez.name(), y2013, "start #pac12 #football #FOOTbALL");
+    te.addTweet(james.name(), y2010, "Skydiving! #fun #YOLO");
+    std::map<std::string, User*> teUsers = te.getUsers();
+    Tweet* ezraT = *(teUsers.find("ezra")->second->tweets().begin());
+    Tweet* jamesT = *(teUsers.find("james")->second->tweets().begin());
+    std::map<std::string, std::set<Tweet*>> hti = te.getHashTagIndex();
+    CHECK(*(hti.find("pac12")->second.begin())==ezraT);
+    CHECK(*(hti.find("fun")->second.begin())==jamesT);  
+    CHECK(*(hti.find("pac12")->second.begin())!=jamesT);   
+}
+
+
+TEST_CASE("Add tweet updates users and hashTagIndex"){
+    TwitEng te;
+    te.addTweet(a->name(), y2013, "Can't wait for USC football to start #pac12 #football #FOOTbALL");
+    std::map<std::string, User*> teUsers = te.getUsers();
+    std::map<std::string, std::set<Tweet*>> hti = te.getHashTagIndex();
+    CHECK(teUsers.size()==1);
+    CHECK(teUsers.find(a->name())!=teUsers.end());
+    CHECK(hti.size()==2);
+    CHECK(hti.find("football")!=hti.end());
+    CHECK(hti.find("FOOTbALL")==hti.end());
+    CHECK(hti.find("pac12")!=hti.end());
+    CHECK(hti.find("fakehashtag")==hti.end());
+}
+
+TEST_CASE("Hashtags are case insensitive and not repeated in tweets"){ 
+    Tweet tweet (a, y2010, "start #PAC12 #foOTBALl #FooTball #pac12");
+    set<string> ht = tweet.hashTags();
+    CHECK(ht.size()==2);
+    CHECK(ht.find("pac12")!=ht.end());
+    CHECK(ht.find("football")!=ht.end());
+    CHECK(ht.find("fakeHashtag")==ht.end());
+}
 
 TEST_CASE("Hashtags are in tweets"){ 
     Tweet tweet (a, y2010, "Can't wait for USC football to start #pac12 #football #pac12");

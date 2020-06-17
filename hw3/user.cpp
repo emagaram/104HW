@@ -5,6 +5,7 @@ using namespace std;
 User::User(std::string name)
 {
   _name = name;
+  //_tweets = new list<Tweet*>();
 }
 
 User::~User()
