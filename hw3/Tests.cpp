@@ -17,7 +17,12 @@ Tweet t2010(a, y2010, "hi");
 
 
 TEST_CASE("Search AND"){
-
+    TwitEng te;
+    te.addTweet(ez.name(), y2013, "start #pac12 #Hi #FOOTbALL");
+    te.addTweet(james.name(), y2010, "Sports! #fun #paC12");
+    std::vector<std::string> searchTerms={"pac12","fun"};
+    auto result = te.search(searchTerms, 0); 
+    CHECK(result[0]->text()=="Sports! #fun #paC12");    
 }
 
 TEST_CASE("Search OR"){
@@ -25,7 +30,6 @@ TEST_CASE("Search OR"){
     te.addTweet(ez.name(), y2013, "start #pac12 #football #FOOTbALL");
     te.addTweet(james.name(), y2010, "Skydiving! #fun #YOLO");
     std::vector<std::string> searchTerms={"pac12"};
-    std::vector<Tweet*> expectedAns;
 
     auto result = te.search(searchTerms, 1); 
     CHECK(result[0]->text()=="start #pac12 #football #FOOTbALL");

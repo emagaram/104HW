@@ -44,7 +44,7 @@ bool TwitEng::parse(char *filename)
 		std::getline(iFile, line);
 		std::stringstream ss(line);
 		ss >> word;
-		User *centerUser=addOrFindUser(word);
+		User *centerUser = addOrFindUser(word);
 
 		while (ss >> word)
 		{
@@ -64,7 +64,7 @@ bool TwitEng::parse(char *filename)
 			Tweet *t = new Tweet(u, dt, txt);
 
 			//u->addTweet(t);
-			addTweet(u->name(),dt,t->text());
+			addTweet(u->name(), dt, t->text());
 		}
 	std:
 		getline(iFile, line);
@@ -117,32 +117,91 @@ void TwitEng::addTweet(const std::string &username, const DateTime &time, const 
 	Tweet *newTweet = new Tweet(user, time, text);
 	user->addTweet(newTweet);
 
-	std:set<string> ht = newTweet->hashTags();
+std:
+	set<string> ht = newTweet->hashTags();
 	std::set<string>::iterator htIt = ht.begin();
-	while(htIt!=ht.end()){
-		if(_hashTagIndex.find(*htIt)==_hashTagIndex.end()){
-			std::set<Tweet*> tweets;
+	while (htIt != ht.end())
+	{
+		if (_hashTagIndex.find(*htIt) == _hashTagIndex.end())
+		{
+			std::set<Tweet *> tweets;
 			tweets.insert(newTweet);
-			_hashTagIndex.insert(std::pair<std::string, std::set<Tweet*>>(*htIt,tweets));
+			_hashTagIndex.insert(std::pair<std::string, std::set<Tweet *>>(*htIt, tweets));
 		}
-		else{
+		else
+		{
 			_hashTagIndex.find(*htIt)->second.insert(newTweet);
 		}
 		htIt++;
 	}
 }
 
+std::set<Tweet *> operator|(const std::set<Tweet *> &s1,
+							const std::set<Tweet *> &s2)
+{
+	set<Tweet *> answer;
+	for (auto s1Value = s1.cbegin(); s1Value != s1.cend(); ++s1Value)
+	{
+		answer.insert(*s1Value);
+	}
+	for (auto s2Value = s2.cbegin(); s2Value != s2.cend(); ++s2Value)
+	{
+		answer.insert(*s2Value);
+	}
+	return answer;
+}
+
+// Computes the intersection of s1 and s2
+std::set<Tweet *> operator&(const std::set<Tweet *> &t1,
+							const std::set<Tweet *> &t2)
+{
+	set<Tweet *> answer;
+	set<Tweet *> larger;
+	set<Tweet *> smaller;
+	if (t1.size() > t2.size())
+	{
+		larger = t1;
+		smaller = t2;
+	}
+	else
+	{
+		larger = t2;
+		smaller = t1;
+	}
+	for (std::set<Tweet *>::iterator largerValue = larger.cbegin(); largerValue != larger.cend(); ++largerValue)
+	{
+		if (smaller.find(*largerValue) != smaller.end())
+		{
+			answer.insert(*largerValue);
+		}
+	}
+	return answer;
+}
+
 std::vector<Tweet *> TwitEng::search(std::vector<std::string> &terms, int strategy)
 {
-	std::set<Tweet*> result;
+	std::set<Tweet *> result;
 
-	for(int i = 0; i<terms.size();i++){
-		if(_hashTagIndex.find(terms[i])!=_hashTagIndex.end()){
-			std::set<Tweet*> found = _hashTagIndex.find(terms[i])->second;;
-			 result.insert(found.begin(), found.end());
+	for (int i = 0; i < terms.size(); i++)
+	{
+		if (_hashTagIndex.find(terms[i]) != _hashTagIndex.end())
+		{
+			//TODO Cleanup
+			if (i == 0 && strategy==0)
+			{
+				result = _hashTagIndex.find(terms[i])->second;
+			}
+			if (strategy == 1)
+			{
+				result = result | _hashTagIndex.find(terms[i])->second;
+			}
+			else
+			{
+				result = result & _hashTagIndex.find(terms[i])->second;
+			}
 		}
-	}	
-	return std::vector<Tweet*>(result.begin(),result.end());
+	}
+	return vector<Tweet *>(result.begin(), result.end());
 }
 
 void TwitEng::dumpFeeds()
@@ -174,9 +233,9 @@ void TwitEng::dumpFeeds()
 	}
 }
 
-User* TwitEng::addOrFindUser(std::string word)
+User *TwitEng::addOrFindUser(std::string word)
 {
-	assert(word!="");
+	assert(word != "");
 	User *user;
 	std::map<std::string, User *>::iterator userIt = _users.find(word);
 	if (userIt == _users.end())
