@@ -16,4 +16,10 @@ void removeConsecutive(Item* head);
 // new head1 list items.
 Item* concatenate(Item* head1, Item* head2);
 
+//Makes a copy of items in head, helper function
+Item* copy(Item *head);
+
+//Gets tail from list
+Item* getTail(Item* head);
+
 #endif

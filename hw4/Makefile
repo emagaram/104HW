@@ -5,7 +5,7 @@
 # command prompt.
 
 CC = g++
-CC_FLAGS = -g -Wall -std=c++11 -ggdb
+CC_FLAGS = -g -Wall -std=c++11
 COMPILE_OBJ = $(CC) $(CC_FLAGS) -c
 COMPILE_EXE = $(CC) $(CC_FLAGS)
 OUT = obj
