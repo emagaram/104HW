@@ -14,16 +14,16 @@ DELETE_FILE = rm -f
 
 $(shell $(CREATE_DIR) $(OUT))
 
-all: 
+all: tests.exe
 
 #helloworld.exe: $(OUT)/date.o $(OUT)/math.o
 #	$(COMPILE_EXE) helloworld.cpp $(OUT)/date.o $(OUT)/math.o -o helloworld.exe
 
-#tests.exe: tests.cpp $(OUT)/date.o $(OUT)/math.o
-#	$(COMPILE_EXE) tests.cpp $(OUT)/date.o $(OUT)/math.o -o tests.exe
+tests.exe: tests.cpp $(OUT)/rem_dup_lib.o
+	$(COMPILE_EXE) tests.cpp $(OUT)/rem_dup_lib.o -o tests.exe
 
-#$(OUT)/date.o: date.h date.cpp
-#	$(COMPILE_OBJ) date.cpp -o $(OUT)/date.o
+$(OUT)/rem_dup_lib.o: rem_dup_lib.h rem_dup_lib.cpp
+	$(COMPILE_OBJ) rem_dup_lib.cpp -o $(OUT)/rem_dup_lib.o
 
 #$(OUT)/math.o: math.h math.cpp
 #	$(COMPILE_OBJ) math.cpp -o $(OUT)/math.o
