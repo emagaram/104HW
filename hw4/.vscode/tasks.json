@@ -1,0 +1,61 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+      {
+        "type": "shell",
+        "label": "Make All",
+        "command": "make all",
+        "args": [],
+        "options": {
+          "cwd": "${workspaceFolder}"
+        },
+        "problemMatcher": ["$gcc"],
+        "group": { "kind": "build", "isDefault": true }
+      },
+      {
+        "type": "shell",
+        "label": "Make Clean",
+        "command": "make",
+        "args": ["clean"],
+        "options": {
+          "cwd": "${workspaceFolder}"
+        },
+        "problemMatcher": ["$gcc"],
+        "group": "build"
+      },
+      {
+        "type": "shell",
+        "label": "Make .o (for active file)",
+        "command": "make",
+        "args": ["obj/${fileBasenameNoExtension}.o"],
+        "options": {
+          "cwd": "${workspaceFolder}"
+        },
+        "problemMatcher": ["$gcc"],
+        "group": "build"
+      },
+      {
+        "type": "shell",
+        "label": "Make .exe (for active file)",
+        "command": "make",
+        "args": ["${fileBasenameNoExtension}.exe"],
+        "options": {
+          "cwd": "${workspaceFolder}"
+        },
+        "problemMatcher": ["$gcc"],
+        "group": "build"
+      },
+      {
+        "type": "shell",
+        "label": "C/C++: g++.exe build active file",
+        "command": "C:/mingw-w64/x86_64-8.1.0-posix-seh-rt_v6-rev0/mingw64/bin/g++.exe",
+        "args": ["-g", "${fileBasename}", "-o", "obj/${fileBasenameNoExtension}.exe"],
+        "options": {
+          "cwd": "${workspaceFolder}"
+        },
+        "problemMatcher": ["$gcc"],
+        "group": "build"
+      }
+    ]
+  }
+  
