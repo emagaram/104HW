@@ -7,7 +7,7 @@ namespace myStack
         stack->push(0);
         stack->push(1);
         stack->push(2);
-        EXPECT_EQ(stack->size(),3);
+        EXPECT_EQ(stack->size(),size_t(3));
     }
 
     TEST(Stack, pop){
@@ -20,7 +20,7 @@ namespace myStack
         stack->pop();        
         
         EXPECT_THROW(stack->pop(), std::underflow_error);
-        EXPECT_EQ(stack->size(),0);        
+        EXPECT_EQ(stack->size(),size_t(0));        
     }
 
 
