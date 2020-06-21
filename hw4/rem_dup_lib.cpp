@@ -10,8 +10,9 @@ void removeConsecutive(Item *head)
             Item *temp = head->next->next;
             delete head->next;
             head->next = temp;
+            removeConsecutive(head); //Run again on head in case of another duplicate
         }
-        if (head->next != nullptr)
+        else if (head->next != nullptr)
         {
             removeConsecutive(head->next);
         }
@@ -23,27 +24,33 @@ void removeConsecutive(Item *head)
 // new head1 list items.
 Item *concatenate(Item *head1, Item *head2)
 {
-
-    Item* cop1 = copy(head1);
-    Item* cop2 = copy(head2);
-    getTail(cop1)->next=cop2;
+    Item *cop1 = copy(head1);
+    Item *cop2 = copy(head2);
+    getTail(cop1)->next = cop2;
     return cop1;
 }
 
-Item* copy(Item *head){
-    if(head->next!=nullptr){
+Item *copy(Item *head)
+{
+    //Goes to the tail and creates items from there, returning back up
+    if (head->next != nullptr)
+    {
         return new Item(head->val, copy(head->next));
     }
-    else{
-        return new Item(head->val,nullptr);
+    else
+    {
+        return new Item(head->val, nullptr);
     }
 }
 
-Item* getTail(Item* head){
-    if(head->next!=nullptr){
+Item *getTail(Item *head)
+{
+    if (head->next != nullptr)
+    {
         return getTail(head->next);
     }
-    else{
+    else
+    {
         return head;
     }
 }

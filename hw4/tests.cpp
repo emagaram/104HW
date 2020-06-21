@@ -4,66 +4,66 @@
 #include "deque.h"
 #include <string>
 
-
-
-
-TEST_CASE("Empty function"){
+TEST_CASE("Empty function")
+{
     Deque<int> *e = new Deque<int>();
-    CHECK(e->empty()==true);
+    CHECK(e->empty() == true);
 
     e->push_back(8);
-    CHECK(e->empty()==false);
+    CHECK(e->empty() == false);
 }
 
 TEST_CASE("Deque Operator[]")
 {
-    Deque<int>* d = new Deque<int>();
+    Deque<int> *d = new Deque<int>();
     d->push_back(5);
     d->push_back(75);
     d->push_back(775);
-    int a= (*d)[0];
+    int a = (*d)[0];
     int b = (*d)[2];
-    
+
     CHECK(a == 5);
-    CHECK(b==775);
-    CHECK(d->size()==3);
-    
+    CHECK(b == 775);
+    CHECK(d->size() == 3);
 }
 
-TEST_CASE("Deque Operator throws if out of bounds"){
-    Deque<int>* d = new Deque<int>();
+TEST_CASE("Deque Operator throws if out of bounds")
+{
+    Deque<int> *d = new Deque<int>();
     bool didThrow = false;
-     try {
-         (*d)[53];
-     }
-     catch(std::range_error& e){
-         didThrow = true;
-     }
-     CHECK(didThrow==true);
+    try
+    {
+        (*d)[53];
+    }
+    catch (std::range_error &e)
+    {
+        didThrow = true;
+    }
+    CHECK(didThrow == true);
 }
 
-
-TEST_CASE("Pop front"){
-    Deque<int>* d = new Deque<int>();
+TEST_CASE("Pop front")
+{
+    Deque<int> *d = new Deque<int>();
     d->push_back(5);
     d->pop_front();
-    CHECK(d->size() == 0); 
+    CHECK(d->size() == 0);
 
     d->push_front(8);
     d->pop_front();
-    CHECK(d->size()==0);
+    CHECK(d->size() == 0);
 }
 
-
-TEST_CASE("Pop back"){
-    Deque<int>* d = new Deque<int>();
+TEST_CASE("Pop back")
+{
+    Deque<int> *d = new Deque<int>();
     d->push_back(5);
     d->pop_back();
-    CHECK(d->size() == 0); 
+    CHECK(d->size() == 0);
 
     d->push_front(8);
     d->pop_back();
-    CHECK(d->size()==0);
+    CHECK(d->size() == 0);
 }
 
 TEST_CASE("Push back on list with one item")
@@ -71,7 +71,7 @@ TEST_CASE("Push back on list with one item")
     Deque<int> *d = new Deque<int>();
     d->push_back(5);
     CHECK(d->size() == 1);
-    CHECK((*d)[0]==5);
+    CHECK((*d)[0] == 5);
 }
 
 TEST_CASE("Push front on list with one item")
@@ -79,7 +79,7 @@ TEST_CASE("Push front on list with one item")
     Deque<int> *d = new Deque<int>();
     d->push_front(5);
     CHECK(d->size() == 1);
-    CHECK((*d)[0]==5);
+    CHECK((*d)[0] == 5);
 }
 
 TEST_CASE("Copy Linked Lists")

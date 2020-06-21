@@ -1,9 +1,3 @@
-# Some of the commands in here might be dependent on which command shell is used to
-# execute it. For example, commands that delete and create files and folders are
-# slightly different under the bash shell, PowerShell, and Windows command prompt.
-# Also path separators are different in bash than in PowerShell and the Windows
-# command prompt.
-
 CC = g++
 CC_FLAGS = -g -Wall -std=c++11 -ggdb
 COMPILE_OBJ = $(CC) $(CC_FLAGS) -c
@@ -20,10 +14,13 @@ COMPILE_GTEST_EXE = $(CC) -std=c++17 -I h -pthread -ggdb -g
 
 $(shell $(CREATE_DIR) $(OUT))
 
-all: tests.exe deque.exe deque_test.exe stack_test.exe laundry.exe
+all: tests.exe deque.exe deque_test.exe stack_test.exe laundry remdup.exe
 
-laundry.exe: laundry.cpp stack.h
-	$(COMPILE_EXE) laundry.cpp stack.h -o laundry.exe
+remdup.exe: rem_dup.cpp $(OUT)/rem_dup_lib.o
+	$(COMPILE_EXE) rem_dup.cpp $(OUT)/rem_dup_lib.o -o remdup.exe
+
+laundry: laundry.cpp stack.h
+	$(COMPILE_EXE) laundry.cpp stack.h -o laundry
 
 deque.exe: deque.h deque.cpp
 	$(COMPILE_EXE) deque.h deque.cpp -o deque.exe

@@ -144,8 +144,9 @@ template <typename T>
 void Deque<T>::doubleArraySize()
 {
    T *newElements = new T[2 * _MAX];
-   size_t index = _head; //Start at head and go until tail-1 which
-   //is head+size. All items indexed will have something in them
+   size_t index = _head;
+   //Starts at head and goes until tail-1
+   //All items indexed will have something in them
    for (size_t i = 0; i < _size; i++)
    {
       newElements[i] = _elements[index];
@@ -156,6 +157,8 @@ void Deque<T>::doubleArraySize()
    _elements = newElements;
    _head = 0;
    _tail = _size;
+   //Head and tail must be reset since the new arrays head and tail are
+   //set by default from 0 -> size.
 }
 
 template <typename T>
@@ -178,11 +181,13 @@ void Deque<T>::push_front(const T &item)
 {
    if (_size + 1 >= _MAX)
    {
-      //The +1 is needed since the head needs room to move
+      //The +1 is likely not needed here since the head does not move
+      //to an empty spot like the tail but I include it for safety
       doubleArraySize();
    }
    if (_head == 0)
    {
+      //Keeps head in bounds
       _head = _MAX - 1;
    }
    else
@@ -200,6 +205,7 @@ void Deque<T>::pop_back()
    {
       if (_tail == 0)
       {
+         //Keeps tail in bounds
          _tail = _MAX - 1;
       }
       else
@@ -215,7 +221,7 @@ void Deque<T>::pop_front()
 {
    if (!empty())
    {
-      _head=(_head+1)%_MAX;
+      _head = (_head + 1) % _MAX;
       _size--;
    }
 }
