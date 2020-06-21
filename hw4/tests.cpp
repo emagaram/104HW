@@ -66,7 +66,6 @@ TEST_CASE("Pop back"){
     CHECK(d->size()==0);
 }
 
-
 TEST_CASE("Push back on list with one item")
 {
     Deque<int> *d = new Deque<int>();

@@ -4,6 +4,31 @@
 #include <string>
 namespace myDeque
 {
+
+    TEST(Deque, BunchOfFunctions)
+    {
+        Deque<int> *e = new Deque<int>();
+        EXPECT_EQ(e->empty(), true);
+        e->push_back(8);
+        e->push_back(9);
+        e->push_front(7);
+        e->pop_back();
+        EXPECT_EQ(e->size(),2);
+        EXPECT_EQ((*e)[0],7);
+        EXPECT_EQ((*e)[1],8);
+        e->pop_front();
+        EXPECT_EQ((*e)[0],8);
+        e->pop_front();
+        e->push_front(19);
+        e->push_front(20);
+        e->push_front(20);
+        e->push_front(20);
+        e->push_front(20);
+        e->push_front(20);
+        e->push_front(21);
+        EXPECT_EQ(e->size(),7);
+        EXPECT_EQ((*e)[6],19);
+    }    
     TEST(Deque, EmptyFunction)
     {
         Deque<int> *e = new Deque<int>();
