@@ -67,9 +67,7 @@ T const &Stack<T>::top() const
       throw std::underflow_error("The stack is empty");
    }
    else{
-     //return (*this)[size()-1];
-     T a;
-     return a;
+     return (*this)[size()-1];
    }
   //* Both pop() and top() must throw std::underflow_error
   //* if the stack is empty.
