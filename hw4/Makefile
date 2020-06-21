@@ -20,7 +20,10 @@ COMPILE_GTEST_EXE = $(CC) -std=c++17 -I h -pthread -ggdb -g
 
 $(shell $(CREATE_DIR) $(OUT))
 
-all: tests.exe deque.exe deque_test.exe stack_test.exe
+all: tests.exe deque.exe deque_test.exe stack_test.exe laundry.exe
+
+laundry.exe: laundry.cpp stack.h
+	$(COMPILE_EXE) laundry.cpp stack.h -o laundry.exe
 
 deque.exe: deque.h deque.cpp
 	$(COMPILE_EXE) deque.h deque.cpp -o deque.exe
