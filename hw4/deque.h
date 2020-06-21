@@ -1,7 +1,6 @@
 #ifndef DEQUE_H
 #define DEQUE_H
 #include <stdexcept>
-//#include <iostream>
 
 /**
  * Implements a templated, array-based, 
@@ -128,6 +127,7 @@ Deque<T>::Deque()
 template <typename T>
 Deque<T>::~Deque()
 {
+   delete[] _elements;
 }
 
 template <typename T>
@@ -151,7 +151,7 @@ void Deque<T>::doubleArraySize()
       newElements[i] = _elements[index];
       index = (index + 1) % _MAX;
    }
-   delete [] _elements;
+   delete[] _elements;
    _MAX *= 2;
    _elements = newElements;
    _head = 0;
@@ -198,7 +198,6 @@ void Deque<T>::pop_back()
 {
    if (!empty())
    {
-      _size--;
       if (_tail == 0)
       {
          _tail = _MAX - 1;
@@ -208,34 +207,45 @@ void Deque<T>::pop_back()
          _tail--;
       }
       delete &_elements[_tail];
+      _size--;
    }
 }
 
 template <typename T>
 void Deque<T>::pop_front()
 {
+   if (!empty())
+   {
+      delete &_elements[_head];
+      _head=(_head+1)%_MAX;
+      _size--;
+   }
 }
 
 template <typename T>
 T &Deque<T>::operator[](size_t i)
 {
-   
-   if(i<0 || i >= _size){
+
+   if (i < 0 || i >= _size)
+   {
       throw std::range_error("Index is out of range");
    }
-   else{
-      return _elements[(_head+i)%_MAX];
+   else
+   {
+      return _elements[(_head + i) % _MAX];
    }
 }
 
 template <typename T>
 T const &Deque<T>::operator[](size_t i) const
 {
-   if(i<0 || i >= _size){
+   if (i < 0 || i >= _size)
+   {
       throw std::range_error("Index is out of range");
    }
-   else{
-      return _elements[(_head+i)%_MAX];
+   else
+   {
+      return _elements[(_head + i) % _MAX];
    }
 }
 

@@ -43,6 +43,18 @@ TEST_CASE("Deque Operator throws if out of bounds"){
 }
 
 
+TEST_CASE("Pop front"){
+    Deque<int>* d = new Deque<int>();
+    d->push_back(5);
+    d->pop_front();
+    CHECK(d->size() == 0); 
+
+    d->push_front(8);
+    d->pop_front();
+    CHECK(d->size()==0);
+}
+
+
 TEST_CASE("Pop back"){
     Deque<int>* d = new Deque<int>();
     d->push_back(5);
@@ -53,6 +65,7 @@ TEST_CASE("Pop back"){
     d->pop_back();
     CHECK(d->size()==0);
 }
+
 
 TEST_CASE("Push back on list with one item")
 {
