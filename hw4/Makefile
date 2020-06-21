@@ -20,7 +20,7 @@ COMPILE_GTEST_EXE = $(CC) -std=c++17 -I h -pthread -ggdb -g
 
 $(shell $(CREATE_DIR) $(OUT))
 
-all: tests.exe deque.exe deque_test.exe
+all: tests.exe deque.exe deque_test.exe stack_test.exe
 
 deque.exe: deque.h deque.cpp
 	$(COMPILE_EXE) deque.h deque.cpp -o deque.exe
@@ -30,6 +30,13 @@ tests.exe: tests.cpp $(OUT)/rem_dup_lib.o
 
 deque_test.exe: $(OUT)/deque_test.o $(OUT)/rem_dup_lib.o
 	$(COMPILE_GTEST_EXE) $(OUT)/deque_test.o $(OUT)/rem_dup_lib.o $(GTEST_LIB)/libgtest_main.a $(GTEST_LIB)/libgtest.a -o deque_test.exe
+
+stack_test.exe: $(OUT)/stack_test.o
+	$(COMPILE_GTEST_EXE) $(OUT)/stack_test.o $(GTEST_LIB)/libgtest_main.a $(GTEST_LIB)/libgtest.a -o stack_test.exe
+
+$(OUT)/stack_test.o: stack_test.cpp
+	$(COMPILE_GTEST_OBJ) stack_test.cpp -o $(OUT)/stack_test.o
+
 
 $(OUT)/deque_test.o: deque_test.cpp
 	$(COMPILE_GTEST_OBJ) deque_test.cpp -o $(OUT)/deque_test.o

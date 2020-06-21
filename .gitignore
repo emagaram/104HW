@@ -30,4 +30,6 @@ hw4/obj/tests_gtest.o
 hw4/deque_test.exe
 hw4/obj/deque_test.o
 hw4/obj/*.o
-hw4/obj/*.exe
+hw4/*.exe
+hw4/stack_test.exe
+hw4/.vscode/settings.json

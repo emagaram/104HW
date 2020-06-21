@@ -176,4 +176,4 @@ namespace myDeque
         EXPECT_EQ(actual[3] , 9);
     }
 
-} // namespace myDeque
+}
