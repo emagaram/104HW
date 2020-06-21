@@ -15,7 +15,7 @@ std::string readFile(std::string fileName)
 
 int main(int argc, char *argv[])
 {
-    Stack<int> *s = new Stack<int>();
+    Stack<int> s;
     std::string fileNameIn = argv[1];
     std::string fileNameOut = argv[2];
     std::string fileLine = readFile(fileNameIn);
@@ -27,21 +27,21 @@ int main(int argc, char *argv[])
         int num = std::stoi(word);
         if (num <= 0)
         {
-            s->push(num);
+            s.push(num);
         }
         else
         {
-            if (size_t(num) > s->size())
+            if (size_t(num) > s.size())
             {
                 //Shrink num so that it doesn't
                 //go beyond 
-                num = s->size();                
+                num = s.size();                
             }
             //Will run a maximum of n times
             //
             for (int i = 0; i < num; i++)
             {
-                if (s->top() == -1)
+                if (s.top() == -1)
                 {
                     ofile << "white ";
                 }
@@ -50,7 +50,7 @@ int main(int argc, char *argv[])
                     ofile << "black ";
                 }
 
-                s->pop();
+                s.pop();
             }
             ofile << std::endl;
         }

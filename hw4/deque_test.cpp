@@ -7,58 +7,58 @@ namespace myDeque
 
     TEST(Deque, BunchOfFunctions)
     {
-        Deque<int> *e = new Deque<int>();
-        EXPECT_EQ(e->empty(), true);
-        e->push_back(8);
-        e->push_back(9);
-        e->push_front(7);
-        e->pop_back();
-        EXPECT_EQ(e->size(),2);
-        EXPECT_EQ((*e)[0],7);
-        EXPECT_EQ((*e)[1],8);
-        e->pop_front();
-        EXPECT_EQ((*e)[0],8);
-        e->pop_front();
-        e->push_front(19);
-        e->push_front(20);
-        e->push_front(20);
-        e->push_front(20);
-        e->push_front(20);
-        e->push_front(20);
-        e->push_front(21);
-        EXPECT_EQ(e->size(),7);
-        EXPECT_EQ((*e)[6],19);
+        Deque<int> e;
+        EXPECT_EQ(e.empty(), true);
+        e.push_back(8);
+        e.push_back(9);
+        e.push_front(7);
+        e.pop_back();
+        EXPECT_EQ(e.size(),2);
+        EXPECT_EQ((e)[0],7);
+        EXPECT_EQ((e)[1],8);
+        e.pop_front();
+        EXPECT_EQ((e)[0],8);
+        e.pop_front();
+        e.push_front(19);
+        e.push_front(20);
+        e.push_front(20);
+        e.push_front(20);
+        e.push_front(20);
+        e.push_front(20);
+        e.push_front(21);
+        EXPECT_EQ(e.size(),7);
+        EXPECT_EQ(e[6],19);
     }    
     TEST(Deque, EmptyFunction)
     {
-        Deque<int> *e = new Deque<int>();
-        EXPECT_EQ(e->empty() , true);
+        Deque<int> e;
+        EXPECT_EQ(e.empty() , true);
 
-        e->push_back(8);
-        EXPECT_EQ(e->empty() , false);
+        e.push_back(8);
+        EXPECT_EQ(e.empty() , false);
     }
 
     TEST(Deque, DequeOperator)
     {
-        Deque<int> *d = new Deque<int>();
-        d->push_back(5);
-        d->push_back(75);
-        d->push_back(775);
-        int a = (*d)[0];
-        int b = (*d)[2];
+        Deque<int> d;
+        d.push_back(5);
+        d.push_back(75);
+        d.push_back(775);
+        int a = d[0];
+        int b = d[2];
 
         EXPECT_EQ(a , 5);
         EXPECT_EQ(b , 775);
-        EXPECT_EQ(d->size() , 3);
+        EXPECT_EQ(d.size() , 3);
     }
 
     TEST(Deque, DequeOperatorThrowsIfOutOfBounds)
     {
-        Deque<int> *d = new Deque<int>();
+        Deque<int> d;
         bool didThrow = false;
         try
         {
-            (*d)[53];
+            d[53];
         }
         catch (std::range_error &e)
         {
@@ -69,42 +69,42 @@ namespace myDeque
 
     TEST(Deque, PopFront)
     {
-        Deque<int> *d = new Deque<int>();
-        d->push_back(5);
-        d->pop_front();
-        EXPECT_EQ(d->size() , 0);
+        Deque<int> d;
+        d.push_back(5);
+        d.pop_front();
+        EXPECT_EQ(d.size() , 0);
 
-        d->push_front(8);
-        d->pop_front();
-        EXPECT_EQ(d->size() , 0);
+        d.push_front(8);
+        d.pop_front();
+        EXPECT_EQ(d.size() , 0);
     }
 
     TEST(Deque, PopBack)
     {
-        Deque<int> *d = new Deque<int>();
-        d->push_back(5);
-        d->pop_back();
-        EXPECT_EQ(d->size() , 0);
+        Deque<int> d;
+        d.push_back(5);
+        d.pop_back();
+        EXPECT_EQ(d.size() , 0);
 
-        d->push_front(8);
-        d->pop_back();
-        EXPECT_EQ(d->size() , 0);
+        d.push_front(8);
+        d.pop_back();
+        EXPECT_EQ(d.size() , 0);
     }
 
     TEST(Deque, PushBackOnListWithOneItem)
     {
-        Deque<int> *d = new Deque<int>();
-        d->push_back(5);
-        EXPECT_EQ(d->size() , 1);
-        EXPECT_EQ((*d)[0] , 5);
+        Deque<int> d;
+        d.push_back(5);
+        EXPECT_EQ(d.size() , 1);
+        EXPECT_EQ(d[0] , 5);
     }
 
     TEST(Deque, PushFrontOnListWithOneItem)
     {
-        Deque<int> *d = new Deque<int>();
-        d->push_front(5);
-        EXPECT_EQ(d->size() , 1);
-        EXPECT_EQ((*d)[0] , 5);
+        Deque<int> d;
+        d.push_front(5);
+        EXPECT_EQ(d.size() , 1);
+        EXPECT_EQ(d[0] , 5);
     }
 
     TEST(Deque, CopyLinkedLists)
@@ -119,8 +119,12 @@ namespace myDeque
         EXPECT_EQ(cop->val , 0);
         EXPECT_EQ(cop->next->val , 1);
         EXPECT_EQ(cop->next->next->next->val , 3);
-        //EXPECT_EQ(cop != a);
-        //EXPECT_EQ(cop->next != a->next);
+
+        delete cop;
+        delete a;
+        delete b;
+        delete c;
+        delete d;
     }
 
     TEST(Deque, Concat2LinkedLists)
@@ -140,6 +144,10 @@ namespace myDeque
             newHead = newHead->next;
         }
         EXPECT_EQ(i , 5);
+        delete a;
+        delete b;
+        delete c;
+        delete d;
     }
 
     TEST(Deque, RemoveConsecItems1Item)
@@ -174,6 +182,10 @@ namespace myDeque
         EXPECT_EQ(actual[1], 1);
         EXPECT_EQ(actual[2] , 9);
         EXPECT_EQ(actual[3] , 9);
+        delete a;
+        delete b;
+        delete c;
+        delete d;
     }
 
 }
