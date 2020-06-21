@@ -5,7 +5,7 @@
 # command prompt.
 
 CC = g++
-CC_FLAGS = -g -Wall -std=c++11
+CC_FLAGS = -g -Wall -std=c++11 -ggdb
 COMPILE_OBJ = $(CC) $(CC_FLAGS) -c
 COMPILE_EXE = $(CC) $(CC_FLAGS)
 OUT = obj
@@ -14,10 +14,10 @@ DELETE_FILE = rm -f
 
 $(shell $(CREATE_DIR) $(OUT))
 
-all: tests.exe
+all: tests.exe deque.exe
 
-#helloworld.exe: $(OUT)/date.o $(OUT)/math.o
-#	$(COMPILE_EXE) helloworld.cpp $(OUT)/date.o $(OUT)/math.o -o helloworld.exe
+deque.exe: deque.h deque.cpp
+	$(COMPILE_EXE) deque.h deque.cpp -o deque.exe
 
 tests.exe: tests.cpp $(OUT)/rem_dup_lib.o
 	$(COMPILE_EXE) tests.cpp $(OUT)/rem_dup_lib.o -o tests.exe
@@ -25,8 +25,8 @@ tests.exe: tests.cpp $(OUT)/rem_dup_lib.o
 $(OUT)/rem_dup_lib.o: rem_dup_lib.h rem_dup_lib.cpp
 	$(COMPILE_OBJ) rem_dup_lib.cpp -o $(OUT)/rem_dup_lib.o
 
-#$(OUT)/math.o: math.h math.cpp
-#	$(COMPILE_OBJ) math.cpp -o $(OUT)/math.o
+$(OUT)/deque.o: deque.h 
+	$(COMPILE_OBJ) deque.h -o $(OUT)/deque.o
 
 .PHONY:  clean
 
