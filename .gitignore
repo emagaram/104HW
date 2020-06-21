@@ -27,3 +27,5 @@ hw4/obj/rem_dup_lib.o
 hw4/deque.exe
 hw4/tests_gtest.exe
 hw4/obj/tests_gtest.o
+hw4/deque_test.exe
+hw4/obj/deque_test.o
