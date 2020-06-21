@@ -206,7 +206,6 @@ void Deque<T>::pop_back()
       {
          _tail--;
       }
-      delete &_elements[_tail];
       _size--;
    }
 }
@@ -216,7 +215,6 @@ void Deque<T>::pop_front()
 {
    if (!empty())
    {
-      delete &_elements[_head];
       _head=(_head+1)%_MAX;
       _size--;
    }
