@@ -25,3 +25,5 @@ hw3/datetime.exe
 hw4/tests.exe
 hw4/obj/rem_dup_lib.o
 hw4/deque.exe
+hw4/tests_gtest.exe
+hw4/obj/tests_gtest.o

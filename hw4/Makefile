@@ -12,15 +12,27 @@ OUT = obj
 CREATE_DIR = mkdir -p
 DELETE_FILE = rm -f
 
+
+GTEST_LIB = ../../googletest/build/lib
+GTEST_INCLUDE = ../../googletest/googletest/include/
+COMPILE_GTEST_OBJ = $(CC) -std=c++17 -Wall -I h -I $(GTEST_INCLUDE) -c -ggdb -g
+COMPILE_GTEST_EXE = $(CC) -std=c++17 -I h -pthread -ggdb -g
+
 $(shell $(CREATE_DIR) $(OUT))
 
-all: tests.exe deque.exe
+all: tests.exe deque.exe tests_gtest.exe
 
 deque.exe: deque.h deque.cpp
 	$(COMPILE_EXE) deque.h deque.cpp -o deque.exe
 
 tests.exe: tests.cpp $(OUT)/rem_dup_lib.o
 	$(COMPILE_EXE) tests.cpp $(OUT)/rem_dup_lib.o -o tests.exe
+
+tests_gtest.exe: $(OUT)/tests_gtest.o $(OUT)/rem_dup_lib.o
+	$(COMPILE_GTEST_EXE) $(OUT)/tests_gtest.o $(OUT)/rem_dup_lib.o $(GTEST_LIB)/libgtest_main.a $(GTEST_LIB)/libgtest.a -o tests_gtest.exe
+
+$(OUT)/tests_gtest.o: tests_gtest.cpp
+	$(COMPILE_GTEST_OBJ) tests_gtest.cpp -o $(OUT)/tests_gtest.o
 
 $(OUT)/rem_dup_lib.o: rem_dup_lib.h rem_dup_lib.cpp
 	$(COMPILE_OBJ) rem_dup_lib.cpp -o $(OUT)/rem_dup_lib.o
