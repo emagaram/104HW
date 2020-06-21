@@ -1,18 +1,25 @@
 #include "stack.h"
 #include <iostream>
 #include <sstream>
-std::string readFile()
+#include <fstream> 
+std::string readFile(std::string fileName)
 {
-    return "0  0  0  -1  20  -1  2";
+    //Got from earlier project
+	std::ifstream iFile(fileName);
+    std::string output = "";
+    std::getline(iFile, output, '\0');
+    iFile.close();    
+    return output;
     //"0  0  0  -1  2  -1  2";
 }
-void print(std::string message)
-{
-}
-int main()
+
+int main(int argc, char *argv[])
 {
     Stack<int> *s = new Stack<int>();
-    std::string fileLine = readFile();
+    std::string fileNameIn = argv[1];
+    std::string fileNameOut = argv[2];
+    std::string fileLine = readFile(fileNameIn);
+    std::ofstream ofile(fileNameOut);
     std::string word;
     std::stringstream ss(fileLine);
     while (ss >> word)
@@ -24,26 +31,29 @@ int main()
         }
         else
         {
-            if (num > s->size())
+            if (size_t(num) > s->size())
             {
-                num = s->size();
+                //Shrink num so that it doesn't
+                //go beyond 
+                num = s->size();                
             }
-
             //Will run a maximum of n times
+            //
             for (int i = 0; i < num; i++)
             {
                 if (s->top() == -1)
                 {
-                    std::cout << "white ";
+                    ofile << "white ";
                 }
                 else
                 {
-                    std::cout << "black ";
+                    ofile << "black ";
                 }
 
                 s->pop();
             }
-            std::cout << std::endl;
+            ofile << std::endl;
         }
     }
+    ofile.close();
 }

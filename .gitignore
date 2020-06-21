@@ -33,3 +33,5 @@ hw4/obj/*.o
 hw4/*.exe
 hw4/stack_test.exe
 hw4/.vscode/settings.json
+hw3/.vscode/settings.json
+hw4/laundry.out
