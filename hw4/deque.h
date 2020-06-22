@@ -133,6 +133,9 @@ Deque<T>::~Deque()
 template <typename T>
 Deque<T>::Deque(size_t capacity)
 {
+   if(capacity==0){
+      capacity=1;
+   }
    _elements = new T[capacity];
    _MAX = capacity;
    _size = 0;
