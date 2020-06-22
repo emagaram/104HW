@@ -6,46 +6,35 @@ OUT = obj
 CREATE_DIR = mkdir -p
 DELETE_FILE = rm -f
 
-
-GTEST_LIB = ../../googletest/build/lib
-GTEST_INCLUDE = ../../googletest/googletest/include/
-COMPILE_GTEST_OBJ = $(CC) -std=c++17 -Wall -I h -I $(GTEST_INCLUDE) -c -ggdb -g
-COMPILE_GTEST_EXE = $(CC) -std=c++17 -I h -pthread -ggdb -g
+GTEST_LL = -I /usr/include/gtest/ -l gtest -l gtest_main -pthread
 
 $(shell $(CREATE_DIR) $(OUT))
 
-all: tests.exe deque.exe deque_test.exe stack_test.exe laundry remdup.exe
+all: tests laundry remdup deque_test stack_test
 
-remdup.exe: rem_dup.cpp $(OUT)/rem_dup_lib.o
-	$(COMPILE_EXE) rem_dup.cpp $(OUT)/rem_dup_lib.o -o remdup.exe
+remdup: rem_dup.cpp $(OUT)/rem_dup_lib.o
+	$(COMPILE_EXE) rem_dup.cpp $(OUT)/rem_dup_lib.o -o remdup
 
 laundry: laundry.cpp stack.h
 	$(COMPILE_EXE) laundry.cpp stack.h -o laundry
 
-deque.exe: deque.h deque.cpp
-	$(COMPILE_EXE) deque.h deque.cpp -o deque.exe
+tests: tests.cpp $(OUT)/rem_dup_lib.o
+	$(COMPILE_EXE) tests.cpp $(OUT)/rem_dup_lib.o -o tests
 
-tests.exe: tests.cpp $(OUT)/rem_dup_lib.o
-	$(COMPILE_EXE) tests.cpp $(OUT)/rem_dup_lib.o -o tests.exe
+deque_test: $(OUT)/deque_test.o $(OUT)/rem_dup_lib.o
+	$(COMPILE_EXE) $(OUT)/deque_test.o $(OUT)/rem_dup_lib.o $(GTEST_LL) -o deque_test
 
-deque_test.exe: $(OUT)/deque_test.o $(OUT)/rem_dup_lib.o
-	$(COMPILE_GTEST_EXE) $(OUT)/deque_test.o $(OUT)/rem_dup_lib.o $(GTEST_LIB)/libgtest_main.a $(GTEST_LIB)/libgtest.a -o deque_test.exe
-
-stack_test.exe: $(OUT)/stack_test.o
-	$(COMPILE_GTEST_EXE) $(OUT)/stack_test.o $(GTEST_LIB)/libgtest_main.a $(GTEST_LIB)/libgtest.a -o stack_test.exe
+stack_test: $(OUT)/stack_test.o
+	$(COMPILE_EXE) $(OUT)/stack_test.o $(GTEST_LL) -o stack_test
 
 $(OUT)/stack_test.o: stack_test.cpp
-	$(COMPILE_GTEST_OBJ) stack_test.cpp -o $(OUT)/stack_test.o
-
+	$(COMPILE_OBJ) stack_test.cpp -o $(OUT)/stack_test.o
 
 $(OUT)/deque_test.o: deque_test.cpp
-	$(COMPILE_GTEST_OBJ) deque_test.cpp -o $(OUT)/deque_test.o
+	$(COMPILE_OBJ) deque_test.cpp -o $(OUT)/deque_test.o
 
 $(OUT)/rem_dup_lib.o: rem_dup_lib.h rem_dup_lib.cpp
 	$(COMPILE_OBJ) rem_dup_lib.cpp -o $(OUT)/rem_dup_lib.o
-
-$(OUT)/deque.o: deque.h 
-	$(COMPILE_OBJ) deque.h -o $(OUT)/deque.o
 
 .PHONY:  clean
 

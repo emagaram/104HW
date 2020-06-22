@@ -9,4 +9,5 @@ int main()
     d->push_front(8);
     d->pop_back();
     std::cout << "Ended!";
+    delete d;
 }

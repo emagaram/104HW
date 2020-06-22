@@ -37,6 +37,10 @@ Item *readAndCreateList(std::ifstream &iFile)
 int main(int argc, char *argv[])
 {
     std::ifstream iFile(argv[1]);
+    if(iFile.fail()){
+        std::cout << "File doesn't exist" << std::endl;
+        return 0;
+    }
     std::ofstream oFile(argv[2]);
     Item *head1 = readAndCreateList(iFile);
     removeConsecutive(head1);

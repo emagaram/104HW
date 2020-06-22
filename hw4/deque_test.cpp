@@ -1,7 +1,6 @@
-#include "gtest\gtest.h"
-#include "rem_dup_lib.h"
+#include "gtest/gtest.h"
 #include "deque.h"
-#include <string>
+#include "rem_dup_lib.h"
 namespace myDeque
 {
 
@@ -119,12 +118,15 @@ namespace myDeque
         EXPECT_EQ(cop->val, 0);
         EXPECT_EQ(cop->next->val, 1);
         EXPECT_EQ(cop->next->next->next->val, 3);
-
-        delete cop;
-        delete a;
-        delete b;
-        delete c;
+        while(cop!=nullptr){
+        	Item* copy = cop->next;
+        	delete cop;
+        	cop=copy;
+		}        
         delete d;
+        delete c;
+        delete b;
+        delete a;
     }
 
     TEST(Deque, Concat2LinkedLists)
@@ -138,16 +140,23 @@ namespace myDeque
         Item *newHead = concatenate(a, e);
         EXPECT_EQ(newHead->val, 0);
         int i = 1;
+        Item* headHolder = newHead;
         while (newHead->next != nullptr)
         {
             i++;
             newHead = newHead->next;
         }
         EXPECT_EQ(i, 5);
-        delete a;
-        delete b;
-        delete c;
         delete d;
+        delete c;
+        delete b;
+        delete a;
+        delete e;
+        while(headHolder!=nullptr){
+        	Item* copy = headHolder->next;
+        	delete headHolder;
+        	headHolder=copy;
+		}
     }
 
     TEST(Deque, RemoveConsecItems1Item)
@@ -155,6 +164,7 @@ namespace myDeque
         Item *a = new Item(101, nullptr);
         removeConsecutive(a);
         EXPECT_EQ(a->val, 101);
+        delete a;
     }
 
     TEST(Deque, RemoveConsec4Items)
@@ -182,10 +192,10 @@ namespace myDeque
         EXPECT_EQ(actual[1], 1);
         EXPECT_EQ(actual[2], 9);
         EXPECT_EQ(actual[3], 9);
-        delete a;
-        delete b;
-        delete c;
         delete d;
+        delete c;
+        delete b;
+        delete a;
     }
 
-} // namespace myDeque
+}

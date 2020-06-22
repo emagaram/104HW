@@ -1,4 +1,4 @@
-#include "gtest\gtest.h"
+#include "gtest/gtest.h"
 #include "stack.h"
 namespace myStack
 {
@@ -9,6 +9,7 @@ namespace myStack
         stack->push(1);
         stack->push(2);
         EXPECT_EQ(stack->size(), size_t(3));
+        delete stack;
     }
 
     TEST(Stack, pop)
@@ -23,6 +24,7 @@ namespace myStack
 
         EXPECT_THROW(stack->pop(), std::underflow_error);
         EXPECT_EQ(stack->size(), size_t(0));
+        delete stack;
     }
 
     TEST(Stack, top)
@@ -32,5 +34,6 @@ namespace myStack
         EXPECT_EQ(stack->top(), 867);
         stack->push(82);
         EXPECT_EQ(stack->top(), 82);
+        delete stack;
     }
 } // namespace myStack
