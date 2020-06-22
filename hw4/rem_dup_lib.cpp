@@ -8,6 +8,7 @@ void removeConsecutive(Item *head)
         if (head->next->val == head->val)
         {
             Item *temp = head->next->next;
+            delete head->next;
             head->next = temp;
             removeConsecutive(head); //Run again on head in case of another duplicate
         }

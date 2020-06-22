@@ -3,6 +3,14 @@
 #include <sstream>
 #include "rem_dup_lib.h"
 
+void deleteLL(Item* head){
+        while(head!=nullptr){
+            Item* copy = head->next;
+            delete head;
+            head=copy;
+        }    
+}
+
 std::string reverseString(std::string input)
 {
 
@@ -34,6 +42,9 @@ Item *readAndCreateList(std::ifstream &iFile)
     }
     return head;
 }
+
+
+
 int main(int argc, char *argv[])
 {
     std::ifstream iFile(argv[1]);
@@ -46,7 +57,7 @@ int main(int argc, char *argv[])
     removeConsecutive(head1);
     Item *head2 = readAndCreateList(iFile);
     Item *final = concatenate(head1, head2);
-
+    Item* finalHead = final;
     //prints out final list
     while (final != nullptr)
     {
@@ -57,4 +68,7 @@ int main(int argc, char *argv[])
         }
         final = final->next;
     }
+    deleteLL(finalHead);
+    deleteLL(head1);
+    deleteLL(head2);
 }

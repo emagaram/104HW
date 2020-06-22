@@ -192,9 +192,7 @@ namespace myDeque
         EXPECT_EQ(actual[1], 1);
         EXPECT_EQ(actual[2], 9);
         EXPECT_EQ(actual[3], 9);
-        delete d;
         delete c;
-        delete b;
         delete a;
     }
 
