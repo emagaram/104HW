@@ -141,3 +141,23 @@ In tail recursion, you perform your calculations first, and then you execute the
 The consequence of this is that once you are ready to perform your next recursive step, you don't need the current stack frame any more. This allows for some optimization. In fact, with an appropriately written compiler, you should never have a stack overflow snicker with a tail recursive call. Simply reuse the current stack frame for the next recursive step. I'm pretty sure Lisp does this.
 
 If the function is virtual, it looks at obj referenced. Else, it looks at pointer.
+
+If private or protected inheritance is used, the derived class is no longer type-compatible with base class
+
+If a private/protected class is inherited, the pointer Car* c = new Vehicle() WONT work
+
+Coupling is the measure of the degree of interdependence between the modules. A good software will have low coupling.
+
+
+Inheritance and visibility
+Private, protected and public also apply to the type of inheritance. Look back at this line:
+
+class Student : public Person {
+
+Putting the word public in front of Person means that we are using public inheritance. That is, every function and data member in Person has the same level of protection in Student. This will not make every element in A public — if an element was protected in A, it will be protected in B, and if an element was private in A, it will be private in B.
+
+Protected inheritance means that all private and protected elements in A will remain at the same access level in B, but all public elements will now be protected in B. This means that every element in B that was in inherited from A is now either protected or private.
+
+Finally, private inheritance means that all elements inherited from A in B are private.
+
+When would you use these types of inheritance? Let's take a look back at our UscStudent class. A UscStudent is a type of Student, and needs to have the same data members as Student. However, imagine that is someone is using our UscStudent class, we only want them to have access to a few functions, like printTranscript() and getUscEmail(), and we don't want them to have access to the setGPA() function. We can make UscStudent protectedly inherit from Student.
