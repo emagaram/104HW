@@ -41,3 +41,12 @@ hw4/output.txt
 104Midterm/*.exe
 104Midterm/*.o
 104Midterm/.vscode/*.json
+hw2/.vscode/ulaunch.json
+hw1/.vscode/ulaunch.json
+hw2/.vscode/launch.json
+hw2/.vscode/tasks.json
+hw2/.vscode/utasks.json
+hw4/.vscode/launch.json
+hw4/.vscode/tasks.json
+hw4/.vscode/ulaunch.json
+hw4/.vscode/utasks.json

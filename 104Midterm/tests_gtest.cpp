@@ -1,10 +1,12 @@
 #include "gtest/gtest.h"
 
+
+//valgrind --leak-check=yes ./programname!
 namespace
 {
     TEST(Prob1, Name1)
     {
-
+        int x;
     }
 
     TEST(Prob1, Name2)

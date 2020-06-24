@@ -1,0 +1,25 @@
+Encapsulation: Code + data together with controlled access. Group data and code
+that operates on that data together into one unit. Only expose a well-defined interface
+to control misuse of the code by other programmers. Related to Abstraction since it
+also hides of data and implementation details. Type: indicates how much memory 
+will be required, what the bits mean (i.e. data [including objects] vs. address), 
+and what operations can be performed. Classes versus structs: Structs have public
+data members, classes are default private. Structs can’t have functions. Object
+Assignment: Assigning one object to another will perform an member-by-member copy of
+the entire source object to the destination object (p2=p1); -> operator: 
+(*struct_ptr).member equivalent to struct_ptr->member Declaring objects using 
+pointers: student *stu = new student; (still have to ref it by *stu). In C, arguments 
+must be a single value. If you pass an array, it will be a pointer. However, objects 
+are the exception but it will make a copy of the object!! Boolalpha: returns true if 
+numbers aren’t zero. Returns true/false instead of 0/1. Binary Data: Bytes are 
+interpreted as binary data specified by file format (0x67 or if 32-bit int, 0x00067) 
+
+Text data: bytes are interpreted as a series of ASCII characters (Image files, videos, 
+audio, compiled executables)
+
+
+Vectors
+The Good: – Fast access for random access (i.e. indexed access such as myvec[6]) – Allows for ‘fast’ addition or removal of items at the back of the vector • The Bad: – Erasing / removing item at the front or in the middle (it will have to copy all items behind the removed item to the previous slot) – Adding too many items (vector allocates more memory that needed to be used for additional push_back()’s…but when you exceed that size it will be forced to allocate a whole new block of memory and copy over every item
+
+Double ended queues
+Double-ended queues (like their name sounds) allow for efficient (fast) additions and removals from either 'end' (front or back) of the list/queue • Performance: – Slightly slower at random access (i.e. array style indexing access such as: data[3]) than vector – Fast at adding or removing items at front or back
