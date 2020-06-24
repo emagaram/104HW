@@ -10,10 +10,10 @@ GTEST_INCLUDE = -I ../../googletest/googletest/include/ #location of gtest on my
 EXE = .exe
 
 
-#	GTEST_MAIN = -l gtest_main
-#	GTEST_CORE = -l gtest
-#	GTEST_INCLUDE = -I /usr/include/gtest/
-#	EXE = 
+#GTEST_MAIN = -l gtest_main
+#GTEST_CORE = -l gtest
+#GTEST_INCLUDE = -I /usr/include/gtest/
+#EXE = 
 
 
 all: tests_gtest$(EXE)
