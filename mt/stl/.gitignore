@@ -1,0 +1,6 @@
+.idea
+cmake-build-debug
+piazza-tests
+piazza-grading-tests
+*.o
+bin/

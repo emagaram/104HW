@@ -1,0 +1,6 @@
+.idea
+cmake-build-debug
+lliter-grading-tests
+lliter-test
+*.o
+bin/
