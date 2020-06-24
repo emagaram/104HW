@@ -16,7 +16,6 @@ std::vector<std::string> makeWords(const std::string& s)
 // Complete the constructor below as needed
 Piazza::Piazza()
 {
-
 }
 
 // Complete the destructor below as needed
@@ -34,6 +33,8 @@ void Piazza::addPost(const std::string& data, bool pinned)
   // You may change this line and add the remainder of your
   // implementation
   std::vector<std::string> words = makeWords(data);
+  push_front(data);
+  
 
 
   
@@ -44,16 +45,25 @@ void Piazza::addPost(const std::string& data, bool pinned)
 // of posts and t is the number of words per post
 size_t Piazza::numMatches(const std::string& term)
 {
+	Post* begin = head;
+	size_t count = 0;
 
-
+	while(begin->next!=nullptr){
+		std::vector<string> items = begin->termIndex;
+		for(int i = 0; i< items.size(); i++){
+			if(items[i]==term){
+				count++;
+				break;
+			}
+		}
+		begin = begin->next;
+	}
 }
 
 // Complete the code below.
 // Must run in O(i)
 const std::string& Piazza::getIthMostRecentPost(size_t i)
-{
-
-  
+{ 
 }
 
 // Complete the code below.
