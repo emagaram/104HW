@@ -25,6 +25,9 @@ all: tests_gtest$(EXE)
 tests_gtest$(EXE) : tests_gtest.o #.o files here
 	$(COMPILE_EXE) -pthread $(GTEST_INCLUDE) $(GTEST_MAIN) $(GTEST_CORE) $^ -o $@
 
+#ptrTest1$(EXE): ptrTest1.cpp
+#	$(COMPILE_EXE) $^ -o $@
+
 # $<, first dependency, .cpp file first.
 # $@, name of the rule. 
 

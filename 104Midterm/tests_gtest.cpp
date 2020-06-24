@@ -8,6 +8,8 @@ namespace
     {
         int x;
         x=9;
+        x++;
+        x--;
 
     }
 

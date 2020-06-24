@@ -23,3 +23,121 @@ The Good: – Fast access for random access (i.e. indexed access such as myvec[6
 
 Double ended queues
 Double-ended queues (like their name sounds) allow for efficient (fast) additions and removals from either 'end' (front or back) of the list/queue • Performance: – Slightly slower at random access (i.e. array style indexing access such as: data[3]) than vector – Fast at adding or removing items at front or back
+
+Composition relationship: "Has-a" relationship
+
+Static binding: The parent class defines a function. DIRECTLY linked to class.
+It's the opposite of virtual
+
+Stream: A series of data (usually single characters) one after the other. 
+Input streams we perform extraction on them, output we use insertion 
+(double-check this). Interface: a programming structure/syntax that allows 
+the computer to enforce certain properties on an object (class). For example, 
+say we have a car class and a scooter class and a truck class. Each of these
+ three classes should have a start_engine() action. Binary Data: Bytes are 
+ interpreted as binary data specified by file format (0x67 or if 32-bit int,
+  0x00067) Text data: bytes are interpreted as a series of ASCII characters
+   (Image files, videos, audio, compiled executables) C++ Coding Words: 
+   #include <fstream>: for Ifstream, Stream.getline((char *buf, int bufsize): 
+   if you want to input/output lines of text, can be used with any stream type. 
+   Reads up to max-1 characters (so that it avoids the “\n” new line) and 
+   inserts the NULL-char for you. istream& getline(istream &is, string &str, 
+   char delim); – is = any input stream (ifstream, cin), etc.) – str = A C++ 
+   string that it will fill in with text. delim = A char to stop on (by default
+    it is '\n') which is why its called getline. – Returns the updated istream 
+    (the 'is' object you passed in as the 1st arg). The text from the input 
+    stream will be read up through the first occurrence of 'delim' (defaults to 
+    ') and placed into str. The delimiter will be stripped from the end of str 
+    and the input stream will be pointing at the first character after 'delim'
+    .OS ‘<‘ input redirection: Takes the contents of a file and makes this the
+     ‘stdin’ of your program (./zombies < test1.txt) OS ‘>’ output redirection:
+      ‘>’ takes the stdout (aka would normally go to terminal from cout) and
+       redirects it to a file. ./randgen 10 100 > random.txt Pipe: the | (pipe)
+        connects the stdout of one program to the stdin of another. Everything
+         you ‘cout’ in one program becomes the source for ‘cin’ in the 2nd..
+         /randgen 10 100 | ./average ON POINTERS: * returns data inside memory
+          address but when declaring, i.e. int* x, it is so the computer knows
+           how to make a variable that holds an address. & returns memory 
+           address of a “regular” variable (int p). Pointer examples: int *ptr1;
+           r1 = &x; //ptr1 = 0x20bc4; ptr1 = &dat[0]; // ptr1 is now 0x20bd0 Default
+           string: “” Encapsulation: Code + data together with controlled access. 
+           Group data and code that operates on that data together into one unit. 
+           Only expose a well-defined interface to control misuse of the code by
+            other programmers. Related to Abstraction since it also hides of data
+             and implementation details. Type: indicates how much memory will be 
+             required, what the bits mean (i.e. data [including objects] vs. address),
+              and what operations can be performed. Classes versus structs: 
+              Structs have public data members, classes are default private.
+               Structs can’t have functions. Object Assignment: Assigning 
+               one object to another will perform an member-by-member copy
+                of the entire source object to the destination object (p2=p1);
+                 -> operator: (*struct_ptr).member equivalent to 
+                 struct_ptr->member Declaring objects using pointers: student
+                  *stu = new student; (still have to ref it by *stu). In C,
+                   arguments must be a single value. If you pass an array, it
+                    will be a pointer. However, objects are the exception but
+                     it will make a copy of the object!! Boolalpha: returns 
+                     true if numbers aren’t zero. Returns true/false instead 
+                     of 0/1. Constants are value of variables not X. Statements:
+                     t x =  10; Int y; Int main() Expressions: Pieces of code 
+                     that are evaluated to a result. C-Strings: Both c* and c[] 
+                     mean the same thing when using it as a function parameter
+                      (c+7 refers to 8th array item). C-string end with a "\0"
+                       character to mark the end. If "adau\0fafue" was printed,
+                        "fafue" woudn't be printed. A c-string is not a type, 
+                        it's a convention. Array declaration: char *names[10]; 
+                        If you declare it as a char**, then you will have to 
+                        dynamically allocate it. Same with other types. 
+                        Linearization of arrays: 1D already linearized.
+ Arrays linearized by going left to right, down a row, then left to 
+ right again. If 3d array, go through first 2d layer then jump to second.
+  Like going through files in a file cabinet. Attributes of variable: Name,
+   type, location, value. Strcopy runs until it finds null character. Strn 
+   copy is safer. Argv[i] points to a char*. Atoi turns a character/string to 
+   an integer. Order of operations: ! && () order. Look at lecture slides.
+    Compiler: Takes code and turns it into binary. Some compilers help you too
+     much and give. It looks at code and see if it's a VALID piece of C++. If
+      you want a data type to live outside of brackets, dynamically allocate 
+      it. Time complexity: Find out number of comparisons. Selection Sort (N^2),
+       Quicksort (NlogN), Binary Search (LogN), Bubble Sort (N^2), 
+       Sequential Search (N). Enumerations: Associates an integer (number) 
+       with a symbolic name: enum [optional_collection_name] {Item1, Item2, 
+       … ItemN} – Item1 = 0 – Item2 = 1 – … – ItemN = N-1. Pointer size: 
+       4 bytes in 32 bit, 8 bytes in 64bits. Vector initialization: 
+       Vector<vector<int> > myvec(10); Has functions like pop_back() and 
+       push_back(); If there are errors after compiling, then you have a
+        run-time error. Representation: mapping from silly binary to meaningful
+         information. Float (32 bits). 7 digits of decimal precision. 
+         Double (64), 16 digits of decimal precision. int my_array[50] = 
+         50 * 4 = 200 bytes allocated. Base case: Small version of problem 
+         whose known beforehand or easily computable (no recursion needed). 
+         Recursive case: Solution can be described using solutions to smaller
+          problems of the same type. Contiguous: next to each other. LinkedLists
+           do NOT have contiguous items. Most operations on a linked list require
+           check to determine two potential cases: if the list IS empty or NOT 
+           empty: May be necessary to avoid dereferencing a NULL pointer (i.e. 
+           segfault) – Or if the list is empty we may need to modify head. 
+           Vectors: The Good: – Fast access for random access (i.e. indexed 
+           access such as myvec[6]) – Allows for ‘fast’ addition or removal of
+            items at the back of the vector • The Bad: – Erasing / removing item
+             at the front or in the middle (it will have to copy all items behind
+              the removed item to the previous slot) – Adding too many items 
+              (vector allocates more memory that needed to be used for additional
+               push_back()’s…but when you exceed that size it will be forced to 
+               allocate a whole new block of memory and copy over every item 
+               Double ended queues: Double-ended queues (like their name sounds)
+                allow for efficient (fast) additions and removals from either 
+                'end' (front or back) of the list/queue • Performance: – Slightly
+                slower at random access (i.e. array style indexing access 
+                such as: data[3]) than vector – Fast at adding or removing
+                 items at front or back
+
+
+
+n traditional recursion, the typical model is that you perform your recursive calls first, and then you take the return value of the recursive call and calculate the result. In this manner, you don't get the result of your calculation until you have returned from every recursive call.
+
+In tail recursion, you perform your calculations first, and then you execute the recursive call, passing the results of your current step to the next recursive step. This results in the last statement being in the form of (return (recursive-function params)). Basically, the return value of any given recursive step is the same as the return value of the next recursive call.
+
+The consequence of this is that once you are ready to perform your next recursive step, you don't need the current stack frame any more. This allows for some optimization. In fact, with an appropriately written compiler, you should never have a stack overflow snicker with a tail recursive call. Simply reuse the current stack frame for the next recursive step. I'm pretty sure Lisp does this.
+
+If the function is virtual, it looks at obj referenced. Else, it looks at pointer.
