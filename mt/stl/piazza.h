@@ -19,7 +19,16 @@ struct Post {
       termIndex.insert(word);
     }
   }
-  
+   Post(const std::string& val, Post* nxt, bool pinned) : text(val), next(nxt), isPinned(pinned)
+  {
+    std::string word;
+    std::stringstream ss(text); 
+    while(ss >> word){
+      termIndex.insert(word);
+    }
+  }
+
+  bool isPinned = false;
   std::string text;
   Post* next;
   // You may add other data members here (recall they are public)
@@ -48,7 +57,7 @@ class PostList {
 // You may choose the kind of inheritance and/or data members of this class
 // as well as adding private helper functions if you so choose.
 
-class Piazza : public PostList /* <choose kind of inheritance */{
+class Piazza : protected PostList /* <choose kind of inheritance */{
  public:
   Piazza();  // Constructor
   ~Piazza(); // Destructor - Clean up any necessary memory

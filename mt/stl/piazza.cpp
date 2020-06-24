@@ -32,8 +32,10 @@ void Piazza::addPost(const std::string& data, bool pinned)
 {
   // You may change this line and add the remainder of your
   // implementation
+  Post* p = new Post(data, head,pinned);
   std::vector<std::string> words = makeWords(data);
-  push_front(data);
+  p->next=head;
+  head=p;
   
 
 
@@ -48,13 +50,11 @@ size_t Piazza::numMatches(const std::string& term)
 	Post* begin = head;
 	size_t count = 0;
 
-	while(begin->next!=nullptr){
-		std::vector<string> items = begin->termIndex;
-		for(int i = 0; i< items.size(); i++){
-			if(items[i]==term){
-				count++;
-				break;
-			}
+	while(begin!=nullptr){
+		std::set<std::string> items = begin->termIndex;
+
+		if(items.find(term)!=items.end()){
+			count++;
 		}
 		begin = begin->next;
 	}
@@ -64,13 +64,19 @@ size_t Piazza::numMatches(const std::string& term)
 // Must run in O(i)
 const std::string& Piazza::getIthMostRecentPost(size_t i)
 { 
+	Post* it=head;
+	size_t count = 0;
+	while(count!=i){
+		it=it->next;
+		count++;
+	}
+	return it->text;
 }
 
 // Complete the code below.
 // Must run in O(i)
 const std::string& Piazza::getIthMostRecentPinnedPost(size_t i)
 {
-
-  
+ 
 }
 
