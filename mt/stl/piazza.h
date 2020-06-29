@@ -12,13 +12,29 @@
 // A single post that can form a linked list
 struct Post {
   Post(const std::string& val, Post* nxt) : text(val), next(nxt)
-  {}
-  
+  {
+    std::string word;
+    std::stringstream ss(text); 
+    while(ss >> word){
+      termIndex.insert(word);
+    }
+  }
+   Post(const std::string& val, Post* nxt, bool pinned) : text(val), next(nxt), isPinned(pinned)
+  {
+    std::string word;
+    std::stringstream ss(text); 
+    while(ss >> word){
+      termIndex.insert(word);
+    }
+  }
+
+  bool isPinned = false;
   std::string text;
   Post* next;
   // You may add other data members here (recall they are public)
   std::set<std::string> termIndex;
 };
+
 
 // A linked list of posts with limited capabilities
 // You MAY NOT ALTER THIS CLASS. IT IS COMPLETE.
@@ -41,12 +57,10 @@ class PostList {
 // You may choose the kind of inheritance and/or data members of this class
 // as well as adding private helper functions if you so choose.
 
-class Piazza : /* <choose kind of inheritance */ PostList
-{
+class Piazza : protected PostList /* <choose kind of inheritance */{
  public:
   Piazza();  // Constructor
   ~Piazza(); // Destructor - Clean up any necessary memory
-
   /// Adds a new post with the given string and performs any preprocessing
   /// necessary to support case-sensitive searches for individual words.
   ///  @param[in] data - text of the post to add
@@ -80,11 +94,8 @@ class Piazza : /* <choose kind of inheritance */ PostList
   // You may use `std::vector`, `std::set`, and `std::map`.
   // You may not use `std::list`. If you want a linked-list you will
   // need to use code provided or write code to manage it yourelf.
-
-
-
-  
 };
+
 
 #endif
 
