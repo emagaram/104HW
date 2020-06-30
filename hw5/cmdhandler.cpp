@@ -221,6 +221,12 @@ Handler::HANDLER_STATUS_T TweetHandler::process(TwitEng *eng, std::istream &inst
 	std::getline(instr, line);
 	std::stringstream ss(line);
 	ss >> name;
+
+	std::map<string, User*> copyUsers = eng->getUsers();
+	if(copyUsers.find(name)==copyUsers.end()){
+		return HANDLER_OK;
+	}
+
 	while (ss >> word)
 	{
 		tweet += " " + word;

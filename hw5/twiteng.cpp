@@ -119,28 +119,25 @@ void TwitEng::addTweet(const std::string &username, const DateTime &time, const 
  * @param timestamp of the tweet
  * @param text is the actual text of the tweet as a single string
  */
-	if (_users.find(username) != _users.end())
-	{
-		User *user = _users.find(username)->second;
-		Tweet *newTweet = new Tweet(user, time, text);
-		user->addTweet(newTweet);
+	User *user = addOrFindUser(username);
+	Tweet *newTweet = new Tweet(user, time, text);
+	user->addTweet(newTweet);
 
-		std::set<std::string> ht = newTweet->hashTags();
-		std::set<std::string>::iterator htIt = ht.begin();
-		while (htIt != ht.end())
+	std::set<std::string> ht = newTweet->hashTags();
+	std::set<std::string>::iterator htIt = ht.begin();
+	while (htIt != ht.end())
+	{
+		if (_hashTagIndex.find(*htIt) == _hashTagIndex.end())
 		{
-			if (_hashTagIndex.find(*htIt) == _hashTagIndex.end())
-			{
-				std::set<Tweet *> tweets;
-				tweets.insert(newTweet);
-				_hashTagIndex.insert(std::pair<std::string, std::set<Tweet *>>(*htIt, tweets));
-			}
-			else
-			{
-				_hashTagIndex.find(*htIt)->second.insert(newTweet);
-			}
-			htIt++;
+			std::set<Tweet *> tweets;
+			tweets.insert(newTweet);
+			_hashTagIndex.insert(std::pair<std::string, std::set<Tweet *>>(*htIt, tweets));
 		}
+		else
+		{
+			_hashTagIndex.find(*htIt)->second.insert(newTweet);
+		}
+		htIt++;
 	}
 }
 
@@ -190,7 +187,7 @@ std::vector<Tweet *> TwitEng::search(std::vector<std::string> &terms, int strate
 {
 	std::set<Tweet *> result;
 
-	for (int i = 0; i < terms.size(); i++)
+	for (size_t i = 0; i < terms.size(); i++)
 	{
 		if (_hashTagIndex.find(terms[i]) != _hashTagIndex.end())
 		{
@@ -223,7 +220,7 @@ void TwitEng::dumpFeeds()
 
 		std::vector<Tweet *> feed = u->getFeed();
 		std::sort(feed.begin(), feed.end(), TweetComp());
-		for (int i = 0; i < feed.size(); i++)
+		for (size_t i = 0; i < feed.size(); i++)
 		{
 			if (i == 0)
 			{
@@ -248,21 +245,6 @@ User *TwitEng::addOrFindUser(std::string word)
 	{
 		user = new User(word);
 		_users.insert(std::pair<std::string, User *>(user->name(), user));
-	}
-	else
-	{
-		user = userIt->second;
-	}
-	return user;
-}
-
-User *TwitEng::findUser(std::string word)
-{
-	User *user;
-	std::map<std::string, User *>::iterator userIt = _users.find(word);
-	if (userIt == _users.end())
-	{
-		return nullptr;
 	}
 	else
 	{

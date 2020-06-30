@@ -2,9 +2,11 @@
 #include "doctest.h"
 #include "user.cpp"
 #include "twiteng.cpp"
+#include "tweet.cpp"
 User ez("ezra");
 User *a = &ez;
 User james("james");
+User bob("bob");
 
 DateTime y2010(10, 10, 10, 2010, 10, 10);
 DateTime y2011(10, 10, 10, 2011, 10, 10);
@@ -14,6 +16,8 @@ Tweet t2013(a, y2013, "hi ezra!");
 Tweet t2012(a, y2012, "hi");
 Tweet t2011(a, y2011, "hi");
 Tweet t2010(a, y2010, "hi");
+
+
 
 
 TEST_CASE("Search AND"){
