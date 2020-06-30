@@ -8,33 +8,34 @@
 
 using namespace std;
 
-Handler* createHandlers();
+Handler *createHandlers();
 
-Handler* createHandlers()
+Handler *createHandlers()
 {
   return new AndHandler(
-    new OrHandler(
-      new TweetHandler(
-        new QuitHandler
-      )
-    )
-  );
+      new OrHandler(
+          new TweetHandler(
+              new QuitHandler(
+                  new FollowHandler(
+                      new SaveHandler)))));
 }
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
-  if(argc < 2){
+  if (argc < 2)
+  {
     cerr << "Please provide the twitter data file" << endl;
     return 1;
   }
   TwitEng twit;
-  if ( twit.parse(argv[1]) ){
+  if (twit.parse(argv[1]))
+  {
     cerr << "Unable to parse " << argv[1] << endl;
     return 1;
   }
 
   // Initialize command handlers
-  Handler* handlers = createHandlers();
+  Handler *handlers = createHandlers();
 
   cout << "=====================================" << endl;
   cout << "Menu: " << endl;
@@ -45,17 +46,18 @@ int main(int argc, char* argv[])
   cout << "=====================================" << endl;
 
   Handler::HANDLER_STATUS_T status = Handler::HANDLER_OK;
-  while(status != Handler::HANDLER_QUIT && 
-        status != Handler::HANDLER_KILL)
+  while (status != Handler::HANDLER_QUIT &&
+         status != Handler::HANDLER_KILL)
   {
     cout << "\nEnter command: " << endl;
     string line;
-    getline(cin,line);
+    getline(cin, line);
     stringstream ss(line);
     string cmd;
-    if((ss >> cmd)){
+    if ((ss >> cmd))
+    {
       // convert to upper case
-      convUpper(cmd); 
+      convUpper(cmd);
       // Invoke the chain of responsibility
       status = handlers->handle(&twit, cmd, ss);
     }

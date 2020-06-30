@@ -50,12 +50,14 @@ public:
   std::string parseTweet(std::string line);
   /* You may add other member functions */
 private:
-
+User* findUser(std::string name);
 User* addOrFindUser(std::string name);
   /* Add any other data members or helper functions here  */
   int _userCount;
   std::map<std::string, User *> _users;
   std::map<std::string, std::set<Tweet*>> _hashTagIndex; 
 };
+
+
 
 #endif

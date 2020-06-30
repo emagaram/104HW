@@ -27,7 +27,7 @@
       "type": "shell",
       "label": "Make .o (for active file)",
       "command": "make",
-      "args": ["obj/${fileBasenameNoExtension}.o"],
+      "args": ["${fileBasenameNoExtension}.o"],
       "options": {
         "cwd": "${fileDirname}"
       },
@@ -38,7 +38,7 @@
       "type": "shell",
       "label": "Make .exe (for active file)",
       "command": "make",
-      "args": ["${fileBasenameNoExtension}.exe"],
+      "args": ["${fileBasenameNoExtension}"],
       "options": {
         "cwd": "${fileDirname}"
       },

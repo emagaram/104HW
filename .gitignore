@@ -50,3 +50,5 @@ hw4/.vscode/tasks.json
 hw4/.vscode/ulaunch.json
 hw4/.vscode/utasks.json
 104Midterm
+hw5/*.o
+hw5/*.exe

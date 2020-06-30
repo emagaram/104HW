@@ -4,6 +4,7 @@ CPPFLAGS = -Wall -g
 CFLAGS=
 BLANK= I$(IDIR) -std=c++11 -ggdb
 BIN_DIR  = bin
+DELETE_FILE = rm -f
 GTEST_LL = -I /usr/include/gtest/ -l gtest -l gtest_main -pthread
 
 all: twitter
@@ -39,3 +40,5 @@ util.o: util.cpp util.h
 
 
 clean:
+	$(DELETE_FILE) *.o	
+	$(DELETE_FILE) *.exe
