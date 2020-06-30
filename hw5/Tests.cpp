@@ -19,7 +19,22 @@ Tweet t2010(a, y2010, "hi");
 
 
 
+TEST_CASE("Mention Index has right number of users"){
+    TwitEng te;
+    CHECK(te.getMentionIndex().size()==0);
+    te.addTweet(ez.name(), y2013, "start #pac12 #Hi #FOOTbALL");
+    te.addTweet(james.name(), y2010, "Sports! #fun #paC12");
+    te.addTweet(james.name(), y2010, "This tweet should not increase index");
+    CHECK(te.getMentionIndex().size()==2);
+    te.addTweet(bob.name(), y2010, "This tweet should increase index");
+    CHECK(te.getMentionIndex().size()==3); 
 
+    TwitEng te2;
+    string strfilename = "twitter.dat";
+    char *filename = &strfilename[0];
+    te2.parse(filename);
+    CHECK(te2.getMentionIndex().size()==4);
+}
 TEST_CASE("Search AND"){
     TwitEng te;
     te.addTweet(ez.name(), y2013, "start #pac12 #Hi #FOOTbALL");
@@ -144,21 +159,6 @@ TEST_CASE("parse date")
     // CHECK(dt.sec==14);
 }
 
-TEST_CASE("Dump files test")
-{
-    TwitEng te;
-    string strfilename = "twitter.dat";
-    char *filename = &strfilename[0];
-    try
-    {
-        te.parse(filename);
-        te.dumpFeeds();
-    }
-    catch (std::exception x)
-    {
-       int f; 
-    }
-}
 
 //SOMETHING WEIRD, fails sometimes
 TEST_CASE("add all users and tweets to engine")
@@ -180,6 +180,8 @@ TEST_CASE("add all users and tweets to engine")
     User *jill = users.find("Jill")->second;
     User *tommy = users.find("Tommy")->second;
     CHECK(tommy->tweets().size() == 0);
+    CHECK(jill->tweets().size() == 2);
+
 }
 
 TEST_CASE("convert two digit int function")

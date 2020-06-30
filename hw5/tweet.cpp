@@ -9,6 +9,7 @@
    */
 Tweet::Tweet()
 {
+    _privateViewer = nullptr;
 }
 
 /**
@@ -19,6 +20,7 @@ Tweet::Tweet(User *user, const DateTime &time, const std::string &text)
     _user = user;
     _dateTime = time;
     _text = text;
+    _privateViewer = nullptr;
 
     std::string word;
     std::stringstream ss(text);
@@ -74,6 +76,14 @@ bool Tweet::operator<(const Tweet &other) const
         return true;
     }
     return false;
+}
+
+User* Tweet::getPrivateViewer(){
+    return _privateViewer;
+}
+
+void Tweet::setPrivateViewer(User* u){
+    _privateViewer=u;
 }
 
 /**

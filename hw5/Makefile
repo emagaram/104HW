@@ -45,3 +45,4 @@ util.o: util.cpp util.h
 clean:
 	$(DELETE_FILE) *.o	
 	$(DELETE_FILE) *.exe
+	$(DELETE_FILE) *.feed

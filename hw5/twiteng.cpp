@@ -19,10 +19,69 @@ TwitEng::TwitEng()
 TwitEng::~TwitEng()
 {
 }
+void TwitEng::addToMentionFeeds(Tweet *t)
+{
+	//Simply adds a tweet to a map of all users to their @mentions
+	//Also gives tweets private viewers (a bit messy)
+	std::string name;
+	std::stringstream ss(t->text());
+	bool firstWord = true;
+	while (ss >> name)
+	{
+		if (name.substr(0, 1) == "@")
+		{
+			name = name.substr(1, name.length());
+			if (_mentionFeeds.find(name) != _mentionFeeds.end())
+			{
+				_mentionFeeds.find(name)->second.insert(t);
+				if (firstWord)
+				{
+					t->setPrivateViewer(_users.find(name)->second);
+					// std::set<User *> userFollowing = t->user()->following();
+					// std::set<User *> privateViewerFollowing = t->getPrivateViewer()->following();
+					// if (userFollowing.find(t->getPrivateViewer()) != userFollowing.end() &&
+					// 	privateViewerFollowing.find(t->user()) != privateViewerFollowing.end())
+					// //If they follow each other
+					// {
+					// 	_mentionFeeds.find(name)->second.insert(t);
+					// }
+					break;
+				}
+				// else
+				// {
+				// 	//If not first mentioned then can always be added
+				// 	_mentionFeeds.find(name)->second.insert(t);
+				// }
+			}
+		}
+		firstWord = false;
+	}
+}
 
+void TwitEng::createMentionFeeds()
+{
+	std::map<std::string, User *>::iterator usersIt = _users.begin();
+	while (usersIt != _users.end())
+	{
+		User *u = usersIt->second;
+		std::list<Tweet *> tweetsCopy = u->tweets();
+		std::list<Tweet *>::iterator tweetIt = tweetsCopy.begin();
+		while (tweetIt != tweetsCopy.end())
+		{
+			Tweet *t = *tweetIt;
+			addToMentionFeeds(t);
+			tweetIt++;
+		}
+		usersIt++;
+	}
+}
 std::map<std::string, std::set<Tweet *>> TwitEng::getHashTagIndex()
 {
 	return _hashTagIndex;
+}
+std::map<std::string, std::set<Tweet *>> TwitEng::getMentionIndex()
+{
+	return _mentionFeeds;
 }
 
 bool TwitEng::parse(char *filename)
@@ -53,6 +112,11 @@ bool TwitEng::parse(char *filename)
 		std::stringstream ss(line);
 		ss >> word;
 		User *centerUser = addOrFindUser(word);
+		if (_mentionFeeds.find(word) == _mentionFeeds.end())
+		{
+			std::set<Tweet *> *mentionTweets = new std::set<Tweet *>();
+			_mentionFeeds.insert(std::pair<std::string, std::set<Tweet *>>(word, *mentionTweets));
+		}
 
 		while (ss >> word)
 		{
@@ -69,10 +133,10 @@ bool TwitEng::parse(char *filename)
 			const DateTime dt = parseDate(line);
 			const std::string txt = parseTweet(line);
 			User *u = _users.find(parseName(line))->second;
-			Tweet *t = new Tweet(u, dt, txt);
+			//Tweet *t = new Tweet(u, dt, txt);
 
 			//u->addTweet(t);
-			addTweet(u->name(), dt, t->text());
+			addTweet(u->name(), dt, txt);
 		}
 		std::getline(iFile, line);
 	}
@@ -120,6 +184,15 @@ void TwitEng::addTweet(const std::string &username, const DateTime &time, const 
  * @param text is the actual text of the tweet as a single string
  */
 	User *user = addOrFindUser(username);
+
+	//This shouldn't need to be called here since it will always do nothing but I need
+	//it for my tests to run
+	if (_mentionFeeds.find(username) == _mentionFeeds.end())
+	{
+		std::set<Tweet *> *mentionTweets = new std::set<Tweet *>();
+		_mentionFeeds.insert(std::pair<std::string, std::set<Tweet *>>(username, *mentionTweets));
+	}
+
 	Tweet *newTweet = new Tweet(user, time, text);
 	user->addTweet(newTweet);
 
@@ -207,6 +280,31 @@ std::vector<Tweet *> TwitEng::search(std::vector<std::string> &terms, int strate
 		}
 	}
 	return std::vector<Tweet *>(result.begin(), result.end());
+}
+
+void TwitEng::dumpMentions()
+{
+	createMentionFeeds();
+	std::map<std::string, User *>::iterator userIt = _users.begin();
+	while (userIt != _users.end())
+	{
+		User *u = userIt->second;
+		std::string fname = u->name() += ".mentions";
+		std::ofstream ofile(fname);
+		std::set<Tweet *> userMentionsCopy = _mentionFeeds.find(u->name())->second;
+		std::vector<Tweet *> feed(userMentionsCopy.begin(), userMentionsCopy.end());
+		ofile << u->name() << std::endl;
+		std::sort(feed.begin(), feed.end(), TweetComp());
+		for (size_t i = 0; i < feed.size(); i++)
+		{
+			ofile << *(feed[i]);
+			if (i != feed.size() - 1)
+			{
+				ofile << std::endl;
+			}
+		}
+		userIt++;
+	}
 }
 
 void TwitEng::dumpFeeds()

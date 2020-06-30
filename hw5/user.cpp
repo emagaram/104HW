@@ -70,11 +70,11 @@ void User::addFollowing(User *u)
 }
 bool otherLessThan(const Tweet *a, const Tweet *other)
 {
-    if (other < a)
-    {
-        return true;
-    }
-    return false;
+  if (other < a)
+  {
+    return true;
+  }
+  return false;
 }
 void User::addTweet(Tweet *t)
 {
@@ -97,13 +97,35 @@ vector<Tweet *> User::getFeed()
    * @return vector of pointers to all the tweets from this user
    *         and those they follow in timestamp order
    */
-  list<Tweet *> resultList (_tweets);
+  list<Tweet *> resultList(_tweets);
   for (set<User *>::iterator userIt = _following.begin(); userIt != _following.end(); userIt++)
   {
-    list<Tweet*> copy ((*userIt)->tweets());
-    resultList.merge(copy,otherLessThan);
+    list<Tweet *> copy((*userIt)->tweets());
+    //Go through copy and remove first @mentions if they dont follow each other
+    list<Tweet *>::iterator copyIt = copy.begin();
+    while (copyIt != copy.end())
+    {
+      if ((*copyIt)->getPrivateViewer() != nullptr)
+      {
+        
+        //All these copies are needed so that the equalities will return correct booleans
+        User *viewer = (*copyIt)->getPrivateViewer();
+        std::set<User*> viewerFollowing = viewer->following();
+        std::set<User*> thisFollowing = viewer->following();
+
+
+        if (viewer!=this||viewerFollowing.find(this) == viewerFollowing.end() ||
+            thisFollowing.find(viewer) == thisFollowing.end())
+        {
+          copy.remove(*copyIt);
+        }
+      }
+      copyIt++;
+    }
+
+    resultList.merge(copy, otherLessThan);
   }
-  vector<Tweet*> vec(resultList.begin(),resultList.end());
+  vector<Tweet *> vec(resultList.begin(), resultList.end());
   resultList.erase(resultList.begin(), resultList.end());
   return vec;
 }

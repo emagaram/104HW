@@ -41,20 +41,27 @@ public:
    */
   void dumpFeeds();
 
+  void dumpMentions();
+
   std::map<std::string, User *> getUsers();
 
 
   std::map<std::string, std::set<Tweet*>> getHashTagIndex();
+  std::map<std::string, std::set<Tweet*>> getMentionIndex();
   DateTime parseDate(std::string line);
   std::string parseName(std::string line);
   std::string parseTweet(std::string line);
   /* You may add other member functions */
 private:
-User* addOrFindUser(std::string name);
   /* Add any other data members or helper functions here  */
   int _userCount;
   std::map<std::string, User *> _users;
-  std::map<std::string, std::set<Tweet*>> _hashTagIndex; 
+  std::map<std::string, std::set<Tweet*>> _hashTagIndex;
+  std::map<std::string, std::set<Tweet*>> _mentionFeeds; 
+  void createMentionFeeds();
+  void addToMentionFeeds(Tweet* t);
+  User* addOrFindUser(std::string name);
+  
 };
 
 

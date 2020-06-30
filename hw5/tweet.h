@@ -65,12 +65,16 @@ class Tweet
 
   User* user() const;
 
+  User* getPrivateViewer();
+  void setPrivateViewer(User* u);
+
   /* You may add other member functions */
  private:
   /* Add any other data members or helper functions here  */
   User* _user;
   DateTime _dateTime;
   std::string _text;
+  User* _privateViewer;
   std::set<std::string> _hashTags;
 };
 
