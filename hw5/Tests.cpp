@@ -1,5 +1,6 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include "doctest.h"
+#include "hsort.h"
 #include "user.cpp"
 #include "twiteng.cpp"
 #include "tweet.cpp"
@@ -17,6 +18,45 @@ Tweet t2012(a, y2012, "hi");
 Tweet t2011(a, y2011, "hi");
 Tweet t2010(a, y2010, "hi");
 
+
+TEST_CASE("Heapify works for big array"){
+    const int size = 7;
+    std::vector<int>array = {-1, 9, 5, 3, 5, 14, 10};
+    heapify(array, 1, size, std::less<int>());
+    std::vector<int> expected = {-1, 3, 5, 9, 5, 14, 10};
+    for(int i = 1; i<size;i++){
+        CHECK(array[i]==expected[i]);
+    }
+}
+
+TEST_CASE("Heapify works for array size 1"){
+    std::vector<int>array = {-1, 9};
+    heapify(array, 1, 1, std::less<int>());
+}
+
+TEST_CASE("Heapify works for empty array"){
+    std::vector<int>array = {-1};
+    heapify(array, 1, 1, std::less<int>());
+}
+
+
+// TEST_CASE("Vector swap works"){
+//     std::vector<int> vec(100);
+//     vec[0] = 5;
+//     vec[20] = 78;
+//     swap(vec, 0, 20);
+//     CHECK(vec[0]==78);
+//     CHECK(vec[20]==5);
+
+
+//     std::vector<std::string> vec2(100);
+//     vec2[0] = "5";
+//     vec2[20] = "78";
+//     swap(vec2, 0, 20);
+//     CHECK(vec2[0]=="78");
+//     CHECK(vec2[20]=="5");    
+
+// }
 
 
 TEST_CASE("Mention Index has right number of users"){
