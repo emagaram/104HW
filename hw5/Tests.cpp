@@ -19,44 +19,41 @@ Tweet t2011(a, y2011, "hi");
 Tweet t2010(a, y2010, "hi");
 
 
-TEST_CASE("Heapify works for big array"){
-    const int size = 7;
-    std::vector<int>array = {-1, 9, 5, 3, 5, 14, 10};
-    heapify(array, 1, size, std::less<int>());
-    std::vector<int> expected = {-1, 3, 5, 9, 5, 14, 10};
-    for(int i = 1; i<size;i++){
+TEST_CASE("heapsort works for big array GREATER"){
+    std::vector<int>array = {-1, 9, 5, 3, 5, 14, 10, 23,51,2,2,2};
+    hsort(array,std::greater<int>());
+    std::vector<int> expected = {-1, 51,23,14,10,9,5,5,3,2,2,2};
+    for(size_t i = 1; i<expected.size();i++){
         CHECK(array[i]==expected[i]);
     }
 }
 
-TEST_CASE("Heapify works for array size 1"){
-    std::vector<int>array = {-1, 9};
-    heapify(array, 1, 1, std::less<int>());
+TEST_CASE("heapsort works for big array LESS"){
+    std::vector<int>array = {-1, 9, 5, 3, 5, 14, 10, 23,51,2,2,2};
+    hsort(array,std::less<int>());
+    std::vector<int> expected = {-1, 2,2,2,3,5,5,9,10,14,23,51};
+    for(size_t i = 1; i<expected.size();i++){
+        CHECK(array[i]==expected[i]);
+    }
 }
 
-TEST_CASE("Heapify works for empty array"){
+TEST_CASE("heap sort works for two item array"){
+    std::vector<int>array = {-1, 9, 1};
+    hsort(array,std::less<int>());
+    CHECK(array[1]==1);
+    CHECK(array[2]==9);
+    //heapify(array, 1, 1, std::less<int>());
+}
+
+TEST_CASE("heap sort works for array size 1"){
     std::vector<int>array = {-1};
-    heapify(array, 1, 1, std::less<int>());
+    hsort(array,std::less<int>());
 }
 
-
-// TEST_CASE("Vector swap works"){
-//     std::vector<int> vec(100);
-//     vec[0] = 5;
-//     vec[20] = 78;
-//     swap(vec, 0, 20);
-//     CHECK(vec[0]==78);
-//     CHECK(vec[20]==5);
-
-
-//     std::vector<std::string> vec2(100);
-//     vec2[0] = "5";
-//     vec2[20] = "78";
-//     swap(vec2, 0, 20);
-//     CHECK(vec2[0]=="78");
-//     CHECK(vec2[20]=="5");    
-
-// }
+TEST_CASE("heap sort works for empty array"){
+    std::vector<int>array = {-1};
+    hsort(array,std::less<int>());
+}
 
 
 TEST_CASE("Mention Index has right number of users"){
