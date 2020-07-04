@@ -22,13 +22,13 @@ cmdhandler.o: cmdhandler.h cmdhandler.cpp
 	g++ -g -Wall -c -std=c++11 cmdhandler.cpp -o cmdhandler.o 
 
 
-twiteng.o: twiteng.h twiteng.cpp
+twiteng.o: twiteng.h twiteng.cpp user.h tweet.h datetime.h
 	g++ -g -Wall -c -std=c++11 twiteng.cpp -o twiteng.o 
 
-tweet.o: tweet.cpp tweet.h
+tweet.o: tweet.cpp tweet.h user.h
 	g++ -g -Wall -c -std=c++11 tweet.cpp -o tweet.o 
 	
-user.o: user.h user.cpp
+user.o: user.h user.cpp tweet.h
 	g++ -g -Wall -c -std=c++11 user.cpp -o user.o 
 
 datetime.o: datetime.cpp datetime.h

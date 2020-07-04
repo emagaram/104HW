@@ -43,6 +43,8 @@ int main(int argc, char *argv[])
   cout << "  AND term term ...                  " << endl;
   cout << "  OR term term ...                   " << endl;
   cout << "  TWEET username tweet_text" << endl;
+  cout << "  FOLLOW follower user_to_follow        " << endl;
+  cout << "  SAVE new_filename      " << endl;
   cout << "  QUIT (and write feed files)        " << endl;
   cout << "=====================================" << endl;
 
