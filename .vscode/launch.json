@@ -9,7 +9,7 @@
         "type": "cppdbg",
         "request": "launch",
         "program": "${fileDirname}\\${fileBasenameNoExtension}.exe",
-        "args": [],
+        "args": ["twitterLarge2.dat"],
         "stopAtEntry": false,
         "cwd": "${workspaceFolder}\\hw5",
         "environment": [],

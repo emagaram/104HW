@@ -110,11 +110,8 @@ vector<Tweet *> User::getFeed()
       {
         //All these copies are needed so that the equalities will return correct booleans
         User *viewer = (*copyIt)->getPrivateViewer();
-        std::set<User *> viewerFollowing = viewer->following();
-        std::set<User *> thisFollowing = this->following();
-
-        if (viewer != this || viewerFollowing.find(this) == viewerFollowing.end() ||
-            thisFollowing.find(viewer) == thisFollowing.end())
+        std::set<User *> userFollowing = (*userIt)->following();
+        if (viewer != this || userFollowing.find(this)==userFollowing.end())
         {
           deleted = true;
           list<Tweet *>::iterator temp = copyIt;
