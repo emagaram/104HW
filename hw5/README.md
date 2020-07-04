@@ -1,6 +1,6 @@
 <h1>Known issues</h1>
 
-I'm not sure if you  wanted two :: or not.
+I'm not sure if you  wanted two :: or not. I also ran out of time again to delete memory in TwitEng but I know I needed to delete contents of users, mentionfeeds, and more
 
  
 <h1>Development notes</h1>
