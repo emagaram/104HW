@@ -155,7 +155,6 @@ bool QuitHandler::canHandle(const std::string &cmd) const
 
 Handler::HANDLER_STATUS_T QuitHandler::process(TwitEng *eng, std::istream &instr) const
 {
-	eng->dumpMentions();
 	eng->dumpFeeds();
 	return HANDLER_QUIT;
 }

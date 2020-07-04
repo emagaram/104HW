@@ -323,6 +323,7 @@ void TwitEng::dumpMentions()
 
 void TwitEng::dumpFeeds()
 {
+	dumpMentions();
 	std::map<std::string, User *>::iterator userIt = _users.begin();
 	while (userIt != _users.end())
 	{
