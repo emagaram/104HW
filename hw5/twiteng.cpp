@@ -1,6 +1,7 @@
 #include "twiteng.h"
 #include "tweet.h"
 #include "user.h"
+#include "hsort.h"
 #include "datetime.h"
 #include <map>
 #include <sstream>
@@ -294,13 +295,16 @@ void TwitEng::dumpMentions()
 		std::set<Tweet *> userMentionsCopy = _mentionFeeds.find(u->name())->second;
 		std::vector<Tweet *> feed(userMentionsCopy.begin(), userMentionsCopy.end());
 		ofile << u->name() << std::endl;
-		std::sort(feed.begin(), feed.end(), TweetComp());
-		for (size_t i = 0; i < feed.size(); i++)
+		if (!feed.empty())
 		{
-			ofile << *(feed[i]);
-			if (i != feed.size() - 1)
+			hsort(feed, TweetComp());
+			for (size_t i = 0; i < feed.size(); i++)
 			{
-				ofile << std::endl;
+				ofile << *(feed[i]);
+				if (i != feed.size() - 1)
+				{
+					ofile << std::endl;
+				}
 			}
 		}
 		userIt++;
@@ -317,7 +321,7 @@ void TwitEng::dumpFeeds()
 		std::ofstream ofile(fname);
 
 		std::vector<Tweet *> feed = u->getFeed();
-		std::sort(feed.begin(), feed.end(), TweetComp());
+		hsort(feed, TweetComp());
 		for (size_t i = 0; i < feed.size(); i++)
 		{
 			if (i == 0)

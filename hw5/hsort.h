@@ -1,4 +1,7 @@
+#ifndef HSORT_H
+#define HSORT_H
 #include <stdexcept>
+#include <iterator>
 template <typename T, typename Comparator>
 void heapify(std::vector<T> &data, size_t loc, size_t effsize, Comparator &c)
 {
@@ -8,13 +11,13 @@ void heapify(std::vector<T> &data, size_t loc, size_t effsize, Comparator &c)
     if (2 * loc + 1 <= effsize)
     {
         size_t rChild = smallerChild + 1;
-        if (c.operator()(data[rChild], data[smallerChild]))
+        if (c.operator()(data[smallerChild], data[rChild]))
         {
             smallerChild = rChild;
         }
     }
 
-    if (c.operator()(data[smallerChild], data[loc]))
+    if (c.operator()(data[loc], data[smallerChild]))
     {
         std::swap(data[loc], data[smallerChild]);
         heapify(data, smallerChild, effsize, c);
@@ -24,7 +27,7 @@ void heapify(std::vector<T> &data, size_t loc, size_t effsize, Comparator &c)
 template <typename T>
 T const top(std::vector<T> &data)
 {
-    if (data.empty())
+    if (data.empty()||data.size()==1)
     {
         throw(std::out_of_range("empty"));
     }
@@ -32,15 +35,15 @@ T const top(std::vector<T> &data)
 }
 
 template <typename T, typename Comparator>
-void pop(std::vector<T> &data,  Comparator &c)
+void pop(std::vector<T> &data,  Comparator &c, size_t effsize)
 {
-    if (data.empty())
+    if (data.empty()||data.size()==1)
     {
         throw(std::out_of_range("empty"));
     }
-    data[1] = data.back();
-    data.pop_back();
-    heapify(data, 1, data.size()-1, c);
+    data[1] = *(data.begin()+effsize);
+    data.erase(data.begin()+effsize);
+    heapify(data, 1, effsize-1, c);
 }
 
 
@@ -48,6 +51,8 @@ void pop(std::vector<T> &data,  Comparator &c)
 template <typename T, typename Comparator>
 void hsort(std::vector<T> &data, Comparator c = Comparator())
 {
+    T emptyItem;
+    data.insert(data.begin(),emptyItem); //so that index 0 is empty
     size_t heapSize = data.size() - 1;
     //n loops, logn operations
     for (size_t i = heapSize; i >= 1; i--)
@@ -55,18 +60,18 @@ void hsort(std::vector<T> &data, Comparator c = Comparator())
         heapify(data, i, heapSize, c);
     }
 
-    size_t sortedPoint = heapSize;
     //Puts vector in reverse order of what it should be
     //N loops, constant operations
-    while(sortedPoint>0){
+    while(heapSize!=0){
         T temp = top(data);
-        pop(data, c);
-        data[sortedPoint]=temp;
-        sortedPoint--;
+        pop(data, c, heapSize);        
+        data.insert(data.begin()+heapSize, temp);        
+        heapSize--;
     }
     //N loops, constant operations
     for (size_t i = 1; i <heapSize/2+1;i++){
         std::swap(data[i],data[heapSize+1-i]);
     }
-
+    data.erase(data.begin());
 }
+#endif

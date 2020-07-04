@@ -1,5 +1,6 @@
 #include "cmdhandler.h"
 #include "util.h"
+#include "hsort.h"
 #include <sstream>
 #include <ctime>
 //#pragma warning(disable : 4996)
@@ -61,7 +62,7 @@ Handler::HANDLER_STATUS_T SaveHandler::process(TwitEng *eng, std::istream &instr
 		userIt++;
 	}
 	std::vector<Tweet *> copyTweets(allTweets.begin(), allTweets.end());
-	std::sort(copyTweets.begin(), copyTweets.end(), TweetComp());
+	hsort(copyTweets, TweetComp());
 	std::vector<Tweet *>::iterator tweetIt = copyTweets.begin();
 	while (tweetIt != copyTweets.end())
 	{

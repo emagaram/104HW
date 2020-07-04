@@ -105,25 +105,32 @@ vector<Tweet *> User::getFeed()
     list<Tweet *>::iterator copyIt = copy.begin();
     while (copyIt != copy.end())
     {
+      bool deleted = false;
       if ((*copyIt)->getPrivateViewer() != nullptr)
       {
-        
         //All these copies are needed so that the equalities will return correct booleans
         User *viewer = (*copyIt)->getPrivateViewer();
-        std::set<User*> viewerFollowing = viewer->following();
-        std::set<User*> thisFollowing = viewer->following();
+        std::set<User *> viewerFollowing = viewer->following();
+        std::set<User *> thisFollowing = this->following();
 
-
-        if (viewer!=this||viewerFollowing.find(this) == viewerFollowing.end() ||
+        if (viewer != this || viewerFollowing.find(this) == viewerFollowing.end() ||
             thisFollowing.find(viewer) == thisFollowing.end())
         {
+          deleted = true;
+          list<Tweet *>::iterator temp = copyIt;
+          temp++;
           copy.remove(*copyIt);
+          copyIt = temp;
         }
       }
-      copyIt++;
+      if (!deleted)
+      {
+        copyIt++;
+      }
     }
 
     resultList.merge(copy, otherLessThan);
+    
   }
   vector<Tweet *> vec(resultList.begin(), resultList.end());
   resultList.erase(resultList.begin(), resultList.end());

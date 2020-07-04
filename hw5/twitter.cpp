@@ -2,6 +2,7 @@
 #include <sstream>
 #include <string>
 #include "twiteng.h"
+#include "heap.h"
 #include "util.h"
 #include "tweet.h"
 #include "cmdhandler.h"
@@ -15,13 +16,13 @@ Handler *createHandlers()
   return new AndHandler(
       new OrHandler(
           new TweetHandler(
-              new QuitHandler(
-                  new FollowHandler(
-                      new SaveHandler)))));
+              new SaveHandler(new FollowHandler(
+                  new QuitHandler())))));
 }
 
 int main(int argc, char *argv[])
 {
+
   if (argc < 2)
   {
     cerr << "Please provide the twitter data file" << endl;
