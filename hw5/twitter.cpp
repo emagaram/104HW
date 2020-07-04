@@ -17,7 +17,8 @@ Handler *createHandlers()
       new OrHandler(
           new TweetHandler(
               new SaveHandler(new FollowHandler(
-                  new QuitHandler())))));
+                  new QuitHandler(
+                      new UnrecognizedCommandHandler()))))));
 }
 
 int main(int argc, char *argv[])

@@ -46,6 +46,6 @@ clean:
 	$(DELETE_FILE) *.o	
 	$(DELETE_FILE) *.exe
 	$(DELETE_FILE) *.feed
-	$(DELETE_FILE) *.
+	$(DELETE_FILE) *.mentions
 	$(DELETE_FILE) twitter
 	$(DELETE_FILE) Tests

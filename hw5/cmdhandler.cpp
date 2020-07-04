@@ -6,6 +6,28 @@
 //#pragma warning(disable : 4996)
 using namespace std;
 
+
+UnrecognizedCommandHandler::UnrecognizedCommandHandler()
+{
+}
+UnrecognizedCommandHandler::UnrecognizedCommandHandler(Handler *next)
+	: Handler(next)
+{
+}
+
+bool UnrecognizedCommandHandler::canHandle(const std::string &cmd) const
+{
+	return true;
+}
+
+Handler::HANDLER_STATUS_T UnrecognizedCommandHandler::process(TwitEng *eng, std::istream &instr) const
+{
+	std::cout << "Unrecognized command";
+	return HANDLER_KILL;
+}
+
+
+
 SaveHandler::SaveHandler()
 {
 }

@@ -1,7 +1,21 @@
 #include "datetime.h"
-
+#include <ctime>
 DateTime::DateTime()
 {
+	time_t rawtime;
+	struct tm* timeinfo;
+
+	time(&rawtime);
+	timeinfo = localtime(&rawtime);
+
+	int year = timeinfo->tm_year;
+	year += 1900;
+	hour=timeinfo->tm_hour;
+	min=timeinfo->tm_min;
+	sec=timeinfo->tm_sec;
+	this->year=year;
+	this->month=timeinfo->tm_mon+1;
+	this->day=timeinfo->tm_mday;		
 }
 
 DateTime::DateTime(int hh, int mm, int ss, int year, int month, int day)

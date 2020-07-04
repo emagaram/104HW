@@ -3,6 +3,17 @@
 #include "handler.h"
 
 
+class UnrecognizedCommandHandler : public Handler
+{
+public:
+	UnrecognizedCommandHandler();
+	UnrecognizedCommandHandler(Handler *next);
+
+protected:
+	virtual bool canHandle(const std::string &cmd) const;
+	virtual HANDLER_STATUS_T process(TwitEng *eng, std::istream &instr) const;
+};
+
 
 class SaveHandler : public Handler
 {
