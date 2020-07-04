@@ -60,6 +60,7 @@ class Tweet
    */
   friend std::ostream& operator<<(std::ostream& os, const Tweet& t);
 
+
   /* Create any other public or private helper functions you deem 
      necessary */
 
@@ -77,7 +78,7 @@ class Tweet
   User* _privateViewer;
   std::set<std::string> _hashTags;
 };
-
+std::string convertTwoDigitInt(int i);
 /***********************************/
 /* Leave this alone --             */
 /*   it will help sort your tweets */

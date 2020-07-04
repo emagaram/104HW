@@ -8,7 +8,7 @@
 
 /* Forward Declaration to avoid #include dependencies */
 class Tweet;
-
+bool otherLessThan(const Tweet *a, const Tweet *other);
 class User {
  public:
   /**

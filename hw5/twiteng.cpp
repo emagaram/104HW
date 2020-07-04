@@ -19,7 +19,7 @@ TwitEng::TwitEng()
 
 TwitEng::~TwitEng()
 {
-	std::map<std::string, std::set<Tweet *>>::iterator mentionIt = _mentionFeeds.begin();
+	//std::map<std::string, std::set<Tweet *>>::iterator mentionIt = _mentionFeeds.begin();
 	// while (mentionIt != _mentionFeeds.end()){
 	// 	if(_mentionFeeds.find(word) == _mentionFeeds.end())
 	// 	delete &mentionIt->second;

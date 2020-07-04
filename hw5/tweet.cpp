@@ -123,7 +123,7 @@ std::ostream &operator<<(std::ostream &os, const Tweet &t)
     yr += std::to_string(dt.year);
 
     os << yr << "-" << convertTwoDigitInt(dt.month) << "-" << convertTwoDigitInt(dt.day) << " "
-       << convertTwoDigitInt(dt.hour) << "::" << convertTwoDigitInt(dt.min) << "::" << convertTwoDigitInt(dt.sec) << " ";
+       << convertTwoDigitInt(dt.hour) << ":" << convertTwoDigitInt(dt.min) << ":" << convertTwoDigitInt(dt.sec) << " ";
     
     os << t.user()->name() << " ";
 

@@ -2,9 +2,10 @@
 #include "doctest.h"
 #include "hsort.h"
 #include "heap.h"
-#include "user.cpp"
-#include "twiteng.cpp"
-#include "tweet.cpp"
+#include "user.h"
+#include "twiteng.h"
+#include "tweet.h"
+#include <vector>
 User ez("ezra");
 User *a = &ez;
 User james("james");
@@ -92,7 +93,7 @@ TEST_CASE("Mention Index has right number of users")
     CHECK(te.getMentionIndex().size() == 3);
 
     TwitEng te2;
-    string strfilename = "twitter.dat";
+    std::string strfilename = "twitter.dat";
     char *filename = &strfilename[0];
     te2.parse(filename);
     CHECK(te2.getMentionIndex().size() == 4);
@@ -154,7 +155,7 @@ TEST_CASE("Add tweet updates users and hashTagIndex")
 TEST_CASE("Hashtags are case insensitive and not repeated in tweets")
 {
     Tweet tweet(a, y2010, "start #PAC12 #foOTBALl #FooTball #pac12");
-    set<string> ht = tweet.hashTags();
+    std::set<std::string> ht = tweet.hashTags();
     CHECK(ht.size() == 2);
     CHECK(ht.find("pac12") != ht.end());
     CHECK(ht.find("football") != ht.end());
@@ -164,7 +165,7 @@ TEST_CASE("Hashtags are case insensitive and not repeated in tweets")
 TEST_CASE("Hashtags are in tweets")
 {
     Tweet tweet(a, y2010, "Can't wait for USC football to start #pac12 #football #pac12");
-    set<string> ht = tweet.hashTags();
+    std::set<std::string> ht = tweet.hashTags();
     CHECK(ht.size() == 2);
     CHECK(ht.find("pac12") != ht.end());
     CHECK(ht.find("football") != ht.end());
@@ -181,7 +182,7 @@ TEST_CASE("Add tweet")
     // vector<Tweet*> vec = john.getFeed();
 
     auto feed = john.getFeed();
-    vector<Tweet *> vec(feed.begin(), feed.end());
+    std::vector<Tweet *> vec(feed.begin(), feed.end());
     CHECK(vec[0] == &t2010);
     CHECK(vec[1] == &t2011);
     CHECK(vec[2] == &t2012);
@@ -191,49 +192,52 @@ TEST_CASE("Add tweet")
 TEST_CASE("parse tweet")
 {
     //Make parseTweet and parseName pulic to test!
-    // string line1 = "2019-05-20 12:35:14 Mark #Selma was an excellent movie to remember the struggle for civil rights";
-    // string parsed1 = parseTweet(line1);
-    // string expected1 = "#Selma was an excellent movie to remember the struggle for civil rights";
-    // CHECK(parsed1==expected1);
+    TwitEng te;
+    std::string line1 = "2019-05-20 12:35:14 Mark #Selma was an excellent movie to remember the struggle for civil rights";
+    std::string parsed1 = te.parseTweet(line1);
+    std::string expected1 = "#Selma was an excellent movie to remember the struggle for civil rights";
+    CHECK(parsed1==expected1);
 
-    // string line = "2019-05-21 10:30:27 Sam @";
-    // string parsed = parseTweet(line);
-    // string expected = "@";
-    // CHECK(parsed==expected);
+    std::string line = "2019-05-21 10:30:27 Sam @";
+    std::string parsed = te.parseTweet(line);
+    std::string expected = "@";
+    CHECK(parsed==expected);
 }
 
 TEST_CASE("parse name")
 {
-    // //Make public to test!
-    // string line = "2019-05-20 12:35:14 Mark #Selma was an excellent movie to remember the struggle for civil rights";
-    // //Second line to test
-    // string line1 = "2019-05-21 10:30:27 Sam @Mark when is the next World Cup? #football";
-    // string name = parseName(line);
-    // string name1 = parseName(line1);
-    // CHECK(name=="Mark");
-    // CHECK(name1=="Sam");
+    //Make public to test!
+    TwitEng te;
+    std::string line = "2019-05-20 12:35:14 Mark #Selma was an excellent movie to remember the struggle for civil rights";
+    //Second line to test
+    std::string line1 = "2019-05-21 10:30:27 Sam @Mark when is the next World Cup? #football";
+    std::string name = te.parseName(line);
+    std::string name1 = te.parseName(line1);
+    CHECK(name=="Mark");
+    CHECK(name1=="Sam");
 }
 
 TEST_CASE("parse date")
 {
-    // //Make public to test!
-    // string line = "2019-05-20 12:35:14 Mark #Selma was an excellent movie to remember the struggle for civil rights";
-    // DateTime dt = parseDate(line);
-    // CHECK(dt.day==20);
-    // CHECK(dt.year==2019);
-    // CHECK(dt.month==5);
-    // CHECK(dt.min==35);
-    // CHECK(dt.sec==14);
+    //Make public to test!
+    TwitEng te;
+    std::string line = "2019-05-20 12:35:14 Mark #Selma was an excellent movie to remember the struggle for civil rights";
+    DateTime dt = te.parseDate(line);
+    CHECK(dt.day==20);
+    CHECK(dt.year==2019);
+    CHECK(dt.month==5);
+    CHECK(dt.min==35);
+    CHECK(dt.sec==14);
 }
 
 //SOMETHING WEIRD, fails sometimes
 TEST_CASE("add all users and tweets to engine")
 {
     TwitEng te;
-    string strfilename = "twitter.dat";
+    std::string strfilename = "twitter.dat";
     char *filename = &strfilename[0];
     CHECK(te.parse(filename) == false);
-    map<string, User *> users = te.getUsers();
+    std::map<std::string, User *> users = te.getUsers();
     CHECK(users.size() == 4);
     CHECK(users.find("Mark") != users.end());
     CHECK(users.find("Tommy") != users.end());
@@ -270,7 +274,7 @@ TEST_CASE("output stream tweet with one digit values returns correctly")
     Tweet tweet(&ez, dt, "hi");
     std::stringstream buffer;
     buffer << tweet;
-    std::string expectedOutput = "0999-05-03 01::02::03 ezra hi";
+    std::string expectedOutput = "0999-05-03 01:02:03 ezra hi";
     std::string actualOutput = buffer.str();
     CHECK_EQ(actualOutput, expectedOutput);
 }
@@ -281,7 +285,7 @@ TEST_CASE("output stream tweet returns hi ezra   !")
     //string word;  YYYY-MM-DD HH::MM::SS username tweet_text
     std::stringstream buffer;
     buffer << t2013;
-    std::string expectedOutput = "2013-10-10 10::10::10 ezra hi ezra!";
+    std::string expectedOutput = "2013-10-10 10:10:10 ezra hi ezra!";
     std::string actualOutput = buffer.str();
     CHECK_EQ(actualOutput, expectedOutput);
 }
@@ -291,7 +295,7 @@ TEST_CASE("User feed both empty lists")
     User bob("bob");
 
     joe.addFollowing(&bob);
-    vector<Tweet *> vec = joe.getFeed();
+    std::vector<Tweet *> vec = joe.getFeed();
     CHECK_EQ(vec.size(), 0);
 }
 
@@ -304,7 +308,7 @@ TEST_CASE("User Feed from empty list in ascending order")
     bob.addTweet(&t2011);
 
     bob.addFollowing(&joe);
-    vector<Tweet *> vec = bob.getFeed();
+    std::vector<Tweet *> vec = bob.getFeed();
     vec = bob.getFeed();
     vec = bob.getFeed(); // twice in case messing with it
     CHECK_EQ(vec[0], &t2011);
@@ -342,7 +346,7 @@ TEST_CASE("User Feed produces list in ascending order")
     bob.addTweet(&t2011);
 
     bob.addFollowing(&joe);
-    vector<Tweet *> vec = bob.getFeed();
+    std::vector<Tweet *> vec = bob.getFeed();
     vec = bob.getFeed();
     vec = bob.getFeed(); // twice in case messing with it
     CHECK_EQ(vec[0], &t2010);
@@ -353,13 +357,13 @@ TEST_CASE("User Feed produces list in ascending order")
 
 TEST_CASE("Tweet list is sorted in ascending order")
 {
-    list<Tweet *> tweets;
+    std::list<Tweet *> tweets;
     tweets.push_back(&t2012);
     tweets.push_back(&t2013);
     tweets.push_back(&t2010);
     tweets.push_back(&t2011);
     tweets.sort(otherLessThan);
-    vector<Tweet *> vec(tweets.begin(), tweets.end());
+    std::vector<Tweet *> vec(tweets.begin(), tweets.end());
     CHECK_EQ(vec[0], &t2010);
     CHECK_EQ(vec[1], &t2011);
     CHECK_EQ(vec[2], &t2012);

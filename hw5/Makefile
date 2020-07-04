@@ -7,10 +7,10 @@ BIN_DIR  = bin
 DELETE_FILE = rm -f
 GTEST_LL = -I /usr/include/gtest/ -l gtest -l gtest_main -pthread
 
-all: twitter Tests
+all: twitter
 
-Tests: Tests.cpp datetime.o util.o
-	g++ -g -Wall -std=c++11 Tests.cpp datetime.o util.o -o Tests
+Tests: Tests.cpp datetime.o util.o tweet.o user.o twiteng.o
+	g++ -g -Wall -std=c++11 Tests.cpp datetime.o util.o tweet.o user.o twiteng.o -o Tests
 
 twitter: twitter.cpp twiteng.o user.o handler.o cmdhandler.o datetime.o tweet.o util.o
 	g++ -g -Wall -std=c++11 twitter.cpp twiteng.o user.o handler.o cmdhandler.o datetime.o tweet.o util.o -o twitter 
@@ -46,4 +46,6 @@ clean:
 	$(DELETE_FILE) *.o	
 	$(DELETE_FILE) *.exe
 	$(DELETE_FILE) *.feed
-	$(DELETE_FILE) *.mentions
+	$(DELETE_FILE) *.
+	$(DELETE_FILE) twitter
+	$(DELETE_FILE) Tests
