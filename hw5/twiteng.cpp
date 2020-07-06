@@ -19,16 +19,23 @@ TwitEng::TwitEng()
 
 TwitEng::~TwitEng()
 {
-	//std::map<std::string, std::set<Tweet *>>::iterator mentionIt = _mentionFeeds.begin();
-	// while (mentionIt != _mentionFeeds.end()){
-	// 	if(_mentionFeeds.find(word) == _mentionFeeds.end())
-	// 	delete &mentionIt->second;
-	// }
-	// std::map<std::string, User *>::iterator userIt = _users.begin();
-	// while (userIt != _users.end())
-	// {
-	// 		delete &userIt->second;
-	// }
+	//I know I'm using auto and ranged for loops, just writing out the
+	//iterators was too much work
+	std::set<Tweet*> allTweets;
+	for(auto userPair: _users){
+		auto userPtr = userPair.second;
+		auto feed = userPtr->getFeed();
+		for(auto tweet : feed){
+			allTweets.insert(tweet);
+		}
+	}
+	for(auto tweet: allTweets){
+		delete tweet;
+	}
+
+	for(auto userPair:_users){
+		delete userPair.second;
+	}
 }
 void TwitEng::addToMentionFeeds(Tweet *t)
 {
@@ -125,8 +132,8 @@ bool TwitEng::parse(char *filename)
 		User *centerUser = addOrFindUser(word);
 		if (_mentionFeeds.find(word) == _mentionFeeds.end())
 		{
-			std::set<Tweet *> *mentionTweets = new std::set<Tweet *>();
-			_mentionFeeds.insert(std::pair<std::string, std::set<Tweet *>>(word, *mentionTweets));
+			std::set<Tweet *> mentionTweets;
+			_mentionFeeds.insert(std::pair<std::string, std::set<Tweet *>>(word, mentionTweets));
 		}
 
 		while (ss >> word)
@@ -200,8 +207,8 @@ void TwitEng::addTweet(const std::string &username, const DateTime &time, const 
 	//it for my tests to run
 	if (_mentionFeeds.find(username) == _mentionFeeds.end())
 	{
-		std::set<Tweet *> *mentionTweets = new std::set<Tweet *>();
-		_mentionFeeds.insert(std::pair<std::string, std::set<Tweet *>>(username, *mentionTweets));
+		std::set<Tweet *> mentionTweets;
+		_mentionFeeds.insert(std::pair<std::string, std::set<Tweet *>>(username, mentionTweets));
 	}
 
 	Tweet *newTweet = new Tweet(user, time, text);
