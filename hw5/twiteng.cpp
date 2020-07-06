@@ -21,19 +21,23 @@ TwitEng::~TwitEng()
 {
 	//I know I'm using auto and ranged for loops, just writing out the
 	//iterators was too much work
-	std::set<Tweet*> allTweets;
-	for(auto userPair: _users){
+	std::set<Tweet *> allTweets;
+	for (auto userPair : _users)
+	{
 		auto userPtr = userPair.second;
 		auto feed = userPtr->getFeed();
-		for(auto tweet : feed){
+		for (auto tweet : feed)
+		{
 			allTweets.insert(tweet);
 		}
 	}
-	for(auto tweet: allTweets){
+	for (auto tweet : allTweets)
+	{
 		delete tweet;
 	}
 
-	for(auto userPair:_users){
+	for (auto userPair : _users)
+	{
 		delete userPair.second;
 	}
 }
@@ -116,10 +120,12 @@ bool TwitEng::parse(char *filename)
 	}
 	std::string userCount;
 	std::getline(iFile, userCount);
-	try{
-	_userCount = std::stoi(userCount);
+	try
+	{
+		_userCount = std::stoi(userCount);
 	}
-	catch(const std::exception &e){
+	catch (const std::exception &e)
+	{
 		return true;
 	}
 
@@ -148,7 +154,7 @@ bool TwitEng::parse(char *filename)
 		}
 	}
 	std::string line;
-	
+
 	while (!iFile.eof())
 	{
 		std::getline(iFile, line);
@@ -172,11 +178,11 @@ bool TwitEng::parse(char *filename)
 DateTime TwitEng::parseDate(std::string line)
 {
 	int year = std::stoi(line.substr(0, 4));
-	int month = std::stoi(line.substr(5, 6));
-	int day = std::stoi(line.substr(8, 9));
-	int hour = std::stoi(line.substr(11, 12));
-	int min = std::stoi(line.substr(14, 15));
-	int sec = std::stoi(line.substr(17, 18));
+	int month = std::stoi(line.substr(5, 2));
+	int day = std::stoi(line.substr(8, 2));
+	int hour = std::stoi(line.substr(11, 2));
+	int min = std::stoi(line.substr(14, 2));
+	int sec = std::stoi(line.substr(17, 2));
 	DateTime dt(hour, min, sec, year, month, day);
 	return dt;
 }
@@ -242,6 +248,7 @@ std::set<Tweet *> operator|(const std::set<Tweet *> &s1,
 							const std::set<Tweet *> &s2)
 {
 	std::set<Tweet *> answer;
+
 	for (auto s1Value = s1.cbegin(); s1Value != s1.cend(); ++s1Value)
 	{
 		answer.insert(*s1Value);
@@ -286,23 +293,25 @@ std::vector<Tweet *> TwitEng::search(std::vector<std::string> &terms, int strate
 
 	for (size_t i = 0; i < terms.size(); i++)
 	{
-		std::map<std::string,std::set<Tweet*>>::iterator it =  _hashTagIndex.find(terms[i]);
-		if (it != _hashTagIndex.end())
-		{
+		auto it = _hashTagIndex.find(terms[i]);
+		if(it!=_hashTagIndex.end()){
+		//std::map<std::string, std::set<Tweet *>>::iterator it = _hashTagIndex.find(terms[i]); //log size of HTI which is logn
+		std::set<Tweet*>* tweetsWithHT = &it->second;
 			//TODO Cleanup
 			if (i == 0 && strategy == 0)
 			{
-				result = it->second;
+				result = *tweetsWithHT;
 			}
 			else if (strategy == 1)
 			{
-				result = result | it->second;
+				result = result | *tweetsWithHT;
 			}
 			else
 			{
-				result = result & it->second;
+				result = result & *tweetsWithHT;
 			}
 		}
+		
 	}
 	return std::vector<Tweet *>(result.begin(), result.end());
 }
