@@ -23,7 +23,6 @@ Handler *createHandlers()
 
 int main(int argc, char *argv[])
 {
-
   if (argc < 2)
   {
     cerr << "Please provide the twitter data file" << endl;

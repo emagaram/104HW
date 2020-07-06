@@ -116,7 +116,12 @@ bool TwitEng::parse(char *filename)
 	}
 	std::string userCount;
 	std::getline(iFile, userCount);
+	try{
 	_userCount = std::stoi(userCount);
+	}
+	catch(const std::exception &e){
+		return true;
+	}
 
 	if (iFile.fail())
 	{
@@ -143,9 +148,10 @@ bool TwitEng::parse(char *filename)
 		}
 	}
 	std::string line;
-	std::getline(iFile, line);
+	
 	while (!iFile.eof())
 	{
+		std::getline(iFile, line);
 		if (line != "")
 		{
 			const DateTime dt = parseDate(line);
@@ -156,7 +162,7 @@ bool TwitEng::parse(char *filename)
 			//u->addTweet(t);
 			addTweet(u->name(), dt, txt);
 		}
-		std::getline(iFile, line);
+		//std::getline(iFile, line);
 	}
 
 	iFile.close();
@@ -280,20 +286,21 @@ std::vector<Tweet *> TwitEng::search(std::vector<std::string> &terms, int strate
 
 	for (size_t i = 0; i < terms.size(); i++)
 	{
-		if (_hashTagIndex.find(terms[i]) != _hashTagIndex.end())
+		std::map<std::string,std::set<Tweet*>>::iterator it =  _hashTagIndex.find(terms[i]);
+		if (it != _hashTagIndex.end())
 		{
 			//TODO Cleanup
 			if (i == 0 && strategy == 0)
 			{
-				result = _hashTagIndex.find(terms[i])->second;
+				result = it->second;
 			}
-			if (strategy == 1)
+			else if (strategy == 1)
 			{
-				result = result | _hashTagIndex.find(terms[i])->second;
+				result = result | it->second;
 			}
 			else
 			{
-				result = result & _hashTagIndex.find(terms[i])->second;
+				result = result & it->second;
 			}
 		}
 	}

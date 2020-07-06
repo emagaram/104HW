@@ -92,7 +92,7 @@ std::istream &operator>>(std::istream &is, DateTime &dt)
 		dt.min = std::stoi(threeTimes.substr(3, 2));
 		dt.sec = std::stoi(threeTimes.substr(6, 2));
 	}
-	catch (std::exception x)
+	catch (const std::exception &e)
 	{
 		DateTime k;
 		dt = k;
