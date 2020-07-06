@@ -4,18 +4,19 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
+
       {
         "name": "Make and debug (active file)",
         "type": "cppdbg",
         "request": "launch",
         "program": "${fileDirname}\\${fileBasenameNoExtension}.exe",
-        "args": ["twitterLarge2.dat"],
+        "args": [],
         "stopAtEntry": false,
-        "cwd": "${workspaceFolder}\\hw5",
+        "cwd": "${fileDirname}",
         "environment": [],
         "externalConsole": false,
         "MIMode": "gdb",
-        "miDebuggerPath": "gdb.exe",
+        "miDebuggerPath": "C:\\PosixCompiler\\mingw64\\bin\\gdb.exe",
         "setupCommands": [
           {
             "description": "Enable pretty-printing for gdb",
@@ -24,6 +25,27 @@
           }
         ],
         "preLaunchTask": "Make .exe (for active file)"
+      },
+      {
+        "name": "debug tests",
+        "type": "cppdbg",
+        "request": "launch",
+        "program": "${workspaceFolder}\\hw5\\Tests.exe",
+        "args": [],
+        "stopAtEntry": false,
+        "cwd": "${workspaceFolder}\\hw5",
+        "environment": [],
+        "externalConsole": false,
+        "MIMode": "gdb",
+        "miDebuggerPath": "C:\\PosixCompiler\\mingw64\\bin\\gdb.exe",
+        "setupCommands": [
+          {
+            "description": "Enable pretty-printing for gdb",
+            "text": "-enable-pretty-printing",
+            "ignoreFailures": true
+          }
+        ],
+        "preLaunchTask": "Make All"
       }
     ]
   }

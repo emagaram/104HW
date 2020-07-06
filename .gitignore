@@ -17,6 +17,7 @@ hw3/Sam.feed
 hw3/Tommy.feed
 hw3/twitter.exe
 hw3/cmdhandler.o
+hw3/Tests.cpp
 hw3/cmdhandler.o
 hw3/twitter.exe
 hw3/cmdhandler.o
@@ -54,3 +55,5 @@ hw5/*.o
 hw5/*.exe
 hw5/*.feed
 hw5/*.mentions
+hw3/Tests.cpp
+hw3/Tests.cpp

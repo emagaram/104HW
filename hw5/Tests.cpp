@@ -6,6 +6,7 @@
 #include "twiteng.h"
 #include "tweet.h"
 #include <vector>
+#include <string>
 User ez("ezra");
 User *a = &ez;
 User james("james");
@@ -20,6 +21,19 @@ Tweet t2012(a, y2012, "hi");
 Tweet t2011(a, y2011, "hi");
 Tweet t2010(a, y2010, "hi");
 
+TEST_CASE("DT >> Operator works"){
+    DateTime dt;
+    std::string expected = "2000-06-03 12:05:05";
+	std::stringstream ss(expected);
+    ss >> dt;
+    CHECK(dt.year==2000);
+    CHECK(dt.month==06);
+    CHECK(dt.hour==12);
+    CHECK(dt.min==5);
+    CHECK(dt.sec==5);
+    CHECK(dt.day==3);
+	    
+}
 
 TEST_CASE("3-ary heap sorted correctly"){
     Heap<int>h(3, std::less<int>());

@@ -93,16 +93,7 @@ void Tweet::setPrivateViewer(User* u){
    * @return the ostream passed in as an argument
    */
 
-std::string convertTwoDigitInt(int i)
-{
-    std::string s = "";
-    if (i <= 9)
-    {
-        s += "0";
-    }
-    s += std::to_string(i);
-    return s;
-}
+
 
 std::ostream &operator<<(std::ostream &os, const Tweet &t)
 {
