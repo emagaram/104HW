@@ -35,7 +35,7 @@
         "stopAtEntry": false,
         "cwd": "${workspaceFolder}/hw5",
         "environment": [],
-        "externalConsole": false,
+        "externalConsole": true,
         "MIMode": "gdb",
         "miDebuggerPath": "gdb.exe",
         "setupCommands": [
