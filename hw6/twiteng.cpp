@@ -20,26 +20,27 @@ TwitEng::TwitEng()
 
 TwitEng::~TwitEng()
 {
-	//I know I'm using auto and ranged for loops, just writing out the
-	//iterators was too much work
 	std::set<Tweet *> allTweets;
-	for (auto userPair : _users)
+	
+	for (std::map<std::string, User*>::iterator usersIt = _users.begin(); usersIt!=_users.end();usersIt++)
 	{
-		auto userPtr = userPair.second;
-		auto feed = userPtr->getFeed();
-		for (auto tweet : feed)
+		User* userPtr = usersIt->second;
+		std::vector<Tweet*> feed = userPtr->getFeed();
+
+		
+		for (std::vector<Tweet*>::iterator feedIt=feed.begin();feedIt!=feed.end();feedIt++)
 		{
-			allTweets.insert(tweet);
+			allTweets.insert(*feedIt);
 		}
 	}
-	for (auto tweet : allTweets)
+	for (std::set<Tweet*>::iterator allTweetsIt=allTweets.begin();allTweetsIt!=allTweets.end();allTweetsIt++)
 	{
-		delete tweet;
+		delete *allTweetsIt;
 	}
 
-	for (auto userPair : _users)
+	for (std::map<std::string, User*>::iterator usersIt = _users.begin(); usersIt!=_users.end();usersIt++)
 	{
-		delete userPair.second;
+		delete usersIt->second;
 	}
 }
 
