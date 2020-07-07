@@ -10,7 +10,7 @@
         "type": "cppdbg",
         "request": "launch",
         "program": "${fileDirname}/${fileBasenameNoExtension}.exe",
-        "args": ["short.dat"],
+        "args": ["sentences1.in", "sentences1.out"],
         "stopAtEntry": false,
         "cwd": "${fileDirname}",
         "environment": [],

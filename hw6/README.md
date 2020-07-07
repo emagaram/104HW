@@ -1,6 +1,5 @@
+<h1>https://en.wikipedia.org/wiki/Tarjan%27s_strongly_connected_components_algorithm#The_algorithm_in_pseudocode is the pseudocode I used for problem 1<h1>
 <h1>Known issues</h1>
-
-I'm not sure if you  wanted two :: or not. I also ran out of time again to delete memory in TwitEng but I know I needed to delete contents of users, mentionfeeds, and more
 
  
 <h1>Development notes</h1>

@@ -51,10 +51,12 @@ public:
   DateTime parseDate(std::string line);
   std::string parseName(std::string line);
   std::string parseTweet(std::string line);
+  void getSCC();
   /* You may add other member functions */
 private:
   /* Add any other data members or helper functions here  */
   int _userCount;
+  void setSCC();
   std::map<std::string, User *> _users;
   std::map<std::string, std::set<Tweet*>> _hashTagIndex;
   std::map<std::string, std::set<Tweet*>> _mentionFeeds; 

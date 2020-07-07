@@ -57,3 +57,5 @@ hw5/*.feed
 hw5/*.mentions
 hw3/Tests.cpp
 hw3/Tests.cpp
+hw6/*.o
+hw6/*.exe

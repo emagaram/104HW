@@ -2,7 +2,15 @@
 #define CMDHANDLER_H
 #include "handler.h"
 
+class SCCHandler : public Handler{
+	public:
+	SCCHandler();
+	SCCHandler(Handler *next);
 
+protected:
+	virtual bool canHandle(const std::string &cmd) const;
+	virtual HANDLER_STATUS_T process(TwitEng *eng, std::istream &instr) const;
+};
 class UnrecognizedCommandHandler : public Handler
 {
 public:

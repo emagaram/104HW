@@ -7,6 +7,36 @@
 using namespace std;
 
 
+
+SCCHandler::SCCHandler()
+{
+}
+SCCHandler::SCCHandler(Handler *next)
+	: Handler(next)
+{
+}
+
+bool SCCHandler::canHandle(const std::string &cmd) const
+{
+	return cmd == "SCC";
+}
+
+Handler::HANDLER_STATUS_T SCCHandler::process(TwitEng *eng, std::istream &instr) const
+{
+	//Get rest of line
+	
+	std::string fileName;
+	std::string line;
+	std::getline(instr, line);
+	std::stringstream ss(line); //results-filename
+	ss >> fileName;
+	std::ofstream ofile(fileName);
+	return HANDLER_OK;
+}
+
+
+
+
 UnrecognizedCommandHandler::UnrecognizedCommandHandler()
 {
 }

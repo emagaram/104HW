@@ -11,6 +11,7 @@
 #include <algorithm>
 #include <string>
 #include <fstream>
+#include <stack>
 
 TwitEng::TwitEng()
 {
@@ -41,6 +42,19 @@ TwitEng::~TwitEng()
 		delete userPair.second;
 	}
 }
+
+
+void TwitEng::setSCC(){
+	std::stack<int> s;
+	std::map<User*, int> userIndexes;
+	for(auto user: _users){
+
+	}
+}
+void TwitEng::getSCC(){
+
+}
+
 void TwitEng::addToMentionFeeds(Tweet *t)
 {
 	//Simply adds a tweet to a map of all users to their @mentions

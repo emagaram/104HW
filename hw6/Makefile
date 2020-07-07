@@ -7,7 +7,10 @@ BIN_DIR  = bin
 DELETE_FILE = rm -f
 GTEST_LL = -I /usr/include/gtest/ -l gtest -l gtest_main -pthread
 
-all: twitter
+all: twitter sentences
+
+sentences: sentences.cpp
+	g++ -g $^ -o $@
 
 Tests: Tests.cpp datetime.o util.o tweet.o user.o twiteng.o
 	g++ -g -Wall -std=c++11 Tests.cpp datetime.o util.o tweet.o user.o twiteng.o -o Tests
