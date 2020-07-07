@@ -48,7 +48,7 @@ TwitEng::~TwitEng()
 void TwitEng::setSCC(){
 	std::stack<int> s;
 	std::map<User*, int> userIndexes;
-	for(auto user: _users){
+	for(std::map<std::string, User*>::iterator userIt= _users.begin();userIt!=_users.end();userIt++){
 
 	}
 }
@@ -264,11 +264,11 @@ std::set<Tweet *> operator|(const std::set<Tweet *> &s1,
 {
 	std::set<Tweet *> answer;
 
-	for (auto s1Value = s1.cbegin(); s1Value != s1.cend(); ++s1Value)
+	for (std::set<Tweet*>::iterator s1Value = s1.cbegin(); s1Value != s1.cend(); ++s1Value)
 	{
 		answer.insert(*s1Value);
 	}
-	for (auto s2Value = s2.cbegin(); s2Value != s2.cend(); ++s2Value)
+	for (std::set<Tweet*>::iterator s2Value = s2.cbegin(); s2Value != s2.cend(); ++s2Value)
 	{
 		answer.insert(*s2Value);
 	}
@@ -308,7 +308,7 @@ std::vector<Tweet *> TwitEng::search(std::vector<std::string> &terms, int strate
 
 	for (size_t i = 0; i < terms.size(); i++)
 	{
-		auto it = _hashTagIndex.find(terms[i]);
+		std::map<std::string,std::set<Tweet*>>::iterator it = _hashTagIndex.find(terms[i]);
 		if(it!=_hashTagIndex.end()){
 		//std::map<std::string, std::set<Tweet *>>::iterator it = _hashTagIndex.find(terms[i]); //log size of HTI which is logn
 		std::set<Tweet*>* tweetsWithHT = &it->second;
