@@ -28,15 +28,14 @@ void readWords(char *filename, vector<vector<string>> &words)
     getline(iFile, line);
     std::stringstream ss(line);
     std::vector<std::string> vec;
-    bool firstloop = true; //ugly ik
+    if (i == 0 || i == 3)
+    {
+      std::string emptyStr = "";
+      vec.push_back(emptyStr); //emptystr is inserted since these are optional words
+    }
     while (ss >> word)
     {
-      if(firstloop && (i == 0 || i==3)){
-        std::string blank = "";
-        vec.push_back(blank); //Blank is inserted for optional words
-      }
       vec.push_back(word);
-      firstloop = false;
     }
     words.push_back(vec); //index 0 is adj, 1 is sub, 2 is verb, 3 is adv,
   }
@@ -45,7 +44,7 @@ void readWords(char *filename, vector<vector<string>> &words)
 void generateSentences(vector<vector<string>> &words, ofstream &ofile)
 {
   int numSentences = 0;
-  genHelper(words,ofile, 0, "The",numSentences);
+  genHelper(words, ofile, 0, "The", numSentences);
   ofile << numSentences << " sentences.";
 }
 
@@ -55,21 +54,26 @@ void genHelper(vector<vector<string>> &words,
                string sentence,
                int &numSentences)
 {
-  if(currentOption==4){
-    ofile << sentence<<"." <<std::endl;
+  if (currentOption == 4)
+  {
+    ofile << sentence << "." << std::endl;
     numSentences++;
   }
-  else{
-    
-    for(int i = 0; i< words[currentOption].size();i++){
+  else
+  {
+
+    for (int i = 0; i < words[currentOption].size(); i++)
+    {
       std::string temp;
-      if(words[currentOption][i]!=""){
-        temp=sentence+" "+ words[currentOption][i];
+      if (words[currentOption][i] != "")
+      {
+        temp = sentence + " " + words[currentOption][i];
       }
-      else{
-        temp = sentence+words[currentOption][i];
-      } 
-      genHelper(words,ofile,currentOption+1,temp,numSentences);
+      else
+      {
+        temp = sentence + words[currentOption][i];
+      }
+      genHelper(words, ofile, currentOption + 1, temp, numSentences);
     }
   }
 }
