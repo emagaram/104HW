@@ -62,7 +62,7 @@ void genHelper(vector<vector<string>> &words,
   else
   {
 
-    for (int i = 0; i < words[currentOption].size(); i++)
+    for (size_t i = 0; i < words[currentOption].size(); i++)
     {
       std::string temp;
       if (words[currentOption][i] != "")
