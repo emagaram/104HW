@@ -1,0 +1,13 @@
+The c e.
+The c f.
+The d e.
+The d f.
+The a c e.
+The a c f.
+The a d e.
+The a d f.
+The b c e.
+The b c f.
+The b d e.
+The b d f.
+12 sentences.

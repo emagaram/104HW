@@ -1,0 +1,401 @@
+The e i.
+The e i m.
+The e i n.
+The e i o.
+The e i p.
+The e j.
+The e j m.
+The e j n.
+The e j o.
+The e j p.
+The e k.
+The e k m.
+The e k n.
+The e k o.
+The e k p.
+The e l.
+The e l m.
+The e l n.
+The e l o.
+The e l p.
+The f i.
+The f i m.
+The f i n.
+The f i o.
+The f i p.
+The f j.
+The f j m.
+The f j n.
+The f j o.
+The f j p.
+The f k.
+The f k m.
+The f k n.
+The f k o.
+The f k p.
+The f l.
+The f l m.
+The f l n.
+The f l o.
+The f l p.
+The g i.
+The g i m.
+The g i n.
+The g i o.
+The g i p.
+The g j.
+The g j m.
+The g j n.
+The g j o.
+The g j p.
+The g k.
+The g k m.
+The g k n.
+The g k o.
+The g k p.
+The g l.
+The g l m.
+The g l n.
+The g l o.
+The g l p.
+The h i.
+The h i m.
+The h i n.
+The h i o.
+The h i p.
+The h j.
+The h j m.
+The h j n.
+The h j o.
+The h j p.
+The h k.
+The h k m.
+The h k n.
+The h k o.
+The h k p.
+The h l.
+The h l m.
+The h l n.
+The h l o.
+The h l p.
+The a e i.
+The a e i m.
+The a e i n.
+The a e i o.
+The a e i p.
+The a e j.
+The a e j m.
+The a e j n.
+The a e j o.
+The a e j p.
+The a e k.
+The a e k m.
+The a e k n.
+The a e k o.
+The a e k p.
+The a e l.
+The a e l m.
+The a e l n.
+The a e l o.
+The a e l p.
+The a f i.
+The a f i m.
+The a f i n.
+The a f i o.
+The a f i p.
+The a f j.
+The a f j m.
+The a f j n.
+The a f j o.
+The a f j p.
+The a f k.
+The a f k m.
+The a f k n.
+The a f k o.
+The a f k p.
+The a f l.
+The a f l m.
+The a f l n.
+The a f l o.
+The a f l p.
+The a g i.
+The a g i m.
+The a g i n.
+The a g i o.
+The a g i p.
+The a g j.
+The a g j m.
+The a g j n.
+The a g j o.
+The a g j p.
+The a g k.
+The a g k m.
+The a g k n.
+The a g k o.
+The a g k p.
+The a g l.
+The a g l m.
+The a g l n.
+The a g l o.
+The a g l p.
+The a h i.
+The a h i m.
+The a h i n.
+The a h i o.
+The a h i p.
+The a h j.
+The a h j m.
+The a h j n.
+The a h j o.
+The a h j p.
+The a h k.
+The a h k m.
+The a h k n.
+The a h k o.
+The a h k p.
+The a h l.
+The a h l m.
+The a h l n.
+The a h l o.
+The a h l p.
+The b e i.
+The b e i m.
+The b e i n.
+The b e i o.
+The b e i p.
+The b e j.
+The b e j m.
+The b e j n.
+The b e j o.
+The b e j p.
+The b e k.
+The b e k m.
+The b e k n.
+The b e k o.
+The b e k p.
+The b e l.
+The b e l m.
+The b e l n.
+The b e l o.
+The b e l p.
+The b f i.
+The b f i m.
+The b f i n.
+The b f i o.
+The b f i p.
+The b f j.
+The b f j m.
+The b f j n.
+The b f j o.
+The b f j p.
+The b f k.
+The b f k m.
+The b f k n.
+The b f k o.
+The b f k p.
+The b f l.
+The b f l m.
+The b f l n.
+The b f l o.
+The b f l p.
+The b g i.
+The b g i m.
+The b g i n.
+The b g i o.
+The b g i p.
+The b g j.
+The b g j m.
+The b g j n.
+The b g j o.
+The b g j p.
+The b g k.
+The b g k m.
+The b g k n.
+The b g k o.
+The b g k p.
+The b g l.
+The b g l m.
+The b g l n.
+The b g l o.
+The b g l p.
+The b h i.
+The b h i m.
+The b h i n.
+The b h i o.
+The b h i p.
+The b h j.
+The b h j m.
+The b h j n.
+The b h j o.
+The b h j p.
+The b h k.
+The b h k m.
+The b h k n.
+The b h k o.
+The b h k p.
+The b h l.
+The b h l m.
+The b h l n.
+The b h l o.
+The b h l p.
+The c e i.
+The c e i m.
+The c e i n.
+The c e i o.
+The c e i p.
+The c e j.
+The c e j m.
+The c e j n.
+The c e j o.
+The c e j p.
+The c e k.
+The c e k m.
+The c e k n.
+The c e k o.
+The c e k p.
+The c e l.
+The c e l m.
+The c e l n.
+The c e l o.
+The c e l p.
+The c f i.
+The c f i m.
+The c f i n.
+The c f i o.
+The c f i p.
+The c f j.
+The c f j m.
+The c f j n.
+The c f j o.
+The c f j p.
+The c f k.
+The c f k m.
+The c f k n.
+The c f k o.
+The c f k p.
+The c f l.
+The c f l m.
+The c f l n.
+The c f l o.
+The c f l p.
+The c g i.
+The c g i m.
+The c g i n.
+The c g i o.
+The c g i p.
+The c g j.
+The c g j m.
+The c g j n.
+The c g j o.
+The c g j p.
+The c g k.
+The c g k m.
+The c g k n.
+The c g k o.
+The c g k p.
+The c g l.
+The c g l m.
+The c g l n.
+The c g l o.
+The c g l p.
+The c h i.
+The c h i m.
+The c h i n.
+The c h i o.
+The c h i p.
+The c h j.
+The c h j m.
+The c h j n.
+The c h j o.
+The c h j p.
+The c h k.
+The c h k m.
+The c h k n.
+The c h k o.
+The c h k p.
+The c h l.
+The c h l m.
+The c h l n.
+The c h l o.
+The c h l p.
+The d e i.
+The d e i m.
+The d e i n.
+The d e i o.
+The d e i p.
+The d e j.
+The d e j m.
+The d e j n.
+The d e j o.
+The d e j p.
+The d e k.
+The d e k m.
+The d e k n.
+The d e k o.
+The d e k p.
+The d e l.
+The d e l m.
+The d e l n.
+The d e l o.
+The d e l p.
+The d f i.
+The d f i m.
+The d f i n.
+The d f i o.
+The d f i p.
+The d f j.
+The d f j m.
+The d f j n.
+The d f j o.
+The d f j p.
+The d f k.
+The d f k m.
+The d f k n.
+The d f k o.
+The d f k p.
+The d f l.
+The d f l m.
+The d f l n.
+The d f l o.
+The d f l p.
+The d g i.
+The d g i m.
+The d g i n.
+The d g i o.
+The d g i p.
+The d g j.
+The d g j m.
+The d g j n.
+The d g j o.
+The d g j p.
+The d g k.
+The d g k m.
+The d g k n.
+The d g k o.
+The d g k p.
+The d g l.
+The d g l m.
+The d g l n.
+The d g l o.
+The d g l p.
+The d h i.
+The d h i m.
+The d h i n.
+The d h i o.
+The d h i p.
+The d h j.
+The d h j m.
+The d h j n.
+The d h j o.
+The d h j p.
+The d h k.
+The d h k m.
+The d h k n.
+The d h k o.
+The d h k p.
+The d h l.
+The d h l m.
+The d h l n.
+The d h l o.
+The d h l p.
+400 sentences.

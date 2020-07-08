@@ -1,0 +1,37 @@
+The cat jumped.
+The cat jumped swiftly.
+The cat jumped suddenly.
+The cat fell.
+The cat fell swiftly.
+The cat fell suddenly.
+The dog jumped.
+The dog jumped swiftly.
+The dog jumped suddenly.
+The dog fell.
+The dog fell swiftly.
+The dog fell suddenly.
+The red cat jumped.
+The red cat jumped swiftly.
+The red cat jumped suddenly.
+The red cat fell.
+The red cat fell swiftly.
+The red cat fell suddenly.
+The red dog jumped.
+The red dog jumped swiftly.
+The red dog jumped suddenly.
+The red dog fell.
+The red dog fell swiftly.
+The red dog fell suddenly.
+The blue cat jumped.
+The blue cat jumped swiftly.
+The blue cat jumped suddenly.
+The blue cat fell.
+The blue cat fell swiftly.
+The blue cat fell suddenly.
+The blue dog jumped.
+The blue dog jumped swiftly.
+The blue dog jumped suddenly.
+The blue dog fell.
+The blue dog fell swiftly.
+The blue dog fell suddenly.
+36 sentences.

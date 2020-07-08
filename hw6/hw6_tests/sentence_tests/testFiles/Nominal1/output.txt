@@ -1,0 +1,17 @@
+The boy swam.
+The boy swam quickly.
+The boy ran.
+The boy ran quickly.
+The girl swam.
+The girl swam quickly.
+The girl ran.
+The girl ran quickly.
+The big boy swam.
+The big boy swam quickly.
+The big boy ran.
+The big boy ran quickly.
+The big girl swam.
+The big girl swam quickly.
+The big girl ran.
+The big girl ran quickly.
+16 sentences.
