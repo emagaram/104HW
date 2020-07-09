@@ -41,7 +41,9 @@ void readFile(char *filename, std::vector<std::vector<int> *> &clauses, std::map
         {
             clause->push_back(std::stoi(word));
         }
-        clauses.push_back(clause);
+        if(clause->size()>0){ // if file states there are 5 clauses but there's nothing in them, we don't care
+            clauses.push_back(clause);
+        }
     }
 }
 
