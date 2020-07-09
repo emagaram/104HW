@@ -10,7 +10,7 @@
         "type": "cppdbg",
         "request": "launch",
         "program": "${fileDirname}/${fileBasenameNoExtension}.exe",
-        "args": ["sentences1.in", "sentences1.out"],
+        "args": ["homemade1.cnf", "test.out"],
         "stopAtEntry": false,
         "cwd": "${fileDirname}",
         "environment": [],

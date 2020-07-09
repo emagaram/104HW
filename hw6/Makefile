@@ -10,7 +10,7 @@ GTEST_LL = -I /usr/include/gtest/ -l gtest -l gtest_main -pthread
 all: sentences sat_solver
 
 sat_solver: sat_solver.cpp
-	g++ -g $^ -o $@
+	g++ -g -std=c++11 $^ -o $@
 
 sentences: sentences.cpp
 	g++ -g $^ -o $@
