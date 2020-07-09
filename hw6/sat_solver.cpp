@@ -141,7 +141,7 @@ int main(int argc, char *argv[])
             }
         }
     }
-    else
+    else if(clauses.size()>0 && variables.size()>0)
     {
         oFile << "No solution";
     }
