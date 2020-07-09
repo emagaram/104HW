@@ -6,19 +6,19 @@
 
 using namespace std;
 
-void readWords(char *filename, vector<vector<string>> &words);
+void readWords(char *filename, std::vector<std::vector<std::string> > &words);
 
 // client interface
-void generateSentences(vector<vector<string>> &words, ofstream &ofile);
+void generateSentences(std::vector<std::vector<std::string> > &words, ofstream &ofile);
 
 // recursive helper function
-void genHelper(vector<vector<string>> &words,
+void genHelper(vector<vector<string> > &words,
                ofstream &ofile,
                int currentOption,
                string sentence,
                int &numSentences);
 
-void readWords(char *filename, vector<vector<string>> &words)
+void readWords(char *filename, std::vector<std::vector<std::string> > &words)
 {
   std::ifstream iFile(filename);
   std::string line;
@@ -41,14 +41,14 @@ void readWords(char *filename, vector<vector<string>> &words)
   }
 }
 
-void generateSentences(vector<vector<string>> &words, ofstream &ofile)
+void generateSentences(vector<vector<string> > &words, ofstream &ofile)
 {
   int numSentences = 0;
   genHelper(words, ofile, 0, "The", numSentences);
   ofile << numSentences << " sentences.";
 }
 
-void genHelper(vector<vector<string>> &words,
+void genHelper(vector<vector<string> > &words,
                ofstream &ofile,
                int currentOption,
                string sentence,
@@ -84,7 +84,7 @@ int main(int argc, char *argv[])
   {
     cerr << "Usage ./sentences input_file output_file" << endl;
   }
-  vector<vector<string>> words;
+  vector<vector<string> > words;
 
   // Parse the file
   readWords(argv[1], words);
