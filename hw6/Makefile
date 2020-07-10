@@ -7,7 +7,7 @@ BIN_DIR  = bin
 DELETE_FILE = rm -f
 GTEST_LL = -I /usr/include/gtest/ -l gtest -l gtest_main -pthread
 
-all: sentences sat_solver
+all: sentences sat_solver twitter
 
 sat_solver: sat_solver.cpp
 	g++ -g -std=c++11 $^ -o $@

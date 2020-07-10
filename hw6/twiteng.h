@@ -5,6 +5,7 @@
 #include <set>
 #include <fstream>
 #include <vector>
+#include <stack>
 #include "user.h"
 #include "datetime.h"
 
@@ -52,11 +53,12 @@ public:
   std::string parseName(std::string line);
   std::string parseTweet(std::string line);
   void getSCC();
+  std::map<User*,int> findSCCs();
   /* You may add other member functions */
 private:
   /* Add any other data members or helper functions here  */
   int _userCount;
-  void setSCC();
+  void dfs(User* u, std::stack<User*>& stack_, std::map<User*,bool>& onStack,std::map<User*, int>& ids, std::map<User*, int>& low, int& id, int& sccCount);
   std::map<std::string, User *> _users;
   std::map<std::string, std::set<Tweet*>> _hashTagIndex;
   std::map<std::string, std::set<Tweet*>> _mentionFeeds; 

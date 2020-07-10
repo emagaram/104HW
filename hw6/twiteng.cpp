@@ -12,6 +12,7 @@
 #include <string>
 #include <fstream>
 #include <stack>
+#include <cstdlib>
 
 TwitEng::TwitEng()
 {
@@ -21,39 +22,97 @@ TwitEng::TwitEng()
 TwitEng::~TwitEng()
 {
 	std::set<Tweet *> allTweets;
-	
-	for (std::map<std::string, User*>::iterator usersIt = _users.begin(); usersIt!=_users.end();usersIt++)
-	{
-		User* userPtr = usersIt->second;
-		std::vector<Tweet*> feed = userPtr->getFeed();
 
-		
-		for (std::vector<Tweet*>::iterator feedIt=feed.begin();feedIt!=feed.end();feedIt++)
+	for (std::map<std::string, User *>::iterator usersIt = _users.begin(); usersIt != _users.end(); usersIt++)
+	{
+		User *userPtr = usersIt->second;
+		std::vector<Tweet *> feed = userPtr->getFeed();
+
+		for (std::vector<Tweet *>::iterator feedIt = feed.begin(); feedIt != feed.end(); feedIt++)
 		{
 			allTweets.insert(*feedIt);
 		}
 	}
-	for (std::set<Tweet*>::iterator allTweetsIt=allTweets.begin();allTweetsIt!=allTweets.end();allTweetsIt++)
+	for (std::set<Tweet *>::iterator allTweetsIt = allTweets.begin(); allTweetsIt != allTweets.end(); allTweetsIt++)
 	{
 		delete *allTweetsIt;
 	}
 
-	for (std::map<std::string, User*>::iterator usersIt = _users.begin(); usersIt!=_users.end();usersIt++)
+	for (std::map<std::string, User *>::iterator usersIt = _users.begin(); usersIt != _users.end(); usersIt++)
 	{
 		delete usersIt->second;
 	}
 }
 
+void TwitEng::dfs(User *u, std::stack<User *> &stack_, std::map<User *, bool> &onStack, std::map<User *, int> &ids, std::map<User *, int> &low, int &id, int &sccCount)
+{
+	stack_.push(u);
+	onStack.find(u)->second = true;
+	low.find(u)->second = id++;
+	ids.find(u)->second = low.find(u)->second;
+	std::set<User *> followingCopy = u->following();
 
-void TwitEng::setSCC(){
-	std::stack<int> s;
-	std::map<User*, int> userIndexes;
-	for(std::map<std::string, User*>::iterator userIt= _users.begin();userIt!=_users.end();userIt++){
-
+	for (std::set<User *>::iterator followIt = followingCopy.begin(); followIt != followingCopy.end(); followIt++)
+	{
+		if (ids.find(*followIt)->second == -1)
+		{
+			TwitEng::dfs(*followIt, stack_, onStack, ids, low, id, sccCount);
+		}
+		if (onStack.find(*followIt)->second)
+		{
+			low.find(u)->second = std::min(low.find(*followIt)->second, low.find(u)->second);
+		}
+	}
+	if (ids.find(u)->second == low.find(u)->second)
+	{
+		while (!stack_.empty())
+		{
+			User *user = stack_.top();
+			stack_.pop();
+			onStack.find(user)->second = false;
+			low.find(user)->second = ids.find(u)->second;
+			if (user == u)
+			{
+				break;
+			}
+		}
+		sccCount++;
 	}
 }
-void TwitEng::getSCC(){
 
+std::map<User *, int> TwitEng::findSCCs()
+{
+	std::map<User *, int> ids; //Id of each node
+	std::map<User *, int> low; //Lowlink val of each node
+	std::map<User *, bool> onStack;
+
+	//Initializing for loop
+	for (std::map<std::string, User *>::iterator userIt = _users.begin(); userIt != _users.end(); userIt++)
+	{
+		User *u = userIt->second;
+		ids.insert(std::make_pair(u, -1));
+		low.insert(std::pair<User *, int>(u, 0));
+		onStack.insert(std::pair<User *, bool>(u, false));
+		//std::pair<std::string, std::set<Tweet *>>(word, mentionTweets)
+	}
+	int idNum = 0;
+	int sccCounter = 0;
+
+	std::stack<User *> stack_;
+	//Visits all unvisited nodes
+	for (std::map<std::string, User *>::iterator userIt = _users.begin(); userIt != _users.end(); userIt++)
+	{
+		if (ids.find(userIt->second)->second == -1)
+		{
+			User *temp = userIt->second;
+			dfs(temp, stack_, onStack, ids, low, idNum, sccCounter);
+		}
+	}
+	return low;
+}
+
+void TwitEng::getSCC()
+{
 }
 
 void TwitEng::addToMentionFeeds(Tweet *t)
@@ -264,11 +323,11 @@ std::set<Tweet *> operator|(const std::set<Tweet *> &s1,
 {
 	std::set<Tweet *> answer;
 
-	for (std::set<Tweet*>::iterator s1Value = s1.cbegin(); s1Value != s1.cend(); ++s1Value)
+	for (std::set<Tweet *>::iterator s1Value = s1.cbegin(); s1Value != s1.cend(); ++s1Value)
 	{
 		answer.insert(*s1Value);
 	}
-	for (std::set<Tweet*>::iterator s2Value = s2.cbegin(); s2Value != s2.cend(); ++s2Value)
+	for (std::set<Tweet *>::iterator s2Value = s2.cbegin(); s2Value != s2.cend(); ++s2Value)
 	{
 		answer.insert(*s2Value);
 	}
@@ -308,10 +367,11 @@ std::vector<Tweet *> TwitEng::search(std::vector<std::string> &terms, int strate
 
 	for (size_t i = 0; i < terms.size(); i++)
 	{
-		std::map<std::string,std::set<Tweet*>>::iterator it = _hashTagIndex.find(terms[i]);
-		if(it!=_hashTagIndex.end()){
-		//std::map<std::string, std::set<Tweet *>>::iterator it = _hashTagIndex.find(terms[i]); //log size of HTI which is logn
-		std::set<Tweet*>* tweetsWithHT = &it->second;
+		std::map<std::string, std::set<Tweet *>>::iterator it = _hashTagIndex.find(terms[i]);
+		if (it != _hashTagIndex.end())
+		{
+			//std::map<std::string, std::set<Tweet *>>::iterator it = _hashTagIndex.find(terms[i]); //log size of HTI which is logn
+			std::set<Tweet *> *tweetsWithHT = &it->second;
 			//TODO Cleanup
 			if (i == 0 && strategy == 0)
 			{
@@ -326,7 +386,6 @@ std::vector<Tweet *> TwitEng::search(std::vector<std::string> &terms, int strate
 				result = result & *tweetsWithHT;
 			}
 		}
-		
 	}
 	return std::vector<Tweet *>(result.begin(), result.end());
 }

@@ -16,9 +16,11 @@ Handler *createHandlers()
   return new AndHandler(
       new OrHandler(
           new TweetHandler(
-              new SaveHandler(new FollowHandler(
-                  new QuitHandler(
-                      new UnrecognizedCommandHandler()))))));
+              new SaveHandler(
+                  new FollowHandler(
+                      new SCCHandler(
+                          new QuitHandler(
+                              new UnrecognizedCommandHandler())))))));
 }
 
 int main(int argc, char *argv[])

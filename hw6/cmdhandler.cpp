@@ -6,8 +6,6 @@
 //#pragma warning(disable : 4996)
 using namespace std;
 
-
-
 SCCHandler::SCCHandler()
 {
 }
@@ -24,18 +22,39 @@ bool SCCHandler::canHandle(const std::string &cmd) const
 Handler::HANDLER_STATUS_T SCCHandler::process(TwitEng *eng, std::istream &instr) const
 {
 	//Get rest of line
-	
 	std::string fileName;
 	std::string line;
 	std::getline(instr, line);
 	std::stringstream ss(line); //results-filename
 	ss >> fileName;
 	std::ofstream ofile(fileName);
+	std::map<User *, int> sccs = eng->findSCCs();
+	size_t itemsPrinted = 0;
+	int lowestVal = 0;	
+	int componentCount = 1;	
+	while (itemsPrinted<sccs.size())
+	{
+		for (std::map<User *, int>::iterator scIt = sccs.begin(); scIt != sccs.end(); scIt++)
+		{
+			if (scIt->second == lowestVal)
+			{
+				ofile<<"Component " << componentCount++ << std::endl;
+				for (std::map<User *, int>::iterator scIt1 = sccs.begin(); scIt1 != sccs.end(); scIt1++){
+					if(scIt1->second==lowestVal){
+						ofile<<scIt1->first->name()<<std::endl;
+						itemsPrinted++;
+					}
+				}
+				ofile<<std::endl;
+				break;
+			}
+		}
+		lowestVal++;
+		
+	}
+
 	return HANDLER_OK;
 }
-
-
-
 
 UnrecognizedCommandHandler::UnrecognizedCommandHandler()
 {
@@ -55,8 +74,6 @@ Handler::HANDLER_STATUS_T UnrecognizedCommandHandler::process(TwitEng *eng, std:
 	std::cout << "Unrecognized command";
 	return HANDLER_KILL;
 }
-
-
 
 SaveHandler::SaveHandler()
 {
@@ -91,7 +108,7 @@ Handler::HANDLER_STATUS_T SaveHandler::process(TwitEng *eng, std::istream &instr
 	while (userIt != copyUsers.end())
 	{
 		User *u = userIt->second;
-		
+
 		ofile << u->name() << " ";
 
 		std::set<User *> copyFollowing = u->following();
@@ -108,8 +125,8 @@ Handler::HANDLER_STATUS_T SaveHandler::process(TwitEng *eng, std::istream &instr
 		}
 		else
 		{
-			std::list<Tweet*> uTweetsCopy = u->tweets();
-			allTweets.insert(allTweets.end(), uTweetsCopy.begin(),uTweetsCopy.end());
+			std::list<Tweet *> uTweetsCopy = u->tweets();
+			allTweets.insert(allTweets.end(), uTweetsCopy.begin(), uTweetsCopy.end());
 		}
 		userIt++;
 	}
@@ -275,8 +292,9 @@ Handler::HANDLER_STATUS_T TweetHandler::process(TwitEng *eng, std::istream &inst
 	std::stringstream ss(line);
 	ss >> name;
 
-	std::map<string, User*> copyUsers = eng->getUsers();
-	if(copyUsers.find(name)==copyUsers.end()){
+	std::map<string, User *> copyUsers = eng->getUsers();
+	if (copyUsers.find(name) == copyUsers.end())
+	{
 		return HANDLER_OK;
 	}
 

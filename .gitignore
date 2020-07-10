@@ -61,3 +61,5 @@ hw6/*.o
 hw6/*.exe
 hw6/*.out
 hw6/homemade1.cnf
+hw6/*.feed
+hw6/*.mentions

@@ -10,7 +10,7 @@
         "type": "cppdbg",
         "request": "launch",
         "program": "${fileDirname}/${fileBasenameNoExtension}.exe",
-        "args": ["homemade1.cnf", "test.out"],
+        "args": ["twitter.dat"],
         "stopAtEntry": false,
         "cwd": "${fileDirname}",
         "environment": [],
