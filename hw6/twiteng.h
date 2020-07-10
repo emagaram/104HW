@@ -52,7 +52,6 @@ public:
   DateTime parseDate(std::string line);
   std::string parseName(std::string line);
   std::string parseTweet(std::string line);
-  void getSCC();
   std::map<User*,int> findSCCs();
   /* You may add other member functions */
 private:

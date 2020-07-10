@@ -111,10 +111,6 @@ std::map<User *, int> TwitEng::findSCCs()
 	return low;
 }
 
-void TwitEng::getSCC()
-{
-}
-
 void TwitEng::addToMentionFeeds(Tweet *t)
 {
 	//Simply adds a tweet to a map of all users to their @mentions
