@@ -3,7 +3,6 @@
 #include "hsort.h"
 #include <sstream>
 #include <ctime>
-//#pragma warning(disable : 4996)
 using namespace std;
 
 SCCHandler::SCCHandler()
