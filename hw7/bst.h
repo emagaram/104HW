@@ -582,7 +582,7 @@ BinarySearchTree<Key, Value>::predecessor(Node<Key, Value> *current)
 template <typename Key, typename Value>
 void BinarySearchTree<Key, Value>::clear()
 {
-    BinarySearchTree<Key, Value>::iterator::iterator it = this->begin();
+    BinarySearchTree<Key, Value>::iterator::iterator it(getSmallestNode());
     while(it!= this->end()){
         remove(*it);
         it++;
