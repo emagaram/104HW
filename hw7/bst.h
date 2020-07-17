@@ -458,27 +458,27 @@ void BinarySearchTree<Key, Value>::insert(const std::pair<const Key, Value> &key
 {
     if (root_ == nullptr)
     {
-        root_ = new Node<Key, Value>(keyValuePair.first, keyValuePair.second, nullptr);
+        root_ = new Node<Key, Value>(keyValuePair->first, keyValuePair->second, nullptr);
     }
     else
     {
-        Node<Key, Value> *node = internalFind(keyValuePair.first);
+        Node<Key, Value> *node = internalFind(keyValuePair->first);
         if (node != nullptr)
         {
-            node->setValue(keyValuePair.second);
+            node->setValue(keyValuePair->second);
         }
         else //node doesn't currently exist
         {
             node = root_; //Which we know exists
             bool done = false;
-            while (node->getKey() != keyValuePair.first && !done)
+            while (node->getKey() != keyValuePair->first && !done)
             {
-                if (node->getKey() < keyValuePair.first)
+                if (node->getKey() < keyValuePair->first)
                 {
                     if (node->getLeft() == nullptr)
                     {
                         done = true;
-                        Node<Key,Value>* nodeToInsert = new Node<Key, Value>(keyValuePair.first, keyValuePair.second, node->getParent());
+                        Node<Key,Value>* nodeToInsert = new Node<Key, Value>(keyValuePair->first, keyValuePair->second, node->getParent());
                         node->setLeft(nodeToInsert);
                     }
                     else
@@ -491,7 +491,7 @@ void BinarySearchTree<Key, Value>::insert(const std::pair<const Key, Value> &key
                     if (node->getRight() == nullptr)
                     {
                         done = true;
-                        Node<Key,Value>* nodeToInsert = new Node<Key, Value>(keyValuePair.first, keyValuePair.second, node->getParent());
+                        Node<Key,Value>* nodeToInsert = new Node<Key, Value>(keyValuePair->first, keyValuePair->second, node->getParent());
                         node->setRight(nodeToInsert);
 
                     }
