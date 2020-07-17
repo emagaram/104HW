@@ -635,7 +635,8 @@ Node<Key, Value> *BinarySearchTree<Key, Value>::internalFind(const Key &key) con
 template <typename Key, typename Value>
 bool BinarySearchTree<Key, Value>::isBalanced() const
 {
-    return isBalancedHelper(root_);
+    const bool answer = isBalancedHelper(root_); 
+    return answer; 
 }
 
 template <typename Key, typename Value>
