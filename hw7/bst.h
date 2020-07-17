@@ -334,7 +334,7 @@ template <class Key, class Value>
 typename BinarySearchTree<Key, Value>::iterator &
 BinarySearchTree<Key, Value>::iterator::operator++()
 {
-    BinarySearchTree<Key, Value>::iterator temp = this;
+    BinarySearchTree<Key, Value>::iterator temp = *this;
     if (current_->getLeft() != nullptr)
     {
         current_ = current_->getLeft();
