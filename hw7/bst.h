@@ -245,7 +245,7 @@ protected:
     virtual void nodeSwap(Node<Key, Value> *n1, Node<Key, Value> *n2);
 
     // Add helper functions here
-    int getHeight(Node<Key, Value> *n);
+    int getHeight(const Node<Key, Value> *n);
     bool isBalancedHelper(Node<Key, Value> *node) const;
 
 protected:
