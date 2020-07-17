@@ -582,8 +582,10 @@ BinarySearchTree<Key, Value>::predecessor(Node<Key, Value> *current)
 template <typename Key, typename Value>
 void BinarySearchTree<Key, Value>::clear()
 {
-    for(BinarySearchTree<Key, Value>::iterator::iterator it = this->begin(); it!=this->end();it++){
+    BinarySearchTree<Key, Value>::iterator::iterator it = this->begin();
+    while(it!= this->end()){
         remove(*it);
+        it++;
     }
     root_ = nullptr;
 }
