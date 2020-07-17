@@ -246,7 +246,7 @@ protected:
 
     // Add helper functions here
     int getHeight(const Node<Key, Value> *n);
-    bool isBalancedHelper(Node<Key, Value> *node) const;
+    bool isBalancedHelper(Node<Key, Value> *node);
 
 protected:
     Node<Key, Value> *root_;
@@ -639,7 +639,7 @@ bool BinarySearchTree<Key, Value>::isBalanced() const
 }
 
 template <typename Key, typename Value>
-bool BinarySearchTree<Key, Value>::isBalancedHelper(Node<Key, Value> *node) const
+bool BinarySearchTree<Key, Value>::isBalancedHelper(Node<Key, Value> *node)
 {
     int rightH = getHeight(node->getRight());
     int leftH = getHeight(node->getLeft());
