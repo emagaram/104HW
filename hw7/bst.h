@@ -265,7 +265,7 @@ Begin implementations for the BinarySearchTree::iterator class.
 template <class Key, class Value>
 BinarySearchTree<Key, Value>::iterator::iterator(Node<Key, Value> *ptr)
 {
-    current = ptr;
+    current_ = ptr;
 }
 
 /**
@@ -274,7 +274,7 @@ BinarySearchTree<Key, Value>::iterator::iterator(Node<Key, Value> *ptr)
 template <class Key, class Value>
 BinarySearchTree<Key, Value>::iterator::iterator()
 {
-    current = nullptr;
+    current_ = nullptr;
 }
 
 /**
@@ -305,7 +305,7 @@ template <class Key, class Value>
 bool BinarySearchTree<Key, Value>::iterator::operator==(
     const BinarySearchTree<Key, Value>::iterator &rhs) const
 {
-    if (this->current_ == rhs->current_)
+    if (current_ == rhs->current_)
     {
         return true;
     }
@@ -320,7 +320,7 @@ template <class Key, class Value>
 bool BinarySearchTree<Key, Value>::iterator::operator!=(
     const BinarySearchTree<Key, Value>::iterator &rhs) const
 {
-    if (this->current_ == rhs->current_)
+    if (current_ == rhs->current_)
     {
         return false;
     }
