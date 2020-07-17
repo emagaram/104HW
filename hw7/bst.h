@@ -647,7 +647,7 @@ bool BinarySearchTree<Key, Value>::isBalancedHelper(Node<Key, Value> *node) cons
     { //Base case, past leaf node
         return true;
     }
-    else if (abs(rightH - leftH <= 1) && isBalancedHelper(node->right_) && isBalancedHelper(node->left))
+    else if (abs(rightH - leftH <= 1) && isBalancedHelper(node->getRight()) && isBalancedHelper(node->getLeft()))
     {
         return true;
     }
