@@ -534,7 +534,7 @@ void BinarySearchTree<Key, Value>::remove(const Key &key)
         }
         else if(numChildren==1){
 
-            Node* childNode;
+            Node<Key,Value>* childNode;
             if(node->getLeft()!=nullptr){
                 childNode=node->getLeft();
             }
@@ -582,12 +582,12 @@ BinarySearchTree<Key, Value>::predecessor(Node<Key, Value> *current)
 template <typename Key, typename Value>
 void BinarySearchTree<Key, Value>::clear()
 {
-    BinarySearchTree<Key, Value>::iterator::iterator it(getSmallestNode());
-    while(it!= this->end()){
-        remove(*it);
-        it++;
-    }
-    root_ = nullptr;
+    // BinarySearchTree<Key, Value>::iterator::iterator it(getSmallestNode());
+    // while(it!= this->end()){
+    //     remove(*it);
+    //     it++;
+    // }
+    // root_ = nullptr;
 }
 
 /**
