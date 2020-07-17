@@ -342,7 +342,7 @@ BinarySearchTree<Key, Value>::iterator::operator++()
     }
     else
     {
-        Node<Key,Value>* right = current_->getRight; 
+        Node<Key,Value>* right = current_->getRight(); 
         current_ = right;
     }
     return temp;
