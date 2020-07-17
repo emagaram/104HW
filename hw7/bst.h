@@ -750,7 +750,7 @@ void BinarySearchTree<Key, Value>::nodeSwap(Node<Key, Value> *n1, Node<Key, Valu
     }
 }
 template <typename Key, typename Value>
-int BinarySearchTree<Key, Value>::getHeight(Node<Key, Value> *root const)
+int BinarySearchTree<Key, Value>::getHeight(const Node<Key, Value> *root)
 {
     if (root == nullptr)
     {
