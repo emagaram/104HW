@@ -305,7 +305,7 @@ template <class Key, class Value>
 bool BinarySearchTree<Key, Value>::iterator::operator==(
     const BinarySearchTree<Key, Value>::iterator &rhs) const
 {
-    if (current_ == rhs->current_)
+    if (**this == rhs->current_)
     {
         return true;
     }
@@ -320,7 +320,7 @@ template <class Key, class Value>
 bool BinarySearchTree<Key, Value>::iterator::operator!=(
     const BinarySearchTree<Key, Value>::iterator &rhs) const
 {
-    if (current_ == rhs->current_)
+    if (**this == rhs->current_)
     {
         return false;
     }
