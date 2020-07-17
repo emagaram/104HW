@@ -337,12 +337,12 @@ BinarySearchTree<Key, Value>::iterator::operator++()
     BinarySearchTree<Key, Value>::iterator temp = *this;
     if (current_->getLeft() != nullptr)
     {
-        Node* left = current_->getLeft();
+        Node<Key,Value>* left = current_->getLeft();
         current_ = left;
     }
     else
     {
-        Node* right = current_->getRight; 
+        Node<Key,Value>* right = current_->getRight; 
         current_ = right;
     }
     return temp;
@@ -760,7 +760,7 @@ int BinarySearchTree<Key, Value>::getHeight(Node<Key, Value> *root)
     {
         int leftHeight = getHeight(root->left) + 1;
         int rightHeight = getHeight(root->right) + 1;
-        int finalHeight = max(leftHeight, rightHeight) + 1;
+        int finalHeight = 1+std::max(leftHeight, rightHeight);
         return finalHeight;
     }
 }
