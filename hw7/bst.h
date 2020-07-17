@@ -641,10 +641,8 @@ bool BinarySearchTree<Key, Value>::isBalanced() const
 template <typename Key, typename Value>
 bool BinarySearchTree<Key, Value>::isBalancedHelper(Node<Key, Value> *node) const
 {
-    Node<Key,Value>* right = node->getRight();
-    Node<Key,Value>* left = node->getLeft();
-    int rightH = getHeight(right);
-    int leftH = getHeight(left);
+    int rightH = getHeight(node->getRight());
+    int leftH = getHeight(node->getLeft());
     if (node == nullptr)
     { //Base case, past leaf node
         return true;
@@ -752,7 +750,7 @@ void BinarySearchTree<Key, Value>::nodeSwap(Node<Key, Value> *n1, Node<Key, Valu
     }
 }
 template <typename Key, typename Value>
-int BinarySearchTree<Key, Value>::getHeight(Node<Key, Value> *root)
+int BinarySearchTree<Key, Value>::getHeight(Node<Key, Value> *root const)
 {
     if (root == nullptr)
     {
