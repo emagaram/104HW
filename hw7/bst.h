@@ -546,6 +546,10 @@ void BinarySearchTree<Key, Value>::remove(const Key &key)
                     node->getParent()->setLeft(nullptr);
                 }
             }
+            else{
+                root_=childNode;
+                childNode->setParent(nullptr);                
+            }
         }
         else if (numChildren == 1)
         {
