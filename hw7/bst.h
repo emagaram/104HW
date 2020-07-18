@@ -585,14 +585,7 @@ void BinarySearchTree<Key, Value>::remove(const Key &key)
         }
         else if (numChildren == 2)
         {
-            if (predecessor(node) != nullptr)
-            {
-                nodeSwap(node, predecessor(node));
-            }
-            else
-            {
-                nodeSwap(node, successor(node));
-            }
+            nodeSwap(node, successor(node));
             if (node->getParent() != nullptr)
             {
                 if (node->getParent()->getRight() == node)
@@ -603,6 +596,10 @@ void BinarySearchTree<Key, Value>::remove(const Key &key)
                 {
                     node->getParent()->setLeft(nullptr);
                 }
+                node->setParent(nullptr);
+            }
+            else{
+                root_=node;
             }
         }
         delete node;
