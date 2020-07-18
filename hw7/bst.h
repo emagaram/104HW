@@ -349,8 +349,6 @@ template <class Key, class Value>
 typename BinarySearchTree<Key, Value>::iterator &
 BinarySearchTree<Key, Value>::iterator::operator++()
 {
-    // Node<Key, Value> tempNode = *(this->current_);
-    // BinarySearchTree<Key, Value>::iterator temp(&tempNode);
     current_ = successor(current_);
     return *this;
 }
@@ -607,11 +605,14 @@ BinarySearchTree<Key, Value>::predecessor(Node<Key, Value> *current)
             {
                 node = node->getParent();
             }
-            if (node->getParent() == nullptr)
+            if (node->getRight() != nullptr)
+            {
+                node = node->getRight();
+            }
+            else
             {
                 return nullptr;
             }
-            node = node->getRight();
         }
     }
     return node;
@@ -639,11 +640,14 @@ BinarySearchTree<Key, Value>::successor(Node<Key, Value> *current)
             {
                 node = node->getParent();
             }
-            if (node->getParent() == nullptr)
+            if (node->getLeft() != nullptr)
+            {
+                node = node->getLeft();
+            }
+            else
             {
                 return nullptr;
             }
-            node = node->getLeft();
         }
     }
     return node;
@@ -660,7 +664,7 @@ void BinarySearchTree<Key, Value>::clear()
     while (it != this->end())
     {
         Key k = it->first;
-        it.operator++();
+        ++it;
         remove(k);
     }
     root_ = nullptr;
@@ -695,7 +699,7 @@ Node<Key, Value> *BinarySearchTree<Key, Value>::internalFind(const Key &key) con
     Node<Key, Value> *node = root_;
     while (node != nullptr && node->getKey() != key)
     {
-        if (key< node->getKey())
+        if (key < node->getKey())
         {
             node = node->getLeft();
         }
