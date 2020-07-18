@@ -350,6 +350,10 @@ typename BinarySearchTree<Key, Value>::iterator &
 BinarySearchTree<Key, Value>::iterator::operator++()
 {
     current_ = successor(current_);
+    if(current_==nullptr){
+        // BinarySearchTree<Key, Value>::iterator end(NULL);
+        // return end;
+    }
     return *this;
 }
 
@@ -565,6 +569,11 @@ void BinarySearchTree<Key, Value>::remove(const Key &key)
                 {
                     node->getParent()->setLeft(childNode);
                 }
+                childNode->setParent(node->getParent());
+            }
+            else{
+                root_=childNode;
+                childNode->setParent(nullptr);
             }
         }
         else if (numChildren == 2)
@@ -655,6 +664,9 @@ BinarySearchTree<Key, Value>::successor(Node<Key, Value> *current)
                 return nullptr;
             }            
         }
+    }
+    else{
+        return nullptr;
     }
     return node;
 }
