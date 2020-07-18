@@ -63,3 +63,5 @@ hw6/*.out
 hw6/homemade1.cnf
 hw6/*.feed
 hw6/*.mentions
+hw7/*.exe
+hw7/*.stackdump
