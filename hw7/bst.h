@@ -247,6 +247,8 @@ protected:
     // Add helper functions here
     int getHeight(Node<Key, Value> *n) const;
     bool isBalancedHelper(Node<Key, Value> *node) const;
+    Node<Key, Value> *postIncHelper(Node<Key, Value> *node);
+    static Node<Key, Value> *successor(Node<Key, Value> *current);
 
 protected:
     Node<Key, Value> *root_;
@@ -327,6 +329,19 @@ bool BinarySearchTree<Key, Value>::iterator::operator!=(
     return true;
 }
 
+template <class Key, class Value>
+Node<Key, Value> *BinarySearchTree<Key, Value>::postIncHelper(Node<Key, Value> *node)
+{
+    if (node->getLeft() != nullptr)
+    {
+        return node->getLeft();
+    }
+    else if (node->getRight() != nullptr)
+    {
+        return node->getRight();
+    }
+}
+
 /**
 * Advances the iterator's location using an in-order sequencing
 */
@@ -334,17 +349,9 @@ template <class Key, class Value>
 typename BinarySearchTree<Key, Value>::iterator &
 BinarySearchTree<Key, Value>::iterator::operator++()
 {
-    BinarySearchTree<Key, Value>::iterator temp = *this;
-    if (current_->getLeft() != nullptr)
-    {
-        Node<Key, Value> *left = current_->getLeft();
-        current_ = left;
-    }
-    else
-    {
-        Node<Key, Value> *right = current_->getRight();
-        current_ = right;
-    }
+    Node<Key, Value> tempNode = *(this->current_);
+    BinarySearchTree<Key, Value>::iterator temp(&tempNode);
+    current_= successor(current_);
     return temp;
 }
 
@@ -478,7 +485,7 @@ void BinarySearchTree<Key, Value>::insert(const std::pair<const Key, Value> &key
                     if (node->getLeft() == nullptr)
                     {
                         done = true;
-                        Node<Key, Value> *nodeToInsert = new Node<Key, Value>(keyValuePair.first, keyValuePair.second, node->getParent());
+                        Node<Key, Value> *nodeToInsert = new Node<Key, Value>(keyValuePair.first, keyValuePair.second, node);
                         node->setLeft(nodeToInsert);
                     }
                     else
@@ -491,7 +498,7 @@ void BinarySearchTree<Key, Value>::insert(const std::pair<const Key, Value> &key
                     if (node->getRight() == nullptr)
                     {
                         done = true;
-                        Node<Key, Value> *nodeToInsert = new Node<Key, Value>(keyValuePair.first, keyValuePair.second, node->getParent());
+                        Node<Key, Value> *nodeToInsert = new Node<Key, Value>(keyValuePair.first, keyValuePair.second, node);
                         node->setRight(nodeToInsert);
                     }
                     else
@@ -584,10 +591,48 @@ BinarySearchTree<Key, Value>::predecessor(Node<Key, Value> *current)
 {
     //The node that came before you. Next smallest node
     Node<Key, Value> *node = current;
-    node = node->getLeft();
-    while (node->getRight() != nullptr)
+    if (current->getLeft() != nullptr)
+    {
+        node = node->getLeft();
+        while (node->getRight() != nullptr)
+        {
+            node = node->getRight();
+        }
+    }
+    else{
+        while(node->getRight()==nullptr && node->getParent()!=nullptr){
+            node=node->getParent();
+        }
+        if(node->getParent()==nullptr){
+            return nullptr;
+        }        
+        node=node->getRight();
+    }
+    return node;
+}
+
+template <class Key, class Value>
+Node<Key, Value> *
+BinarySearchTree<Key, Value>::successor(Node<Key, Value> *current)
+{
+    //The node that comes after you. Next biggest node
+    Node<Key, Value> *node = current;
+    if (current->getRight() != nullptr)
     {
         node = node->getRight();
+        while (node->getLeft() != nullptr)
+        {
+            node = node->getLeft();
+        }
+    }
+    else{
+        while(node->getLeft()==nullptr && node->getParent()!=nullptr){
+            node=node->getParent();
+        }
+        if(node->getParent()==nullptr){
+            return nullptr;
+        }        
+        node=node->getLeft();
     }
     return node;
 }
@@ -602,7 +647,9 @@ void BinarySearchTree<Key, Value>::clear()
     BinarySearchTree<Key, Value>::iterator it(getSmallestNode());
     while (it != this->end())
     {
-        remove(it->first);
+        Key k = it->first;
+        it.operator++();
+        remove(k);
     }
     root_ = nullptr;
 }
