@@ -601,17 +601,18 @@ BinarySearchTree<Key, Value>::predecessor(Node<Key, Value> *current)
         }
         else
         {
-            while (node->getRight() == nullptr && node->getParent() != nullptr)
+            bool found = false;
+            while (node->getParent()!=nullptr)
             {
                 node = node->getParent();
+                if(node->getParent()->getRight() == node){
+                    node = node->getParent();
+                    found=true;
+                    break;
+                }
             }
-            if (node->getRight() != nullptr)
-            {
-                node = node->getRight();
-            }
-            else
-            {
-                return nullptr;
+            if(!found){
+                return false;
             }
         }
     }
@@ -636,18 +637,19 @@ BinarySearchTree<Key, Value>::successor(Node<Key, Value> *current)
         }
         else
         {
-            while (node->getLeft() == nullptr && node->getParent() != nullptr)
+            bool found = false;
+            while (node->getParent()!=nullptr)
             {
                 node = node->getParent();
+                if(node->getParent()->getLeft() == node){
+                    node = node->getParent();
+                    found=true;
+                    break;
+                }
             }
-            if (node->getLeft() != nullptr)
-            {
-                node = node->getLeft();
-            }
-            else
-            {
-                return nullptr;
-            }
+            if(!found){
+                return false;
+            }            
         }
     }
     return node;
