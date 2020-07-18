@@ -612,7 +612,7 @@ BinarySearchTree<Key, Value>::predecessor(Node<Key, Value> *current)
                 }
             }
             if(!found){
-                return false;
+                return nullptr;
             }
         }
     }
@@ -648,7 +648,7 @@ BinarySearchTree<Key, Value>::successor(Node<Key, Value> *current)
                 }
             }
             if(!found){
-                return false;
+                return nullptr;
             }            
         }
     }
