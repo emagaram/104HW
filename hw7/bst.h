@@ -609,7 +609,9 @@ BinarySearchTree<Key, Value>::predecessor(Node<Key, Value> *current)
                     found=true;
                     break;
                 }
-                node = node->getParent();
+                else{
+                    node = node->getParent();
+                }
             }
             if(!found){
                 return nullptr;
@@ -645,7 +647,9 @@ BinarySearchTree<Key, Value>::successor(Node<Key, Value> *current)
                     found=true;
                     break;
                 }
-                node = node->getParent();                
+                else{
+                    node = node->getParent(); 
+                }               
             }
             if(!found){
                 return nullptr;
