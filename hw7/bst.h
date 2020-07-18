@@ -597,10 +597,7 @@ void BinarySearchTree<Key, Value>::remove(const Key &key)
                     node->getParent()->setLeft(nullptr);
                 }
                 node->setParent(nullptr);
-            }
-            else{
-                root_=node;
-            }
+            }W
         }
         delete node;
     }
