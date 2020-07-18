@@ -775,10 +775,12 @@ bool BinarySearchTree<Key, Value>::isBalancedHelper(Node<Key, Value> *node) cons
     if (node == nullptr)
     { //Base case, past leaf node
         return true;
-    }    
-    int rightH = getHeight(node->getRight());
-    int leftH = getHeight(node->getLeft());
-    if (abs(rightH - leftH <= 1) && isBalancedHelper(node->getRight()) && isBalancedHelper(node->getLeft()))
+    }
+    Node<Key, Value> *left = node->getLeft();
+    Node<Key, Value> *right = node->getRight();        
+    int rightH = getHeight(right);
+    int leftH = getHeight(left);
+    if (abs(rightH - leftH <= 1) && isBalancedHelper(right) && isBalancedHelper(left))
     {
         return true;
     }
