@@ -620,9 +620,9 @@ BinarySearchTree<Key, Value>::predecessor(Node<Key, Value> *current)
 {
     //The node that came before you. Next smallest node
     Node<Key, Value> *node = current;
-    if (current != nullptr)
+    if (node != nullptr)
     {
-        if (current->getLeft() != nullptr)
+        if (node->getLeft() != nullptr)
         {
             node = node->getLeft();
             while (node->getRight() != nullptr)
@@ -663,7 +663,7 @@ BinarySearchTree<Key, Value>::successor(Node<Key, Value> *current)
     Node<Key, Value> *node = current;
     if (node != nullptr)
     {
-        if (current->getRight() != nullptr)
+        if (node->getRight() != nullptr)
         {
             node = node->getRight();
             while (node->getLeft() != nullptr)
@@ -692,10 +692,6 @@ BinarySearchTree<Key, Value>::successor(Node<Key, Value> *current)
                 return nullptr;
             }
         }
-    }
-    else
-    {
-        return nullptr;
     }
     return node;
 }
