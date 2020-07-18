@@ -5,7 +5,6 @@
 #include <exception>
 #include <cstdlib>
 #include <utility>
-#include <iostream>
 
 /**
  * A templated class for a Node in a search tree.
@@ -586,8 +585,14 @@ void BinarySearchTree<Key, Value>::remove(const Key &key)
         }
         else if (numChildren == 2)
         {
-            Node<Key,Value>* pred= predecessor(node)
-            nodeSwap(node, pred);
+            if (predecessor(node) != nullptr)
+            {
+                nodeSwap(node, predecessor(node));
+            }
+            else
+            {
+                nodeSwap(node, successor(node));
+            }
             if (node->getParent() != nullptr)
             {
                 if (node->getParent()->getRight() == node)
@@ -597,12 +602,6 @@ void BinarySearchTree<Key, Value>::remove(const Key &key)
                 else
                 {
                     node->getParent()->setLeft(nullptr);
-                }
-            }
-            else{
-                if(root_==node){
-                    clear();
-                    std::cout<<"We got a problem\n";
                 }
             }
         }
