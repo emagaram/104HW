@@ -5,6 +5,7 @@
 #include <exception>
 #include <cstdlib>
 #include <utility>
+#include <iostream>
 
 /**
  * A templated class for a Node in a search tree.
@@ -350,7 +351,8 @@ typename BinarySearchTree<Key, Value>::iterator &
 BinarySearchTree<Key, Value>::iterator::operator++()
 {
     current_ = successor(current_);
-    if(current_==nullptr){
+    if (current_ == nullptr)
+    {
         // BinarySearchTree<Key, Value>::iterator end(NULL);
         // return end;
     }
@@ -545,9 +547,11 @@ void BinarySearchTree<Key, Value>::remove(const Key &key)
                 {
                     node->getParent()->setLeft(nullptr);
                 }
+                node->setParent(nullptr);
             }
-            else{
-                root_=nullptr;               
+            else
+            {
+                root_ = nullptr;
             }
         }
         else if (numChildren == 1)
@@ -574,21 +578,32 @@ void BinarySearchTree<Key, Value>::remove(const Key &key)
                 }
                 childNode->setParent(node->getParent());
             }
-            else{
-                root_=childNode;
+            else
+            {
+                root_ = childNode;
                 childNode->setParent(nullptr);
             }
         }
         else if (numChildren == 2)
         {
-            nodeSwap(node, predecessor(node));
-            if (node->getParent()->getRight() == node)
+            Node<Key,Value>* pred= predecessor(node)
+            nodeSwap(node, pred);
+            if (node->getParent() != nullptr)
             {
-                node->getParent()->setRight(nullptr);
+                if (node->getParent()->getRight() == node)
+                {
+                    node->getParent()->setRight(nullptr);
+                }
+                else
+                {
+                    node->getParent()->setLeft(nullptr);
+                }
             }
-            else
-            {
-                node->getParent()->setLeft(nullptr);
+            else{
+                if(root_==node){
+                    clear();
+                    std::cout<<"We got a problem\n";
+                }
             }
         }
         delete node;
@@ -614,18 +629,21 @@ BinarySearchTree<Key, Value>::predecessor(Node<Key, Value> *current)
         else
         {
             bool found = false;
-            while (node->getParent()!=nullptr)
+            while (node->getParent() != nullptr)
             {
-                if(node->getParent()->getRight() == node){
+                if (node->getParent()->getRight() == node)
+                {
                     node = node->getParent();
-                    found=true;
+                    found = true;
                     break;
                 }
-                else{
+                else
+                {
                     node = node->getParent();
                 }
             }
-            if(!found){
+            if (!found)
+            {
                 return nullptr;
             }
         }
@@ -652,23 +670,27 @@ BinarySearchTree<Key, Value>::successor(Node<Key, Value> *current)
         else
         {
             bool found = false;
-            while (node->getParent()!=nullptr)
+            while (node->getParent() != nullptr)
             {
-                if(node->getParent()->getLeft() == node){
+                if (node->getParent()->getLeft() == node)
+                {
                     node = node->getParent();
-                    found=true;
+                    found = true;
                     break;
                 }
-                else{
-                    node = node->getParent(); 
-                }               
+                else
+                {
+                    node = node->getParent();
+                }
             }
-            if(!found){
+            if (!found)
+            {
                 return nullptr;
-            }            
+            }
         }
     }
-    else{
+    else
+    {
         return nullptr;
     }
     return node;
