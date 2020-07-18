@@ -349,10 +349,10 @@ template <class Key, class Value>
 typename BinarySearchTree<Key, Value>::iterator &
 BinarySearchTree<Key, Value>::iterator::operator++()
 {
-    Node<Key, Value> tempNode = *(this->current_);
-    BinarySearchTree<Key, Value>::iterator temp(&tempNode);
-    current_= successor(current_);
-    return temp;
+    // Node<Key, Value> tempNode = *(this->current_);
+    // BinarySearchTree<Key, Value>::iterator temp(&tempNode);
+    current_ = successor(current_);
+    return *this;
 }
 
 /*
@@ -480,7 +480,7 @@ void BinarySearchTree<Key, Value>::insert(const std::pair<const Key, Value> &key
             bool done = false;
             while (!done)
             {
-                if (keyValuePair.first<node->getKey())
+                if (keyValuePair.first < node->getKey())
                 {
                     if (node->getLeft() == nullptr)
                     {
@@ -591,22 +591,28 @@ BinarySearchTree<Key, Value>::predecessor(Node<Key, Value> *current)
 {
     //The node that came before you. Next smallest node
     Node<Key, Value> *node = current;
-    if (current->getLeft() != nullptr)
+    if (current != nullptr)
     {
-        node = node->getLeft();
-        while (node->getRight() != nullptr)
+        if (current->getLeft() != nullptr)
         {
+            node = node->getLeft();
+            while (node->getRight() != nullptr)
+            {
+                node = node->getRight();
+            }
+        }
+        else
+        {
+            while (node->getRight() == nullptr && node->getParent() != nullptr)
+            {
+                node = node->getParent();
+            }
+            if (node->getParent() == nullptr)
+            {
+                return nullptr;
+            }
             node = node->getRight();
         }
-    }
-    else{
-        while(node->getRight()==nullptr && node->getParent()!=nullptr){
-            node=node->getParent();
-        }
-        if(node->getParent()==nullptr){
-            return nullptr;
-        }        
-        node=node->getRight();
     }
     return node;
 }
@@ -617,22 +623,28 @@ BinarySearchTree<Key, Value>::successor(Node<Key, Value> *current)
 {
     //The node that comes after you. Next biggest node
     Node<Key, Value> *node = current;
-    if (current->getRight() != nullptr)
+    if (node != nullptr)
     {
-        node = node->getRight();
-        while (node->getLeft() != nullptr)
+        if (current->getRight() != nullptr)
         {
+            node = node->getRight();
+            while (node->getLeft() != nullptr)
+            {
+                node = node->getLeft();
+            }
+        }
+        else
+        {
+            while (node->getLeft() == nullptr && node->getParent() != nullptr)
+            {
+                node = node->getParent();
+            }
+            if (node->getParent() == nullptr)
+            {
+                return nullptr;
+            }
             node = node->getLeft();
         }
-    }
-    else{
-        while(node->getLeft()==nullptr && node->getParent()!=nullptr){
-            node=node->getParent();
-        }
-        if(node->getParent()==nullptr){
-            return nullptr;
-        }        
-        node=node->getLeft();
     }
     return node;
 }
@@ -683,7 +695,7 @@ Node<Key, Value> *BinarySearchTree<Key, Value>::internalFind(const Key &key) con
     Node<Key, Value> *node = root_;
     while (node != nullptr && node->getKey() != key)
     {
-        if (node->getKey() < key)
+        if (key< node->getKey())
         {
             node = node->getLeft();
         }
