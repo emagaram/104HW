@@ -480,7 +480,7 @@ void BinarySearchTree<Key, Value>::insert(const std::pair<const Key, Value> &key
             bool done = false;
             while (!done)
             {
-                if (node->getKey() > keyValuePair.first)
+                if (keyValuePair.first<node->getKey())
                 {
                     if (node->getLeft() == nullptr)
                     {
@@ -500,7 +500,6 @@ void BinarySearchTree<Key, Value>::insert(const std::pair<const Key, Value> &key
                         done = true;
                         Node<Key, Value> *nodeToInsert = new Node<Key, Value>(keyValuePair.first, keyValuePair.second, node);
                         node->setRight(nodeToInsert);
-                        
                     }
                     else
                     {
