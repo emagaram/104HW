@@ -310,7 +310,7 @@ void AVLTree<Key,Value>::insertFix(AVLNode<Key, Value> *parent, AVLNode<Key, Val
                 rotateLeft(gp);               
                 if(node->getBalance()==-1){
                    parent->setBalance(0);
-                   gp->setBalance(1);
+                   gp->setBalance(-1);
                    node->setBalance(0); 
                 }
                 else if(node->getBalance()==0){
