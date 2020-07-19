@@ -174,7 +174,7 @@ void AVLTree<Key, Value>::insert(const std::pair<const Key, Value> &new_item)
                         AVLNode<Key, Value> *nodeToInsert = new AVLNode<Key, Value>(new_item.first, new_item.second, castedNode);
                         castedNode->setLeft(nodeToInsert);
                         
-                        if(castedNode->getBalance()==1){
+                        if(abs(castedNode->getBalance())==1){
                             castedNode->setBalance(0);
                         }
                         else{
@@ -195,7 +195,7 @@ void AVLTree<Key, Value>::insert(const std::pair<const Key, Value> &new_item)
                         AVLNode<Key, Value>* castedNode = static_cast<AVLNode<Key,Value>*>(node);                        
                         AVLNode<Key, Value> *nodeToInsert = new AVLNode<Key, Value>(new_item.first, new_item.second, castedNode);
                         node->setRight(nodeToInsert);
-                        if(castedNode->getBalance()==-1){
+                        if(abs(castedNode->getBalance())==1){
                             castedNode->setBalance(0);
                         }
                         else{
