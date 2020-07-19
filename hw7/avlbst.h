@@ -137,8 +137,8 @@ protected:
     void insertFix(AVLNode<Key, Value> *parent, AVLNode<Key, Value> *node);
     void rotateLeft(AVLNode<Key, Value> *node);
     void rotateRight(AVLNode<Key, Value> *node);
-    void zigzig(AVLNode<Key, Value> *node, bool left);
-    void zigzag(AVLNode<Key, Value> *node, bool left);
+    //void zigzig(AVLNode<Key, Value> *node, bool left);
+    //void zigzag(AVLNode<Key, Value> *node, bool left);
 };
 
 /*
@@ -154,7 +154,7 @@ void AVLTree<Key, Value>::insert(const std::pair<const Key, Value> &new_item)
     }
     else
     {
-        AVLNode<Key, Value> *node = this->internalFind(new_item.first);
+        Node<Key, Value> *node = this->internalFind(new_item.first);
         if (node != nullptr)
         {
             node->setValue(new_item.second);
@@ -170,9 +170,9 @@ void AVLTree<Key, Value>::insert(const std::pair<const Key, Value> &new_item)
                     if (node->getLeft() == nullptr)
                     {
                         done = true;
-                        AVLNode<Key, Value> *nodeToInsert = new AVLNode<Key, Value>(new_item.first, new_item.second, node);
+                        AVLNode<Key, Value> *nodeToInsert = new AVLNode<Key, Value>(new_item.first, new_item.second, static_cast<AVLNode<Key,Value>*>(node));
                         node->setLeft(nodeToInsert);
-                        insertFix(node,nodeToInsert);
+                        insertFix(static_cast<AVLNode<Key,Value>*>(node),nodeToInsert);
                     }
                     else
                     {
@@ -184,9 +184,9 @@ void AVLTree<Key, Value>::insert(const std::pair<const Key, Value> &new_item)
                     if (node->getRight() == nullptr)
                     {
                         done = true;
-                        AVLNode<Key, Value> *nodeToInsert = new AVLNode<Key, Value>(new_item.first, new_item.second, node);
+                        AVLNode<Key, Value> *nodeToInsert = new AVLNode<Key, Value>(new_item.first, new_item.second, static_cast<AVLNode<Key,Value>*>(node));
                         node->setRight(nodeToInsert);
-                        insertFix(node,nodeToInsert);
+                        insertFix(static_cast<AVLNode<Key,Value>*>(node),nodeToInsert);
                     }
                     else
                     {
@@ -218,14 +218,14 @@ void AVLTree<Key, Value>::nodeSwap(AVLNode<Key, Value> *n1, AVLNode<Key, Value> 
 }
 
 template <class Key, class Value>
-void insertFix(AVLNode<Key, Value> *parent, AVLNode<Key, Value> *node)
+void AVLTree<Key,Value>::insertFix(AVLNode<Key, Value> *parent, AVLNode<Key, Value> *node)
 {
     if (parent == nullptr || parent->getParent() == nullptr)
     {
         return;
     }
     AVLNode<Key, Value> *gp = parent->getParent();
-    if (gp->getRight() == p)
+    if (gp->getRight() == parent)
     {
         gp->updateBalance(1);
     }
@@ -239,7 +239,7 @@ void insertFix(AVLNode<Key, Value> *parent, AVLNode<Key, Value> *node)
     }
     else if (std::abs(gp->getBalance()) == 1)
     {
-        insertFix(gp, p);
+        insertFix(gp, parent);
     }
     else
     {
@@ -255,7 +255,7 @@ void insertFix(AVLNode<Key, Value> *parent, AVLNode<Key, Value> *node)
             //zig zag
             else
             {
-                rotateLeft(p);
+                rotateLeft(parent);
                 rotateRight(gp);
                 AVLNode<Key, Value>* child = parent->getLeft();
                 if(child->getBalance()==-1){
@@ -286,9 +286,8 @@ void insertFix(AVLNode<Key, Value> *parent, AVLNode<Key, Value> *node)
             //zig zag
             else
             {
-                rotateRight(p);
-                rotateLeft(gp);
-                Node<Key, Value>* child = parent->getLeft();                 
+                rotateRight(parent);
+                rotateLeft(gp);               
                 AVLNode<Key, Value>* child = parent->getLeft();
                 if(child->getBalance()==-1){
                    parent->setBalance(0);
@@ -311,7 +310,7 @@ void insertFix(AVLNode<Key, Value> *parent, AVLNode<Key, Value> *node)
 }
 
 template <class Key, class Value>
-void rotateRight(AVLNode<Key, Value> *node)
+void AVLTree<Key,Value>::rotateRight(AVLNode<Key, Value> *node)
 {
     AVLNode<Key, Value> *gp = node->getParent();
     AVLNode<Key, Value> *leftChild = node->getLeft();
@@ -334,7 +333,7 @@ void rotateRight(AVLNode<Key, Value> *node)
 }
 
 template <class Key, class Value>
-void rotateLeft(AVLNode<Key, Value> *node)
+void AVLTree<Key,Value>::rotateLeft(AVLNode<Key, Value> *node)
 {
     AVLNode<Key, Value> *gp = node->getParent();
     AVLNode<Key, Value> *rightChild = node->getRight();
