@@ -334,11 +334,11 @@ void AVLTree<Key, Value>::remove(const Key &key)
         {
             if (node->getParent()->getLeft() == node)
             {
-                removeFix(node, 1);
+                //removeFix(node, 1);
             }
             else
             {
-                removeFix(node, -1);
+                //removeFix(node, -1);
             }
         }
         delete node;

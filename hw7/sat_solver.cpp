@@ -5,8 +5,9 @@
 #include <iostream>
 #include <map>
 #include <cstdlib>
+#include "avlbst.h"
 
-void readFile(char *filename, std::vector<std::vector<int> *> &clauses, std::map<int, int> &variables)
+void readFile(char *filename, std::vector<std::vector<int> *> &clauses, AVLTree<int, int> &variables)
 {
     std::ifstream iFile(filename);
     std::string line;
@@ -47,7 +48,7 @@ void readFile(char *filename, std::vector<std::vector<int> *> &clauses, std::map
     }
 }
 
-bool isValid(std::vector<std::vector<int> *> &clauses, std::map<int, int> &variables, bool baseCase)
+bool isValid(std::vector<std::vector<int> *> &clauses, AVLTree<int, int> &variables, bool baseCase)
 {
 
     //returns true if there's 1+ true boolean or undetermined for every clause
@@ -79,7 +80,7 @@ bool isValid(std::vector<std::vector<int> *> &clauses, std::map<int, int> &varia
 
 //Pls don't take points off for my awesome yet accurate function name
 //Removes any extraneous bools from solution
-void trimTheFat(std::vector<std::vector<int> *> &clauses, std::map<int, int> &variables)
+void trimTheFat(std::vector<std::vector<int> *> &clauses, AVLTree<int, int> &variables)
 {
     for (size_t i = 1; i < variables.size() + 1; i++)
     {
@@ -94,7 +95,7 @@ void trimTheFat(std::vector<std::vector<int> *> &clauses, std::map<int, int> &va
 
 //returns true if variables are set in such a way that all clauses=true and false if it has failed and needs to backtrack.
 //If first call returns false, no possible answer
-bool boolSatisfyHelper(int boolToEdit, int value, std::vector<std::vector<int> *> &clauses, std::map<int, int> &variables)
+bool boolSatisfyHelper(int boolToEdit, int value, std::vector<std::vector<int> *> &clauses, AVLTree<int, int> &variables)
 {
     if (isValid(clauses, variables, true))
     {
@@ -120,14 +121,14 @@ bool boolSatisfyHelper(int boolToEdit, int value, std::vector<std::vector<int> *
     }
 }
 //Wrapper for clean interface
-bool boolSatisfy(std::vector<std::vector<int> *> &clauses, std::map<int, int> &variables){
+bool boolSatisfy(std::vector<std::vector<int> *> &clauses, AVLTree<int, int> &variables){
     return boolSatisfyHelper(1,1,clauses,variables) || boolSatisfyHelper(1,-1,clauses,variables);
 }
 
 
 int main(int argc, char *argv[])
 {
-    std::map<int, int> variables; //-1=false,0=unassigned,1=true
+    AVLTree<int, int> variables; //-1=false,0=unassigned,1=true
     std::vector<std::vector<int> *> clauses;
     readFile(argv[1], clauses, variables); // try catch?
     std::ofstream oFile(argv[2]);          //nonexistent file errors?
