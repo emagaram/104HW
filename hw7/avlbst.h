@@ -288,19 +288,19 @@ void AVLTree<Key,Value>::insertFix(AVLNode<Key, Value> *parent, AVLNode<Key, Val
                 rotateRight(parent);
                 rotateLeft(gp);               
                 if(node->getBalance()==-1){
-                   parent->setBalance(-1);
-                   gp->setBalance(0);
-                   node->setBalance(0);                    
+                   parent->setBalance(0);
+                   gp->setBalance(1);
+                   node->setBalance(0); 
                 }
                 else if(node->getBalance()==0){
                    parent->setBalance(0);
                    gp->setBalance(0);
                 }
                 else{
-                   parent->setBalance(0);
-                   gp->setBalance(1);
+                   parent->setBalance(-1);
+                   gp->setBalance(0);
                    node->setBalance(0); 
-                }    
+                }  
             }
         }
 
