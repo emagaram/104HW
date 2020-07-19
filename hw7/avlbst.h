@@ -172,7 +172,7 @@ void AVLTree<Key, Value>::insert(const std::pair<const Key, Value> &new_item)
                         done = true;
                         AVLNode<Key, Value> *nodeToInsert = new AVLNode<Key, Value>(new_item.first, new_item.second, static_cast<AVLNode<Key,Value>*>(node));
                         node->setLeft(nodeToInsert);
-                        insertFix(static_cast<AVLNode<Key,Value>*>(node),nodeToInsert);
+                        insertFix(nodeToInsert,nullptr);
                     }
                     else
                     {
@@ -186,7 +186,7 @@ void AVLTree<Key, Value>::insert(const std::pair<const Key, Value> &new_item)
                         done = true;
                         AVLNode<Key, Value> *nodeToInsert = new AVLNode<Key, Value>(new_item.first, new_item.second, static_cast<AVLNode<Key,Value>*>(node));
                         node->setRight(nodeToInsert);
-                        insertFix(static_cast<AVLNode<Key,Value>*>(node),nodeToInsert);
+                        insertFix(nodeToInsert,nullptr);
                     }
                     else
                     {
@@ -257,20 +257,19 @@ void AVLTree<Key,Value>::insertFix(AVLNode<Key, Value> *parent, AVLNode<Key, Val
             {
                 rotateLeft(parent);
                 rotateRight(gp);
-                AVLNode<Key, Value>* child = parent->getLeft();
-                if(child->getBalance()==-1){
+                if(node->getBalance()==-1){
                    parent->setBalance(0);
                    gp->setBalance(1);
-                   child->setBalance(0); 
+                   node->setBalance(0); 
                 }
-                else if(child->getBalance()==0){
+                else if(node->getBalance()==0){
                    parent->setBalance(0);
                    gp->setBalance(0);
                 }
                 else{
                    parent->setBalance(-1);
                    gp->setBalance(0);
-                   child->setBalance(0); 
+                   node->setBalance(0); 
                 }
             }
         }
@@ -288,20 +287,19 @@ void AVLTree<Key,Value>::insertFix(AVLNode<Key, Value> *parent, AVLNode<Key, Val
             {
                 rotateRight(parent);
                 rotateLeft(gp);               
-                AVLNode<Key, Value>* child = parent->getLeft();
-                if(child->getBalance()==-1){
+                if(node->getBalance()==-1){
                    parent->setBalance(0);
                    gp->setBalance(-1);
-                   child->setBalance(0); 
+                   node->setBalance(0); 
                 }
-                else if(child->getBalance()==0){
+                else if(node->getBalance()==0){
                    parent->setBalance(0);
                    gp->setBalance(0);
                 }
                 else{
                    parent->setBalance(1);
                    gp->setBalance(0);
-                   child->setBalance(0); 
+                   node->setBalance(0); 
                 }            
             }
         }
@@ -314,10 +312,15 @@ void AVLTree<Key,Value>::rotateRight(AVLNode<Key, Value> *node)
 {
     AVLNode<Key, Value> *gp = node->getParent();
     AVLNode<Key, Value> *leftChild = node->getLeft();
+    if(node==this->root_){
+        this->root_=leftChild;
+    }
     node->setLeft(leftChild->getRight());
-    node->getLeft()->setParent(node);
+    if(node->getLeft()!=nullptr){
+        node->getLeft()->setParent(node);
+    }
     leftChild->setRight(node);
-    leftChild->setParent(node->getParent());
+    leftChild->setParent(gp);
     node->setParent(leftChild);
     if (gp != nullptr)
     {
@@ -337,10 +340,13 @@ void AVLTree<Key,Value>::rotateLeft(AVLNode<Key, Value> *node)
 {
     AVLNode<Key, Value> *gp = node->getParent();
     AVLNode<Key, Value> *rightChild = node->getRight();
+    if(node==this->root_){
+        this->root_=rightChild;
+    }    
     node->setRight(rightChild->getLeft());
     node->getRight()->setParent(node);
     rightChild->setLeft(node);
-    rightChild->setParent(node->getParent());
+    rightChild->setParent(gp);
     node->setParent(rightChild);
     if (gp != nullptr)
     {
