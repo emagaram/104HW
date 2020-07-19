@@ -220,14 +220,14 @@ void AVLTree<Key, Value>::insert(const std::pair<const Key, Value> &new_item)
 template <class Key, class Value>
 void AVLTree<Key, Value>::remove(const Key &key)
 {
-Node<Key, Value> *node = internalFind(key);
+Node<Key, Value> *node = this->internalFind(key);
 AVLNode<Key,Value> *castedNode = static_cast<AVLNode<Key, Value> *>(node);
     if (node != nullptr)
     {
         int numChildren = 0;
-        AVLNode<Key, Value> *right = node->getRight();
-        AVLNode<Key, Value> *left = node->getLeft();
-        AVLNode<Key, Value> *parent = node->getParent();
+        AVLNode<Key, Value> *right = castedNode->getRight();
+        AVLNode<Key, Value> *left = castedNode->getLeft();
+        AVLNode<Key, Value> *parent = castedNode->getParent();
         if (right != nullptr)
         {
             numChildren++;
@@ -286,10 +286,10 @@ AVLNode<Key,Value> *castedNode = static_cast<AVLNode<Key, Value> *>(node);
         }
         else if (numChildren == 2)
         {
-            nodeSwap(node, predecessor(node));
-            right = node->getRight();
-            left = node->getLeft();
-            parent = node->getParent();            
+            nodeSwap(castedNode, static_cast<AVLNode<Key, Value> *>(this->predecessor(castedNode)));
+            right = castedNode->getRight();
+            left = castedNode->getLeft();
+            parent = castedNode->getParent();            
             Node<Key,Value>* childNode = nullptr;
             if(left!=nullptr){
                 childNode=left;
