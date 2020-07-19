@@ -360,8 +360,12 @@ void AVLTree<Key,Value>::insertFix(AVLNode<Key, Value> *parent, AVLNode<Key, Val
     {
         if (gp->getBalance() == -2)
         {
+            bool hasRight = false;
+            if(parent->getRight()!=nullptr){
+                hasRight=true;
+            }
             //Zig zig
-            if (parent->getLeft() != nullptr && parent->getLeft()->getBalance() == 0)
+            if (parent->getLeft() != nullptr && parent->getLeft()->getBalance() == 0 && !hasRight)
             {
                 rotateRight(gp);
                 gp->setBalance(0);
@@ -390,8 +394,12 @@ void AVLTree<Key,Value>::insertFix(AVLNode<Key, Value> *parent, AVLNode<Key, Val
         }
         else
         {
+            bool hasLeft = false;
+            if(parent->getLeft()!=nullptr){
+                hasLeft=true;
+            }            
             //Zig zig
-            if (parent->getRight() != nullptr && parent->getRight()->getBalance() == 0)
+            if (parent->getRight() != nullptr && parent->getRight()->getBalance() == 0 &&!hasLeft)
             {
                 rotateLeft(gp);
                 gp->setBalance(0);
@@ -402,17 +410,17 @@ void AVLTree<Key,Value>::insertFix(AVLNode<Key, Value> *parent, AVLNode<Key, Val
             {
                 rotateRight(parent);
                 rotateLeft(gp);               
-                if(node->getBalance()==-1){
+                if(node->getBalance()==1){
                    parent->setBalance(0);
-                   gp->setBalance(1);
+                   gp->setBalance(-1);
                    node->setBalance(0); 
                 }
                 else if(node->getBalance()==0){
                    parent->setBalance(0);
                    gp->setBalance(0);
                 }
-                else if (node->getBalance()==1){
-                   parent->setBalance(-1);
+                else if (node->getBalance()==-1){
+                   parent->setBalance(1);
                    gp->setBalance(0);
                    node->setBalance(0); 
                 }
@@ -467,13 +475,13 @@ void AVLTree<Key,Value>::rotateLeft(AVLNode<Key, Value> *node)
     node->setParent(rightChild);
     if (gp != nullptr)
     {
-        if (gp->getLeft() == node)
+        if (gp->getRight() == node)
         {
-            gp->setLeft(rightChild);
+            gp->setRight(rightChild);
         }
         else
         {
-            gp->setRight(rightChild);
+            gp->setLeft(rightChild);
         }
     }
 }
