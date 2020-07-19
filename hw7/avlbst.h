@@ -174,10 +174,7 @@ void AVLTree<Key, Value>::insert(const std::pair<const Key, Value> &new_item)
                         AVLNode<Key, Value> *nodeToInsert = new AVLNode<Key, Value>(new_item.first, new_item.second, castedNode);
                         castedNode->setLeft(nodeToInsert);
                         
-                        if(castedNode->getBalance()==-1){
-                            castedNode->setBalance(0);
-                        }
-                        else if(castedNode->getBalance()==1){
+                        if(castedNode->getBalance()==1){
                             castedNode->setBalance(0);
                         }
                         else{
@@ -199,9 +196,6 @@ void AVLTree<Key, Value>::insert(const std::pair<const Key, Value> &new_item)
                         AVLNode<Key, Value> *nodeToInsert = new AVLNode<Key, Value>(new_item.first, new_item.second, castedNode);
                         node->setRight(nodeToInsert);
                         if(castedNode->getBalance()==-1){
-                            castedNode->setBalance(0);
-                        }
-                        else if(castedNode->getBalance()==1){
                             castedNode->setBalance(0);
                         }
                         else{
@@ -309,8 +303,8 @@ void AVLTree<Key,Value>::insertFix(AVLNode<Key, Value> *parent, AVLNode<Key, Val
                 rotateRight(parent);
                 rotateLeft(gp);               
                 if(node->getBalance()==-1){
-                   parent->setBalance(0);
-                   gp->setBalance(-1);
+                   parent->setBalance(-1);
+                   gp->setBalance(0);
                    node->setBalance(0); 
                 }
                 else if(node->getBalance()==0){
@@ -318,9 +312,9 @@ void AVLTree<Key,Value>::insertFix(AVLNode<Key, Value> *parent, AVLNode<Key, Val
                    gp->setBalance(0);
                 }
                 else if (node->getBalance()==1){
-                   parent->setBalance(1);
-                   gp->setBalance(0);
-                   node->setBalance(0); 
+                   parent->setBalance(0);
+                   gp->setBalance(1);
+                   node->setBalance(0);                    
                 }
             }
         }
