@@ -297,7 +297,7 @@ void AVLTree<Key,Value>::insertFix(AVLNode<Key, Value> *parent, AVLNode<Key, Val
                    gp->setBalance(0);
                 }
                 else{
-                   parent->setBalance(1);
+                   parent->setBalance(-1);
                    gp->setBalance(0);
                    node->setBalance(0); 
                 }            
