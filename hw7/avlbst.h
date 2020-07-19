@@ -360,10 +360,6 @@ void AVLTree<Key,Value>::insertFix(AVLNode<Key, Value> *parent, AVLNode<Key, Val
     {
         if (gp->getBalance() == -2)
         {
-            bool hasRight = false;
-            if(parent->getRight()!=nullptr){
-                hasRight=true;
-            }
             //Zig zig
             if (parent->getBalance()==-1)
             {
@@ -393,11 +389,7 @@ void AVLTree<Key,Value>::insertFix(AVLNode<Key, Value> *parent, AVLNode<Key, Val
             }
         }
         else
-        {
-            bool hasLeft = false;
-            if(parent->getLeft()!=nullptr){
-                hasLeft=true;
-            }            
+        {         
             //Zig zig
             if (parent->getBalance()==1)
             {
