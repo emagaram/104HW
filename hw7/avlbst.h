@@ -170,9 +170,20 @@ void AVLTree<Key, Value>::insert(const std::pair<const Key, Value> &new_item)
                     if (node->getLeft() == nullptr)
                     {
                         done = true;
-                        AVLNode<Key, Value> *nodeToInsert = new AVLNode<Key, Value>(new_item.first, new_item.second, static_cast<AVLNode<Key,Value>*>(node));
-                        node->setLeft(nodeToInsert);
-                        insertFix(nodeToInsert,nullptr);
+                        AVLNode<Key, Value>* castedNode = static_cast<AVLNode<Key,Value>*>(node);
+                        AVLNode<Key, Value> *nodeToInsert = new AVLNode<Key, Value>(new_item.first, new_item.second, castedNode);
+                        castedNode->setLeft(nodeToInsert);
+                        
+                        if(castedNode->getBalance()==-1){
+                            castedNode->setBalance(0);
+                        }
+                        else if(castedNode->getBalance()==1){
+                            castedNode->setBalance(0);
+                        }
+                        else{
+                            castedNode->updateBalance(-1);
+                            insertFix(castedNode,nodeToInsert);
+                        }
                     }
                     else
                     {
@@ -184,9 +195,19 @@ void AVLTree<Key, Value>::insert(const std::pair<const Key, Value> &new_item)
                     if (node->getRight() == nullptr)
                     {
                         done = true;
-                        AVLNode<Key, Value> *nodeToInsert = new AVLNode<Key, Value>(new_item.first, new_item.second, static_cast<AVLNode<Key,Value>*>(node));
+                        AVLNode<Key, Value>* castedNode = static_cast<AVLNode<Key,Value>*>(node);                        
+                        AVLNode<Key, Value> *nodeToInsert = new AVLNode<Key, Value>(new_item.first, new_item.second, castedNode);
                         node->setRight(nodeToInsert);
-                        insertFix(nodeToInsert,nullptr);
+                        if(castedNode->getBalance()==-1){
+                            castedNode->setBalance(0);
+                        }
+                        else if(castedNode->getBalance()==1){
+                            castedNode->setBalance(0);
+                        }
+                        else{
+                            castedNode->updateBalance(1);
+                            insertFix(castedNode,nodeToInsert);
+                        }
                     }
                     else
                     {
